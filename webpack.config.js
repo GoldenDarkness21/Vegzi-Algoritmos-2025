@@ -1,3 +1,4 @@
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -30,5 +31,13 @@ export default {
     open: true,
   },
   mode: 'development',
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'src/index.html', 
+      filename: 'index.html',
+    }),
+  ],
+  
 };
 

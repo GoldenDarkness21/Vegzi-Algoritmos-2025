@@ -1,10 +1,13 @@
+import Masonry from "masonry-layout";
+import imagesLoaded from "imagesloaded";
 import { fetchFoodData } from "../services/FoodService";
 import { FoodItem } from "../types/food.types";
 
 class FoodCart extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
+    // ❌ no usamos shadow DOM
+    // this.attachShadow({ mode: "open" });
   }
 
   connectedCallback() {
@@ -14,53 +17,69 @@ class FoodCart extends HTMLElement {
   async loadAndRender() {
     const styles = `
       <style>
-        .grid {
-          column-count: 3;
-          column-gap: 16px;
+        .masonry-grid {
+          display: flex;
+          margin-left: -16px;
+          width: auto;
+          flex-wrap: wrap;
+        }
+
+        .grid-item {
+          width: 300px;
+          margin-left: 16px;
+          margin-bottom: 16px;
         }
 
         food-card {
-          display: inline-block;
+          display: block;
           width: 100%;
-        }
-
-        @media (max-width: 768px) {
-          .grid {
-            column-count: 2;
-          }
-        }
-
-        @media (max-width: 480px) {
-          .grid {
-            column-count: 1;
-          }
         }
       </style>
     `;
 
     try {
       const foodData: FoodItem[] = await fetchFoodData();
+
       const cards = foodData
-        .map(item => `<food-card image="${item.image}"></food-card>`)
+        .map(
+          (item) => `
+          <div class="grid-item">
+            <food-card image="${item.image}"></food-card>
+          </div>
+        `
+        )
         .join("");
 
-      this.shadowRoot!.innerHTML = `
+      // 🔁 Renderizamos directamente en el DOM (no shadow)
+      this.innerHTML = `
         ${styles}
-        <div class="grid">
+        <div class="masonry-grid">
           ${cards}
         </div>
       `;
+
+      const grid = this.querySelector(".masonry-grid");
+
+      if (grid) {
+        imagesLoaded(grid, () => {
+          new Masonry(grid, {
+            itemSelector: ".grid-item",
+            columnWidth: ".grid-item",
+            gutter: 16,
+            fitWidth: true,
+          });
+        });
+      } else {
+        console.error("No se encontró el contenedor .masonry-grid");
+      }
     } catch (error) {
       console.error("Error loading food items:", error);
-      this.shadowRoot!.innerHTML = `<p>Error loading food items.</p>`;
+      this.innerHTML = `<p>Error loading food items.</p>`;
     }
   }
 }
-
 
 if (!customElements.get("food-cart")) {
   customElements.define("food-cart", FoodCart);
 }
 
-
-  

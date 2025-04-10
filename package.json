@@ -26,6 +26,8 @@
   "homepage": "https://github.com/GoldenDarkness21/Vegzi-Algoritmos-2025#readme",
   "devDependencies": {
     "@eslint/js": "^9.24.0",
+    "@types/imagesloaded": "^4.1.6",
+    "@types/masonry-layout": "^4.2.8",
     "@types/node": "^22.14.0",
     "copy-webpack-plugin": "^13.0.0",
     "eslint": "^9.24.0",
@@ -39,6 +41,8 @@
     "webpack-dev-server": "^5.2.1"
   },
   "dependencies": {
-    "husky": "^9.1.7"
+    "husky": "^9.1.7",
+    "imagesloaded": "^5.0.0",
+    "masonry-layout": "^4.2.2"
   }
 }

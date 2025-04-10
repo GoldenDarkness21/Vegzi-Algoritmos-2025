@@ -1,15 +1,6 @@
 class AppContainer extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
-  }
-
   connectedCallback() {
-    this.render();
-  }
-
-  render() {
-    this.shadowRoot!.innerHTML = `
+    this.innerHTML = `
       <style>
         :host {
           display: block;
@@ -21,7 +12,6 @@ class AppContainer extends HTMLElement {
     `;
   }
 }
-
 
 if (!customElements.get("app-container")) {
   customElements.define("app-container", AppContainer);

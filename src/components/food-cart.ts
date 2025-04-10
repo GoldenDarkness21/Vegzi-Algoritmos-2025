@@ -17,23 +17,25 @@ class FoodCart extends HTMLElement {
   async loadAndRender() {
     const styles = `
       <style>
-        .masonry-grid {
-          display: flex;
-          margin-left: -16px;
-          width: auto;
-          flex-wrap: wrap;
-        }
+    .masonry-grid {
+      display: flex;
+      margin-left: -16px;
+      width: auto;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 0 auto;
+    }
 
-        .grid-item {
-          width: 300px;
-          margin-left: 16px;
-          margin-bottom: 16px;
-        }
+    .grid-item {
+      width: 300px;
+      margin-left: 16px;
+      margin-bottom: 16px;
+    }
 
-        food-card {
-          display: block;
-          width: 100%;
-        }
+    food-card {
+      display: block;
+      width: 100%;
+    }
       </style>
     `;
 

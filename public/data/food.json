@@ -2,14 +2,20 @@
     { "id": 1, "image": "ensaladas.jpg" },
     { "id": 2, "image": "pepino.jpg" },
     { "id": 1, "image": "ensaladas.jpg" },
+    { "id": 1, "image": "granola.jpg" },
     { "id": 2, "image": "ensaladas.jpg" },
-    { "id": 1, "image": "ensaladas.jpg" },
-    { "id": 2, "image": "ensaladas.jpg" },
-    { "id": 1, "image": "ensaladas.jpg" },
+    { "id": 1, "image": "sandia.jpg" },
     { "id": 2, "image": "pepino.jpg" },
     { "id": 1, "image": "ensaladas.jpg" },
     { "id": 2, "image": "ensaladas.jpg" },
+    { "id": 1, "image": "frutas.jpg" },
+    { "id": 2, "image": "pepino.jpg" },
     { "id": 1, "image": "ensaladas.jpg" },
+    { "id": 2, "image": "ensaladas.jpg" },
+    { "id": 1, "image": "sandia.jpg" },
+    { "id": 2, "image": "pepino.jpg" },
+    { "id": 2, "image": "ensaladas.jpg" },
+    { "id": 1, "image": "frutas.jpg" },
     { "id": 1, "image": "ensaladas.jpg" }
   ]
   

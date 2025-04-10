@@ -1,4 +1,5 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import CopyPlugin from 'copy-webpack-plugin';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -34,10 +35,13 @@ export default {
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'src/index.html', 
+      template: 'src/index.html',
       filename: 'index.html',
     }),
+    new CopyPlugin({
+      patterns: [
+        { from: 'public', to: '.' },
+      ],
+    }),
   ],
-  
 };
-

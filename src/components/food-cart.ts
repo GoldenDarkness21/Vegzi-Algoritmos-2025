@@ -6,10 +6,8 @@ import { FoodItem } from "../types/food.types";
 class FoodCart extends HTMLElement {
   constructor() {
     super();
-    // ❌ no usamos shadow DOM
-    // this.attachShadow({ mode: "open" });
   }
-
+  
   connectedCallback() {
     this.loadAndRender();
   }

@@ -13,7 +13,15 @@ class FoodPopup extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ["image", "title", "description", "ingredients", "time", "calories", "likes"];
+    return [
+      "image",
+      "title",
+      "description",
+      "ingredients",
+      "time",
+      "calories",
+      "likes",
+    ];
   }
 
   attributeChangedCallback(name: string, _oldVal: string, newVal: string) {
@@ -185,6 +193,38 @@ class FoodPopup extends HTMLElement {
           }
         }
 
+        .actions {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.actions button {
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border: none;
+  font-weight: 600;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.save-btn {
+  background-color: #1976D2;
+  color: white;
+}
+
+.like-btn {
+  background-color: #E91E63;
+  color: white;
+}
+
+.actions button:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+
         @media (max-width: 768px) {
           .popup {
             flex-direction: column;
@@ -198,7 +238,7 @@ class FoodPopup extends HTMLElement {
           color: #555;
           margin-bottom: 16px;
           display: flex;
-          flex-direction: column;
+          flex-direction: row;
           gap: 4px;
         }
       </style>
@@ -208,15 +248,21 @@ class FoodPopup extends HTMLElement {
           <button class="close-btn" aria-label="Cerrar popup">&times;</button>
           <div class="content">
             <div class="title">${this.title}</div>
-            <div class="description">${this.description}</div>
             <div class="meta">
               <div><strong>⏱ Tiempo:</strong> ${this.time}</div>
               <div><strong>🔥 Calorías:</strong> ${this.calories}</div>
               <div><strong>❤️ Likes:</strong> ${this.likes}</div>
             </div>
+            <div class="description">${this.description}</div>  
             <div class="ingredients">
-              ${this.ingredients.map(i => `<div class="ingredient">${i}</div>`).join("")}
+              ${this.ingredients
+                .map((i) => `<div class="ingredient">${i}</div>`)
+                .join("")}
             </div>
+            <div class="actions">
+            <button class="save-btn">💾 Guardar</button>
+            <button class="like-btn">❤️ Me gusta</button>
+          </div>
           </div>
           <div class="image">
             <img src="/images/${this.image}" alt="${this.title}">
@@ -225,7 +271,25 @@ class FoodPopup extends HTMLElement {
       </div>
     `;
 
-    this.shadowRoot!.querySelector(".close-btn")?.addEventListener("click", () => this.closePopup());
+    this.shadowRoot!.querySelector(".close-btn")?.addEventListener(
+      "click",
+      () => this.closePopup()
+    );
+
+    const saveButton = this.shadowRoot!.querySelector(
+      ".save-btn"
+    ) as HTMLButtonElement;
+    saveButton.addEventListener("click", () => {
+      alert("Receta guardada");
+    });
+
+    const likeButton = this.shadowRoot!.querySelector(
+      ".like-btn"
+    ) as HTMLButtonElement;
+    likeButton.addEventListener("click", () => {
+      alert("Receta marcada como favorita");
+    });
+
   }
 }
 

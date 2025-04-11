@@ -1,4 +1,5 @@
 [
+  
   {
     "id": 1,
     "image": "ensalada cesar.jpg",
@@ -16,7 +17,345 @@
     "time": "15 minutes",
     "likes": 248,
     "calories": 320
-  }
+  },
+
+  {
+    "id": 2,
+    "image": "piña.jpg",
+    "title": "Mini Pineapple Cheesecake",
+    "description": "A creamy, tropical dessert with a cookie crust, topped with caramelized pineapple. Perfect for any occasion.",
+    "ingredients": [
+      "100g Maria cookies",
+      "50g melted butter",
+      "250g cream cheese",
+      "100ml heavy cream",
+      "70g sugar",
+      "1 egg",
+      "1 tsp vanilla extract",
+      "Canned pineapple slices",
+      "Honey or caramel (optional)"
+    ],
+    "time": "45 minutes",
+    "likes": "128",
+    "calories": "220 kcal per serving"
+  },
+
+  {
+    "id": 3,
+    "image": "chicken.jpg",
+    "title": "Grilled Chicken Wrap",
+    "description": "A healthy and delicious grilled chicken wrap packed with fresh vegetables and a creamy garlic sauce.",
+    "ingredients": [
+      "2 flour tortillas",
+      "200g grilled chicken breast",
+      "1/2 avocado, sliced",
+      "Lettuce leaves",
+      "1 tomato, sliced",
+      "1/4 red onion, thinly sliced",
+      "2 tbsp garlic yogurt sauce",
+      "Salt and pepper to taste"
+    ],
+    "time": "20 minutes",
+    "likes": "213",
+    "calories": "320 kcal per wrap"
+  },
+
+    {
+      "id": 4,
+      "image": "salmon.jpg",
+      "title": "Teriyaki Salmon Bowl",
+      "description": "A flavorful salmon bowl with teriyaki glaze, jasmine rice, and sautéed veggies.",
+      "ingredients": [
+        "200g salmon fillet",
+        "1 cup jasmine rice",
+        "1/2 cup broccoli florets",
+        "1/2 cup sliced carrots",
+        "2 tbsp teriyaki sauce",
+        "1 tbsp sesame seeds",
+        "Salt and pepper"
+      ],
+      "time": "30 minutes",
+      "likes": "318",
+      "calories": "540 kcal"
+    },
+    {
+      "id": 5,
+      "image": "ensalada cesar.jpg",
+      "title": "Caesar Salad",
+      "description": "A classic Caesar salad with crispy romaine lettuce, creamy dressing, croutons, and parmesan cheese.",
+      "ingredients": [
+        "1 romaine lettuce",
+        "1/2 cup croutons",
+        "1/4 cup grated parmesan cheese",
+        "1 grilled chicken breast (optional)",
+        "Caesar dressing to taste",
+        "Salt and pepper to taste",
+        "1 teaspoon lemon juice"
+      ],
+      "time": "15 minutes",
+      "likes": 248,
+      "calories": 320
+    },
   
+    {
+      "id": 6,
+      "image": "piña.jpg",
+      "title": "Mini Pineapple Cheesecake",
+      "description": "A creamy, tropical dessert with a cookie crust, topped with caramelized pineapple. Perfect for any occasion.",
+      "ingredients": [
+        "100g Maria cookies",
+        "50g melted butter",
+        "250g cream cheese",
+        "100ml heavy cream",
+        "70g sugar",
+        "1 egg",
+        "1 tsp vanilla extract",
+        "Canned pineapple slices",
+        "Honey or caramel (optional)"
+      ],
+      "time": "45 minutes",
+      "likes": "128",
+      "calories": "220 kcal per serving"
+    },
+    {
+      "id": 7,
+      "image": "vegan.jpg",
+      "title": "Vegan Black Bean Burger",
+      "description": "A hearty plant-based burger made with black beans, oats, and spices.",
+      "ingredients": [
+        "1 can black beans",
+        "1/2 cup oats",
+        "1 garlic clove",
+        "1 tsp smoked paprika",
+        "1/2 red onion",
+        "Lettuce and tomato",
+        "Burger buns"
+      ],
+      "time": "25 minutes",
+      "likes": "452",
+      "calories": "380 kcal"
+    },
+    {
+      "id": 8,
+      "image": "creamy.jpg",
+      "title": "Creamy Garlic Mushroom Pasta",
+      "description": "Rich and creamy pasta tossed with sautéed mushrooms and garlic.",
+      "ingredients": [
+        "200g pasta",
+        "1 cup mushrooms, sliced",
+        "2 garlic cloves, minced",
+        "1/2 cup heavy cream",
+        "2 tbsp parmesan cheese",
+        "Olive oil",
+        "Salt and pepper"
+      ],
+      "time": "20 minutes",
+      "likes": "589",
+      "calories": "610 kcal"
+    },
+    {
+      "id": 9,
+      "image": "shrimp.jpg",
+      "title": "Spicy Shrimp Tacos",
+      "description": "Tasty shrimp tacos served with crunchy slaw and creamy chipotle sauce.",
+      "ingredients": [
+        "250g shrimp, peeled",
+        "1 tsp chili powder",
+        "Corn tortillas",
+        "1 cup cabbage slaw",
+        "2 tbsp chipotle mayo",
+        "Lime wedges",
+        "Salt and pepper"
+      ],
+      "time": "15 minutes",
+      "likes": "676",
+      "calories": "400 kcal"
+    },
+    {
+      "id": 10,
+      "image": "banana.jpg",
+      "title": "Banana Oatmeal Bowl",
+      "description": "Warm and nutritious oatmeal topped with banana slices, cinnamon, and almonds.",
+      "ingredients": [
+        "1/2 cup rolled oats",
+        "1 cup almond milk",
+        "1 banana, sliced",
+        "1 tsp cinnamon",
+        "1 tbsp honey",
+        "Chopped almonds"
+      ],
+      "time": "10 minutes",
+      "likes": "241",
+      "calories": "290 kcal"
+    },
+    {
+      "id": 11,
+      "image": "salmon.jpg",
+      "title": "Teriyaki Salmon Bowl",
+      "description": "A flavorful salmon bowl with teriyaki glaze, jasmine rice, and sautéed veggies.",
+      "ingredients": [
+        "200g salmon fillet",
+        "1 cup jasmine rice",
+        "1/2 cup broccoli florets",
+        "1/2 cup sliced carrots",
+        "2 tbsp teriyaki sauce",
+        "1 tbsp sesame seeds",
+        "Salt and pepper"
+      ],
+      "time": "30 minutes",
+      "likes": "318",
+      "calories": "540 kcal"
+    },
+    {
+      "id": 12,
+      "image": "ensalada cesar.jpg",
+      "title": "Caesar Salad",
+      "description": "A classic Caesar salad with crispy romaine lettuce, creamy dressing, croutons, and parmesan cheese.",
+      "ingredients": [
+        "1 romaine lettuce",
+        "1/2 cup croutons",
+        "1/4 cup grated parmesan cheese",
+        "1 grilled chicken breast (optional)",
+        "Caesar dressing to taste",
+        "Salt and pepper to taste",
+        "1 teaspoon lemon juice"
+      ],
+      "time": "15 minutes",
+      "likes": 248,
+      "calories": 320
+    },
+  
+    {
+      "id": 13,
+      "image": "piña.jpg",
+      "title": "Mini Pineapple Cheesecake",
+      "description": "A creamy, tropical dessert with a cookie crust, topped with caramelized pineapple. Perfect for any occasion.",
+      "ingredients": [
+        "100g Maria cookies",
+        "50g melted butter",
+        "250g cream cheese",
+        "100ml heavy cream",
+        "70g sugar",
+        "1 egg",
+        "1 tsp vanilla extract",
+        "Canned pineapple slices",
+        "Honey or caramel (optional)"
+      ],
+      "time": "45 minutes",
+      "likes": "128",
+      "calories": "220 kcal per serving"
+    },
+    {
+      "id": 14,
+      "image": "vegan.jpg",
+      "title": "Vegan Black Bean Burger",
+      "description": "A hearty plant-based burger made with black beans, oats, and spices.",
+      "ingredients": [
+        "1 can black beans",
+        "1/2 cup oats",
+        "1 garlic clove",
+        "1 tsp smoked paprika",
+        "1/2 red onion",
+        "Lettuce and tomato",
+        "Burger buns"
+      ],
+      "time": "25 minutes",
+      "likes": "452",
+      "calories": "380 kcal"
+    },
+    {
+      "id": 15,
+      "image": "creamy.jpg",
+      "title": "Creamy Garlic Mushroom Pasta",
+      "description": "Rich and creamy pasta tossed with sautéed mushrooms and garlic.",
+      "ingredients": [
+        "200g pasta",
+        "1 cup mushrooms, sliced",
+        "2 garlic cloves, minced",
+        "1/2 cup heavy cream",
+        "2 tbsp parmesan cheese",
+        "Olive oil",
+        "Salt and pepper"
+      ],
+      "time": "20 minutes",
+      "likes": "589",
+      "calories": "610 kcal"
+    },
+    
+    {
+      "id": 16,
+      "image": "ensalada cesar.jpg",
+      "title": "Caesar Salad",
+      "description": "A classic Caesar salad with crispy romaine lettuce, creamy dressing, croutons, and parmesan cheese.",
+      "ingredients": [
+        "1 romaine lettuce",
+        "1/2 cup croutons",
+        "1/4 cup grated parmesan cheese",
+        "1 grilled chicken breast (optional)",
+        "Caesar dressing to taste",
+        "Salt and pepper to taste",
+        "1 teaspoon lemon juice"
+      ],
+      "time": "15 minutes",
+      "likes": 248,
+      "calories": 320
+    },
+  
+    {
+      "id": 17,
+      "image": "piña.jpg",
+      "title": "Mini Pineapple Cheesecake",
+      "description": "A creamy, tropical dessert with a cookie crust, topped with caramelized pineapple. Perfect for any occasion.",
+      "ingredients": [
+        "100g Maria cookies",
+        "50g melted butter",
+        "250g cream cheese",
+        "100ml heavy cream",
+        "70g sugar",
+        "1 egg",
+        "1 tsp vanilla extract",
+        "Canned pineapple slices",
+        "Honey or caramel (optional)"
+      ],
+      "time": "45 minutes",
+      "likes": "128",
+      "calories": "220 kcal per serving"
+    },
+    {
+      "id": 18,
+      "image": "vegan.jpg",
+      "title": "Vegan Black Bean Burger",
+      "description": "A hearty plant-based burger made with black beans, oats, and spices.",
+      "ingredients": [
+        "1 can black beans",
+        "1/2 cup oats",
+        "1 garlic clove",
+        "1 tsp smoked paprika",
+        "1/2 red onion",
+        "Lettuce and tomato",
+        "Burger buns"
+      ],
+      "time": "25 minutes",
+      "likes": "452",
+      "calories": "380 kcal"
+    },
+    {
+      "id": 19,
+      "image": "creamy.jpg",
+      "title": "Creamy Garlic Mushroom Pasta",
+      "description": "Rich and creamy pasta tossed with sautéed mushrooms and garlic.",
+      "ingredients": [
+        "200g pasta",
+        "1 cup mushrooms, sliced",
+        "2 garlic cloves, minced",
+        "1/2 cup heavy cream",
+        "2 tbsp parmesan cheese",
+        "Olive oil",
+        "Salt and pepper"
+      ],
+      "time": "20 minutes",
+      "likes": "589",
+      "calories": "610 kcal"
+    }
   ]
   

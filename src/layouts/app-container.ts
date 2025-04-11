@@ -34,13 +34,14 @@ class AppContainer extends HTMLElement {
             position: relative;
             overflow: hidden;
         }
-        .background {
+          .curved-background {
             position: absolute;
             top: 0;
-            left: 0;
-            right: 0;
-            height: 50%;
-            background-color: #E6F4EA;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom,rgb(255, 255, 255) 40%,rgb(20, 228, 124) 100%);
+            clip-path: ellipse(70% 65% at 50% 10%);
+            z-index: 0;
         }
         .content {
             position: relative;
@@ -106,7 +107,7 @@ class AppContainer extends HTMLElement {
 </head>
 <body>
     <div class="container">
-        <div class="background"></div>
+        <div class="curved-background"></div>
         <div class="content">
             <h1 class="title">VEGZI</h1>
             <div class="image-container">

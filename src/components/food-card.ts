@@ -1,3 +1,5 @@
+import "./food-popup"; // Asegúrate de que esta ruta sea correcta según tu estructura de carpetas
+
 class FoodCard extends HTMLElement {
   image: string = "";
 
@@ -19,6 +21,13 @@ class FoodCard extends HTMLElement {
 
   connectedCallback() {
     this.render();
+
+    // 👉 Evento para mostrar el popup al hacer clic
+    this.shadowRoot?.querySelector(".card")?.addEventListener("click", () => {
+      const popup = document.createElement("food-popup");
+      popup.setAttribute("image", this.image);
+      document.body.appendChild(popup);
+    });
   }
 
   render() {
@@ -30,6 +39,12 @@ class FoodCard extends HTMLElement {
           overflow: hidden;
           box-shadow: 0 4px 8px rgba(0,0,0,0.1);
           margin-bottom: 16px;
+          cursor: pointer;
+          transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+          transform: scale(1.02);
         }
 
         img {
@@ -43,7 +58,6 @@ class FoodCard extends HTMLElement {
     `;
   }
 }
-
 
 if (!customElements.get("food-card")) {
   customElements.define("food-card", FoodCard);

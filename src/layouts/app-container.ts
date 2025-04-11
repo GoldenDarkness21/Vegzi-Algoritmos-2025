@@ -8,6 +8,7 @@ class AppContainer extends HTMLElement {
           font-family: sans-serif;
         }
       </style>
+      <app-bar-container></app-bar-container>
       <food-cart></food-cart>
     `;
   }

@@ -1,4 +1,14 @@
 [
-    { "id": 1, "image": "ensaladas.jpg" }
+    { "id": 1, "image": "ensaladas.jpg",   "title": "Classic Pancakes",
+    "description": "Fluffy and delicious pancakes perfect for a cozy breakfast.",
+    "ingredients": [
+      "1 1/2 cups all-purpose flour",
+      "3 1/2 teaspoons baking powder",
+      "1 teaspoon salt",
+      "1 tablespoon white sugar",
+      "1 1/4 cups milk",
+      "1 egg",
+      "3 tablespoons melted butter"
+    ]}
   ]
   

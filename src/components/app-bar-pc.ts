@@ -1,4 +1,4 @@
-class AppBarPc extends HTMLElement {
+export class AppBarPc extends HTMLElement {
     connectedCallback() {
         this.innerHTML = `
         <div class="app-bar-pc">

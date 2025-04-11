@@ -5,7 +5,6 @@
   "main": "index.ts",
   "type": "module",
   "scripts": {
-
     "test": "echo \"No tests yet\"",
     "build": "webpack --mode=production",
     "start": "webpack serve --mode=development",

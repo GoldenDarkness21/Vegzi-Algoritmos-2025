@@ -3,11 +3,11 @@ import imagesLoaded from "imagesloaded";
 import { fetchFoodData } from "../services/FoodService";
 import { FoodItem } from "../types/food.types";
 
-class FoodCart extends HTMLElement {
+export class FoodCart extends HTMLElement {
   constructor() {
     super();
   }
-  
+
   connectedCallback() {
     this.loadAndRender();
   }
@@ -15,25 +15,47 @@ class FoodCart extends HTMLElement {
   async loadAndRender() {
     const styles = `
       <style>
-    .masonry-grid {
-      display: flex;
-      margin-left: -16px;
-      width: auto;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin: 0 auto;
-    }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-    .grid-item {
-      width: 300px;
-      margin-left: 16px;
-      margin-bottom: 16px;
-    }
+        .masonry-grid {
+          display: flex;
+          margin-left: -16px;
+          width: auto;
+          flex-wrap: wrap;
+          justify-content: center;
+          margin: 0 auto;
+        }
 
-    food-card {
-      display: block;
-      width: 100%;
-    }
+        .grid-item {
+          width: 300px;
+          margin-left: 16px;
+          margin-bottom: 16px;
+        }
+
+        food-card {
+          display: block;
+          width: 100%;
+        }
+
+        .section-title {
+          font-family: 'Poppins', sans-serif;
+          text-align: center;
+          font-size: 2.2rem;
+          font-weight: 600;
+          color: #4CAF50;
+          margin: 40px 0 20px 0;
+          position: relative;
+        }
+
+        .section-title::after {
+          content: '';
+          width: 60px;
+          height: 4px;
+          background-color: #A5D6A7;
+          display: block;
+          margin: 12px auto 0;
+          border-radius: 2px;
+        }
       </style>
     `;
 
@@ -43,16 +65,24 @@ class FoodCart extends HTMLElement {
       const cards = foodData
         .map(
           (item) => `
-          <div class="grid-item">
-            <food-card image="${item.image}"></food-card>
-          </div>
-        `
+        <div class="grid-item">
+          <food-card 
+            image="${item.image}" 
+            title="${item.title}" 
+            description="${item.description}" 
+            ingredients='${JSON.stringify(item.ingredients)}'
+            time="${item.time}"
+            likes="${item.likes}"
+            calories="${item.calories}">
+          </food-card>
+        </div>
+      `
         )
         .join("");
 
-      // 🔁 Renderizamos directamente en el DOM (no shadow)
       this.innerHTML = `
         ${styles}
+        <h2 class="section-title">For you</h2>
         <div class="masonry-grid">
           ${cards}
         </div>

@@ -7,7 +7,7 @@ class FoodCart extends HTMLElement {
   constructor() {
     super();
   }
-  
+
   connectedCallback() {
     this.loadAndRender();
   }
@@ -16,7 +16,7 @@ class FoodCart extends HTMLElement {
     const styles = `
       <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-  
+
         .masonry-grid {
           display: flex;
           margin-left: -16px;
@@ -25,18 +25,18 @@ class FoodCart extends HTMLElement {
           justify-content: center;
           margin: 0 auto;
         }
-  
+
         .grid-item {
           width: 300px;
           margin-left: 16px;
           margin-bottom: 16px;
         }
-  
+
         food-card {
           display: block;
           width: 100%;
         }
-  
+
         .section-title {
           font-family: 'Poppins', sans-serif;
           text-align: center;
@@ -46,7 +46,7 @@ class FoodCart extends HTMLElement {
           margin: 40px 0 20px 0;
           position: relative;
         }
-  
+
         .section-title::after {
           content: '';
           width: 60px;
@@ -58,20 +58,28 @@ class FoodCart extends HTMLElement {
         }
       </style>
     `;
-  
+
     try {
       const foodData: FoodItem[] = await fetchFoodData();
-  
+
       const cards = foodData
         .map(
           (item) => `
-          <div class="grid-item">
-            <food-card image="${item.image}"></food-card>
-          </div>
-        `
+        <div class="grid-item">
+          <food-card 
+            image="${item.image}" 
+            title="${item.title}" 
+            description="${item.description}" 
+            ingredients='${JSON.stringify(item.ingredients)}'
+            time="${item.time}"
+            likes="${item.likes}"
+            calories="${item.calories}">
+          </food-card>
+        </div>
+      `
         )
         .join("");
-  
+
       this.innerHTML = `
         ${styles}
         <h2 class="section-title">For you</h2>
@@ -79,9 +87,9 @@ class FoodCart extends HTMLElement {
           ${cards}
         </div>
       `;
-  
+
       const grid = this.querySelector(".masonry-grid");
-  
+
       if (grid) {
         imagesLoaded(grid, () => {
           new Masonry(grid, {
@@ -99,8 +107,6 @@ class FoodCart extends HTMLElement {
       this.innerHTML = `<p>Error loading food items.</p>`;
     }
   }
-  
-
 }
 
 if (!customElements.get("food-cart")) {

@@ -1,14 +1,22 @@
 [
-    { "id": 1, "image": "ensaladas.jpg",   "title": "Classic Pancakes",
-    "description": "Fluffy and delicious pancakes perfect for a cozy breakfast.",
+  {
+    "id": 1,
+    "image": "ensalada cesar.jpg",
+    "title": "Caesar Salad",
+    "description": "A classic Caesar salad with crispy romaine lettuce, creamy dressing, croutons, and parmesan cheese.",
     "ingredients": [
-      "1 1/2 cups all-purpose flour",
-      "3 1/2 teaspoons baking powder",
-      "1 teaspoon salt",
-      "1 tablespoon white sugar",
-      "1 1/4 cups milk",
-      "1 egg",
-      "3 tablespoons melted butter"
-    ]}
+      "1 romaine lettuce",
+      "1/2 cup croutons",
+      "1/4 cup grated parmesan cheese",
+      "1 grilled chicken breast (optional)",
+      "Caesar dressing to taste",
+      "Salt and pepper to taste",
+      "1 teaspoon lemon juice"
+    ],
+    "time": "15 minutes",
+    "likes": 248,
+    "calories": 320
+  }
+  
   ]
   

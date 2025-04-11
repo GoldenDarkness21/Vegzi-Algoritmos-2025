@@ -4,4 +4,7 @@ export interface FoodItem {
   title: string;
   description: string;
   ingredients: string[];
+  time: string;
+  likes: number;
+  calories: number;
 }

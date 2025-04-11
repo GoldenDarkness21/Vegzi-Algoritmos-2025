@@ -1,89 +1,234 @@
 class FoodPopup extends HTMLElement {
-    image: string = "";
-  
-    constructor() {
-      super();
-      this.attachShadow({ mode: "open" });
-    }
-  
-    static get observedAttributes() {
-      return ["image"];
-    }
-  
-    attributeChangedCallback(name: string, _oldVal: string, newVal: string) {
-      if (name === "image") {
-        this.image = newVal;
-        this.render();
-      }
-    }
-  
-    connectedCallback() {
-      this.render();
-    }
-  
-    closePopup() {
+  image = "";
+  title = "";
+  description = "";
+  ingredients: string[] = [];
+  time = "";
+  calories = "";
+  likes = "";
+
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+  }
+
+  static get observedAttributes() {
+    return ["image", "title", "description", "ingredients", "time", "calories", "likes"];
+  }
+
+  attributeChangedCallback(name: string, _oldVal: string, newVal: string) {
+    if (name === "image") this.image = newVal;
+    if (name === "title") this.title = newVal;
+    if (name === "description") this.description = newVal;
+    if (name === "ingredients") this.ingredients = JSON.parse(newVal);
+    if (name === "time") this.time = newVal;
+    if (name === "calories") this.calories = newVal;
+    if (name === "likes") this.likes = newVal;
+    this.render();
+  }
+
+  connectedCallback() {
+    this.render();
+
+    this.shadowRoot?.querySelector(".card")?.addEventListener("click", () => {
+      const popup = document.createElement("food-popup");
+      popup.setAttribute("image", this.image);
+      popup.setAttribute("title", this.title);
+      popup.setAttribute("description", this.description);
+      popup.setAttribute("ingredients", JSON.stringify(this.ingredients));
+      popup.setAttribute("time", this.time);
+      popup.setAttribute("calories", this.calories);
+      popup.setAttribute("likes", this.likes);
+      document.body.appendChild(popup);
+    });
+  }
+
+  closePopup() {
+    const popup = this.shadowRoot?.querySelector(".popup") as HTMLElement;
+    popup.classList.add("closing");
+    setTimeout(() => {
       this.remove();
-    }
-  
-    render() {
-      this.shadowRoot!.innerHTML = `
-        <style>
-          .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            width: 100vw;
-            background: rgba(0, 0, 0, 0.6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
+    }, 300);
+  }
+
+  render() {
+    this.shadowRoot!.innerHTML = `
+      <style>
+        * {
+          box-sizing: border-box;
+        }
+
+        .overlay {
+          position: fixed;
+          top: 0; left: 0;
+          width: 100vw;
+          height: 100vh;
+          background: rgba(0, 0, 0, 0.4);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1000;
+          animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .popup {
+          background: white;
+          border-radius: 24px;
+          max-width: 900px;
+          width: 90%;
+          overflow: hidden;
+          display: flex;
+          flex-direction: row;
+          box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+          font-family: 'Poppins', sans-serif;
+          transform: translateY(30px);
+          opacity: 0;
+          animation: slideUp 0.4s ease forwards;
+          position: relative;
+        }
+
+        .popup.closing {
+          animation: slideDown 0.3s ease forwards;
+        }
+
+        .close-btn {
+          position: absolute;
+          top: 16px;
+          right: 16px;
+          background: transparent;
+          border: none;
+          font-size: 1.5rem;
+          cursor: pointer;
+          color: #666;
+          transition: transform 0.2s ease;
+        }
+
+        .close-btn:hover {
+          transform: scale(1.2);
+        }
+
+        .content {
+          flex: 1;
+          padding: 32px;
+        }
+
+        .title {
+          font-size: 1.8rem;
+          font-weight: 600;
+          margin-bottom: 12px;
+        }
+
+        .description {
+          font-size: 1rem;
+          line-height: 1.6;
+          color: #444;
+          margin-bottom: 20px;
+        }
+
+        .ingredients {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+        }
+
+        .ingredient {
+          background: #E8F5E9;
+          padding: 8px 12px;
+          border-radius: 12px;
+          font-size: 0.9rem;
+          color: #388E3C;
+          font-weight: 500;
+          transition: all 0.3s ease;
+        }
+
+        .ingredient:hover {
+          background: #C8E6C9;
+          transform: translateY(-2px);
+          box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .image {
+          flex: 1;
+          background: #f0f0f0;
+        }
+
+        .image img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        @keyframes fadeIn {
+          from { opacity: 0 }
+          to { opacity: 1 }
+        }
+
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
           }
-  
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes slideDown {
+          from {
+            opacity: 1;
+            transform: translateY(0);
+          }
+          to {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+        }
+
+        @media (max-width: 768px) {
           .popup {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            max-width: 90%;
-            max-height: 90%;
-            overflow: auto;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            flex-direction: column;
           }
-  
-          img {
-            max-width: 100%;
-            border-radius: 8px;
+          .image img {
+            height: auto;
           }
-  
-          .close-btn {
-            margin-top: 10px;
-            background: #f44336;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-          }
-        </style>
-        <div class="overlay" id="overlay">
-          <div class="popup">
-            <img src="/images/${this.image}" alt="Food detail" />
-            <button class="close-btn">Cerrar</button>
+        }
+.meta {
+          font-size: 0.95rem;
+          color: #555;
+          margin-bottom: 16px;
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+        }
+      </style>
+
+      <div class="overlay">
+        <div class="popup">
+          <button class="close-btn" aria-label="Cerrar popup">&times;</button>
+          <div class="content">
+            <div class="title">${this.title}</div>
+            <div class="description">${this.description}</div>
+            <div class="meta">
+              <div><strong>⏱ Tiempo:</strong> ${this.time}</div>
+              <div><strong>🔥 Calorías:</strong> ${this.calories}</div>
+              <div><strong>❤️ Likes:</strong> ${this.likes}</div>
+            </div>
+            <div class="ingredients">
+              ${this.ingredients.map(i => `<div class="ingredient">${i}</div>`).join("")}
+            </div>
+          </div>
+          <div class="image">
+            <img src="/images/${this.image}" alt="${this.title}">
           </div>
         </div>
-      `;
-  
-      this.shadowRoot!.querySelector(".close-btn")?.addEventListener("click", () => this.closePopup());
-      this.shadowRoot!.querySelector("#overlay")?.addEventListener("click", (e) => {
-        if (e.target === this.shadowRoot!.querySelector("#overlay")) {
-          this.closePopup();
-        }
-      });
-    }
+      </div>
+    `;
+
+    this.shadowRoot!.querySelector(".close-btn")?.addEventListener("click", () => this.closePopup());
   }
-  
-  if (!customElements.get("food-popup")) {
-    customElements.define("food-popup", FoodPopup);
-  }
-  
+}
+
+if (!customElements.get("food-popup")) {
+  customElements.define("food-popup", FoodPopup);
+}

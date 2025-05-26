@@ -1,17 +1,28 @@
 class AppBarContainer extends HTMLElement {
+    constructor() {
+        super();
+
+        this.attachShadow({mode: "open"})
+    }
+
     connectedCallback() {
-        this.innerHTML = `
-        <div class="app-bar-container">
+        if (!this.shadowRoot) return;
+
+        this.shadowRoot.innerHTML = `
         <style>
-            .app-bar-container {
+            :host {
                 --bar-height: 60px;
                 height: var(--bar-height);
                 margin-bottom: 20px;
-                z-index: 10;
+                z-index: 100;
+                display: block;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
             }
         </style>
         <app-bar-pc></app-bar-pc>
-        </div>
       `;
     }
 }

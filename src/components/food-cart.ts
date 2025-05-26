@@ -22,6 +22,8 @@ class FoodCart extends HTMLElement {
       flex-wrap: wrap;
       justify-content: center;
       margin: 0 auto;
+      
+      margin-top: 3rem;
     }
 
     .grid-item {

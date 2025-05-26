@@ -9,10 +9,6 @@ class AppBarPc extends HTMLElement {
                     backdrop-filter: blur(10px);
                     height: var(--bar-height);
                     border-bottom: 1px solid #ddd;
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    right: 0;
                     display: flex;
                     align-items: center;
                     z-index: 10;
@@ -108,8 +104,8 @@ class AppBarPc extends HTMLElement {
 
             <nav class="app-bar-links">
                 <ul>
-                    <li class="selected"><a href="#">HOME</a><span></span></li>
-                    <li><a href="#">PROFILE</a></li>
+                    <li class="selected"><a href="/">HOME</a><span></span></li>
+                    <li><a href="/profile">PROFILE</a></li>
                     <li><a href="#">CATEGORIES</a></li>
                     <li><a href="#">ADD POST</a></li>
                 </ul>

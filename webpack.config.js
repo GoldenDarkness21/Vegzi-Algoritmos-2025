@@ -13,6 +13,7 @@ export default {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
+    publicPath: '/',
   },
   resolve: {
     extensions: ['.ts', '.js'],
@@ -30,6 +31,7 @@ export default {
     static: './dist',
     port: 3000,
     open: true,
+    historyApiFallback: true,
   },
   mode: 'development',
 

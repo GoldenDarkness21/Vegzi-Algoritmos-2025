@@ -16,12 +16,11 @@ export const handleRoute = () => {
 
     switch (path) {
         case '/login':
-            appContainer.classList.add('auth-page');
-            mainContent.innerHTML = '<login-form></login-form>';
-            break;
         case '/register':
             appContainer.classList.add('auth-page');
-            mainContent.innerHTML = '<register-form></register-form>';
+            mainContent.innerHTML = path === '/login' ? 
+                '<login-form></login-form>' : 
+                '<register-form></register-form>';
             break;
         case '/':
             appContainer.classList.add('home-page');

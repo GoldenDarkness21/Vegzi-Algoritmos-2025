@@ -1,13 +1,17 @@
 import "./food-popup";
+import { FoodItem } from "../types/food.types";
 
 class FoodCard extends HTMLElement {
-  image: string = "";
-  title: string = "";
-  description: string = "";
-  ingredients: string[] = [];
-  time: string = "";
-  likes: number = 0;
-  calories: number = 0;
+  data: FoodItem = {
+    id: 0,
+    image: "",
+    title: "",
+    description: "",
+    ingredients: [],
+    time: "",
+    likes: 0,
+    calories: 0
+  };
 
   constructor() {
     super();
@@ -16,6 +20,7 @@ class FoodCard extends HTMLElement {
 
   static get observedAttributes() {
     return [
+      "id",
       "image",
       "title",
       "description",
@@ -27,13 +32,14 @@ class FoodCard extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, _oldVal: string, newVal: string) {
-    if (name === "image") this.image = newVal;
-    if (name === "title") this.title = newVal;
-    if (name === "description") this.description = newVal;
-    if (name === "ingredients") this.ingredients = JSON.parse(newVal);
-    if (name === "time") this.time = newVal;
-    if (name === "likes") this.likes = Number(newVal);
-    if (name === "calories") this.calories = Number(newVal);
+    if (name === "id") this.data.id = Number(newVal);
+    if (name === "image") this.data.image = newVal;
+    if (name === "title") this.data.title = newVal;
+    if (name === "description") this.data.description = newVal;
+    if (name === "ingredients") this.data.ingredients = JSON.parse(newVal);
+    if (name === "time") this.data.time = newVal;
+    if (name === "likes") this.data.likes = Number(newVal);
+    if (name === "calories") this.data.calories = Number(newVal);
     this.render();
   }
 
@@ -42,13 +48,14 @@ class FoodCard extends HTMLElement {
 
     this.shadowRoot?.querySelector(".card")?.addEventListener("click", () => {
       const popup = document.createElement("food-popup");
-      popup.setAttribute("image", this.image);
-      popup.setAttribute("title", this.title);
-      popup.setAttribute("description", this.description);
-      popup.setAttribute("ingredients", JSON.stringify(this.ingredients));
-      popup.setAttribute("time", this.time);
-      popup.setAttribute("likes", String(this.likes));
-      popup.setAttribute("calories", String(this.calories));
+      popup.setAttribute("id", String(this.data.id));
+      popup.setAttribute("image", this.data.image);
+      popup.setAttribute("title", this.data.title);
+      popup.setAttribute("description", this.data.description);
+      popup.setAttribute("ingredients", JSON.stringify(this.data.ingredients));
+      popup.setAttribute("time", this.data.time);
+      popup.setAttribute("likes", String(this.data.likes));
+      popup.setAttribute("calories", String(this.data.calories));
       document.body.appendChild(popup);
     });
   }
@@ -77,7 +84,7 @@ class FoodCard extends HTMLElement {
         }
       </style>
       <div class="card">
-        <img src="/images/${this.image}" alt="Food image">
+        <img src="/images/${this.data.image}" alt="${this.data.title}">
       </div>
     `;
   }
@@ -86,6 +93,7 @@ class FoodCard extends HTMLElement {
 if (!customElements.get("food-card")) {
   customElements.define("food-card", FoodCard);
 }
+
 
 
   

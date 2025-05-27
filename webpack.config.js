@@ -24,6 +24,10 @@ export default {
         use: 'ts-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.svg$/,
+        type: 'asset/resource',
+      }
     ],
   },
   devServer: {

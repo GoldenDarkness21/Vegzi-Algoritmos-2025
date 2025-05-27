@@ -3,7 +3,7 @@ import imagesLoaded from "imagesloaded";
 import { fetchFoodData } from "../services/FoodService";
 import { FoodItem } from "../types/food.types";
 
-class FoodCart extends HTMLElement {
+export class FoodCart extends HTMLElement {
   constructor() {
     super();
   }

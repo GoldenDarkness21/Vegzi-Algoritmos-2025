@@ -10,16 +10,23 @@ import {
     LogoutAction
 } from '../types/auth.types';
 import { authStore } from '../store/auth.store';
+import { 
+    createUserWithEmailAndPassword, 
+    signInWithEmailAndPassword,
+    signOut,
+    updateProfile
+} from 'firebase/auth';
+import { auth } from '../../config/firebase.config';
 
 // Login actions
 export const loginRequest = (): LoginRequestAction => {
-    const action = { type: AuthActionTypes.LOGIN_REQUEST };
+    const action: LoginRequestAction = { type: AuthActionTypes.LOGIN_REQUEST };
     authStore.dispatch(action);
     return action;
 };
 
 export const loginSuccess = (user: User): LoginSuccessAction => {
-    const action = { 
+    const action: LoginSuccessAction = { 
         type: AuthActionTypes.LOGIN_SUCCESS, 
         payload: user 
     };
@@ -28,7 +35,7 @@ export const loginSuccess = (user: User): LoginSuccessAction => {
 };
 
 export const loginFailure = (error: string): LoginFailureAction => {
-    const action = { 
+    const action: LoginFailureAction = { 
         type: AuthActionTypes.LOGIN_FAILURE, 
         payload: error 
     };
@@ -38,13 +45,13 @@ export const loginFailure = (error: string): LoginFailureAction => {
 
 // Register actions
 export const registerRequest = (): RegisterRequestAction => {
-    const action = { type: AuthActionTypes.REGISTER_REQUEST };
+    const action: RegisterRequestAction = { type: AuthActionTypes.REGISTER_REQUEST };
     authStore.dispatch(action);
     return action;
 };
 
 export const registerSuccess = (user: User): RegisterSuccessAction => {
-    const action = { 
+    const action: RegisterSuccessAction = { 
         type: AuthActionTypes.REGISTER_SUCCESS, 
         payload: user 
     };
@@ -53,7 +60,7 @@ export const registerSuccess = (user: User): RegisterSuccessAction => {
 };
 
 export const registerFailure = (error: string): RegisterFailureAction => {
-    const action = { 
+    const action: RegisterFailureAction = { 
         type: AuthActionTypes.REGISTER_FAILURE, 
         payload: error 
     };
@@ -63,19 +70,22 @@ export const registerFailure = (error: string): RegisterFailureAction => {
 
 // Logout action
 export const logout = (): LogoutAction => {
-    const action = { type: AuthActionTypes.LOGOUT };
+    const action: LogoutAction = { type: AuthActionTypes.LOGOUT };
     authStore.dispatch(action);
     return action;
 };
 
-// Thunks (para cuando implementes Firebase)
+// Firebase Authentication Thunks
 export const loginWithEmailAndPassword = async (email: string, password: string) => {
     try {
         loginRequest();
-        // Aquí irá tu lógica de Firebase
-        // const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        // const user = userCredential.user;
-        loginSuccess({ email }); // Actualizar con datos de Firebase
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const { displayName, email: userEmail, uid } = userCredential.user;
+        loginSuccess({ 
+            id: uid,
+            name: displayName || '',
+            email: userEmail || ''
+        });
     } catch (error) {
         loginFailure(error instanceof Error ? error.message : 'Error desconocido');
     }
@@ -84,10 +94,21 @@ export const loginWithEmailAndPassword = async (email: string, password: string)
 export const registerWithEmailAndPassword = async (name: string, email: string, password: string) => {
     try {
         registerRequest();
-        // Aquí irá tu lógica de Firebase
-        // const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        // const user = userCredential.user;
-        registerSuccess({ name, email }); // Actualizar con datos de Firebase
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        
+        // Actualizar el perfil del usuario con su nombre
+        if (auth.currentUser) {
+            await updateProfile(auth.currentUser, {
+                displayName: name
+            });
+        }
+
+        const { uid } = userCredential.user;
+        registerSuccess({ 
+            id: uid,
+            name,
+            email 
+        });
     } catch (error) {
         registerFailure(error instanceof Error ? error.message : 'Error desconocido');
     }
@@ -95,8 +116,7 @@ export const registerWithEmailAndPassword = async (name: string, email: string, 
 
 export const logoutUser = async () => {
     try {
-        // Aquí irá tu lógica de Firebase
-        // await signOut(auth);
+        await signOut(auth);
         logout();
     } catch (error) {
         console.error('Error al cerrar sesión:', error);

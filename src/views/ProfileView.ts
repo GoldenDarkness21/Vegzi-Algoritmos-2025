@@ -22,7 +22,7 @@ class ProfileView extends HTMLElement {
                         <img src="/images/profile.jpg">
                         
                         <div class="postContent">
-                        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
+                        <span> Healthy and delicious lunch, nothing like enjoying a nutritious meal.</span>
                         </div> 
                     </li>
                     
@@ -30,7 +30,7 @@ class ProfileView extends HTMLElement {
                         <img src="/images/profile.jpg">
                         
                         <div class="postContent">
-                        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</span>
+                        <span>Please tell me what you had for dinner today. I need inspiration.</span>
                         </div> 
                     </li>
                     
@@ -38,9 +38,34 @@ class ProfileView extends HTMLElement {
                         <img src="/images/profile.jpg">
                         
                         <div class="postContent">
-                        <span>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</span>
+                        <span>I want to show you this healthy breakfast option to start the morning with energy.</span>
                         </div> 
                     </li>
+
+                    <li>
+                        <img src="/images/profile.jpg">
+                        
+                        <div class="postContent">
+                        <span>I want to show you this healthy breakfast option to start the morning with energy.</span>
+                        </div> 
+                    </li>
+
+                    <li>
+                        <img src="/images/profile.jpg">
+                        
+                        <div class="postContent">
+                        <span> Healthy and delicious lunch, nothing like enjoying a nutritious meal.</span>
+                        </div> 
+                    </li>
+                    
+                    <li>
+                        <img src="/images/profile.jpg">
+                        
+                        <div class="postContent">
+                        <span>Please tell me what you had for dinner today. I need inspiration.</span>
+                        </div> 
+                    </li>
+                    
                 </ul>
             </div>
         `
@@ -49,12 +74,12 @@ class ProfileView extends HTMLElement {
             <div class="likes-content">
             <ul>
             <li><img src="/images/ensaladas.jpg"><div><icon-component icon="heart"></icon-component></div></li>
+            <li><img src="/images/frutas.jpg"><div><icon-component icon="heart"></icon-component></div></li>
+            <li><img src="/images/granola.jpg"><div><icon-component icon="heart"></icon-component></div></li>
+            <li><img src="/images/pepino.jpg"><div><icon-component icon="heart"></icon-component></div></li>
+            <li><img src="/images/sandia.jpg"><div><icon-component icon="heart"></icon-component></div></li>
             <li><img src="/images/ensaladas.jpg"><div><icon-component icon="heart"></icon-component></div></li>
-            <li><img src="/images/ensaladas.jpg"><div><icon-component icon="heart"></icon-component></div></li>
-            <li><img src="/images/ensaladas.jpg"><div><icon-component icon="heart"></icon-component></div></li>
-            <li><img src="/images/ensaladas.jpg"><div><icon-component icon="heart"></icon-component></div></li>
-            <li><img src="/images/ensaladas.jpg"><div><icon-component icon="heart"></icon-component></div></li>
-            <li><img src="/images/ensaladas.jpg"><div><icon-component icon="heart"></icon-component></div></li>
+            <li><img src="/images/granola.jpg"><div><icon-component icon="heart"></icon-component></div></li>
 </ul>
 </div>
         `

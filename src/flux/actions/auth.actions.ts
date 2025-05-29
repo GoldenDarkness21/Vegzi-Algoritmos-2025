@@ -81,14 +81,38 @@ export const loginWithEmailAndPassword = async (email: string, password: string)
     try {
         loginRequest();
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const { displayName, email: userEmail, uid } = userCredential.user;
-        loginSuccess({ 
-            id: uid,
-            name: displayName || '',
-            email: userEmail || ''
-        });
+        if (userCredential.user) {
+            const { displayName, email: userEmail, uid } = userCredential.user;
+            loginSuccess({ 
+                id: uid,
+                name: displayName || '',
+                email: userEmail || ''
+            });
+        } else {
+            loginFailure('Error: No se pudo obtener la información del usuario');
+        }
     } catch (error) {
-        loginFailure(error instanceof Error ? error.message : 'Error desconocido');
+        let errorMessage = 'Error desconocido';
+        if (error instanceof Error) {
+            // Personalizar mensajes de error comunes
+            switch (error.message) {
+                case 'Firebase: Error (auth/invalid-credential).':
+                    errorMessage = 'Correo electrónico o contraseña incorrectos';
+                    break;
+                case 'Firebase: Error (auth/user-not-found).':
+                    errorMessage = 'No existe una cuenta con este correo electrónico';
+                    break;
+                case 'Firebase: Error (auth/wrong-password).':
+                    errorMessage = 'Contraseña incorrecta';
+                    break;
+                case 'Firebase: Error (auth/invalid-email).':
+                    errorMessage = 'Correo electrónico inválido';
+                    break;
+                default:
+                    errorMessage = error.message;
+            }
+        }
+        loginFailure(errorMessage);
     }
 };
 

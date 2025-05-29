@@ -26,7 +26,7 @@ class LoginForm extends HTMLElement {
     private updateUIState(state: AuthState) {
         if (this.shadowRoot) {
             const button = this.shadowRoot.querySelector('button');
-            const errorDiv = this.shadowRoot.querySelector('.error-message');
+            const errorDiv = this.shadowRoot.querySelector('.error-message') as HTMLDivElement;
             
             if (button) {
                 button.disabled = state.loading;
@@ -34,13 +34,31 @@ class LoginForm extends HTMLElement {
             }
 
             if (errorDiv) {
-                errorDiv.textContent = state.error || '';
+                if (state.error) {
+                    errorDiv.style.color = '#f44336';
+                    errorDiv.textContent = state.error;
+                    if (button) {
+                        button.disabled = false;
+                    }
+                } else {
+                    errorDiv.textContent = '';
+                }
             }
 
-            if (state.isAuthenticated) {
-                // Aquí puedo redirigir al usuario o mostrar un mensaje de éxito
-                console.log('Usuario autenticado:', state.user);
-                // Por ejemplo: window.location.href = '/dashboard';
+            if (state.isAuthenticated && state.user && !state.error && !state.loading) {
+                if (errorDiv) {
+                    errorDiv.style.color = '#4CAF50';
+                    errorDiv.textContent = '¡Inicio de sesión exitoso! Redirigiendo...';
+                }
+                
+                setTimeout(() => {
+                    const event = new CustomEvent('navigate', { 
+                        detail: { route: '/' },
+                        bubbles: true, 
+                        composed: true 
+                    });
+                    this.dispatchEvent(event);
+                }, 1000);
             }
         }
     }

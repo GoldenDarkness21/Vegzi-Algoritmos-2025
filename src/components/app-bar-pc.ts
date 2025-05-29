@@ -21,7 +21,7 @@ export class AppBarPc extends HTMLElement {
                     right: 0;
                     display: flex;
                     align-items: center;
-                    z-index: 10;
+                    z-index: 1000;
                     padding: 0 20px;
                     justify-content: space-between;
                 }

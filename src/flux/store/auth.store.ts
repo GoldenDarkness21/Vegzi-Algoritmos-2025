@@ -46,7 +46,9 @@ class AuthStore extends EventTarget {
                 this.setState({
                     ...this.state,
                     loading: false,
-                    error: action.payload
+                    error: action.payload,
+                    isAuthenticated: false,
+                    user: null
                 });
                 break;
 

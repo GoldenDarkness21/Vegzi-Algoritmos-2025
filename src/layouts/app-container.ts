@@ -103,14 +103,26 @@ class AppContainer extends HTMLElement {
 
               /* Estilos para el contenedor principal de rutas */
               main {
-                  padding: 20px;
-                  max-width: 1200px;
-                  margin: 0 auto;
-                  min-height: calc(100vh - 60px);
+                  min-height: 100vh;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
               }
 
               /* Cuando estamos en páginas de autenticación */
               :host(.auth-page) .home-content {
+                  display: none;
+              }
+
+              :host(.auth-page) app-bar-pc {
+                  display: none;
+              }
+
+              :host(.auth-page) #navbar-container {
+                  display: none;
+              }
+
+              :host(.auth-page) food-cart {
                   display: none;
               }
 
@@ -121,8 +133,9 @@ class AppContainer extends HTMLElement {
 
               /* Ajuste para que los formularios de autenticación ocupen toda la altura */
               :host(.auth-page) main {
-                  height: calc(100vh - 60px);
+                  height: 100vh;
                   padding: 0;
+                  margin: 0;
               }
           </style>
           <app-bar-pc></app-bar-pc>

@@ -26,7 +26,7 @@ class RegisterForm extends HTMLElement {
     private updateUIState(state: AuthState) {
         if (this.shadowRoot) {
             const button = this.shadowRoot.querySelector('button');
-            const errorDiv = this.shadowRoot.querySelector('.error-message');
+            const errorDiv = this.shadowRoot.querySelector('.error-message') as HTMLDivElement;
             
             if (button) {
                 button.disabled = state.loading;
@@ -34,11 +34,24 @@ class RegisterForm extends HTMLElement {
             }
 
             if (errorDiv) {
-                errorDiv.textContent = state.error || '';
-            }
-
-            if (state.isAuthenticated) {
-                console.log('Usuario registrado:', state.user);
+                if (state.error) {
+                    errorDiv.style.color = '#f44336';
+                    errorDiv.textContent = state.error;
+                } else if (state.isAuthenticated && state.user) {
+                    // Mostrar mensaje de éxito
+                    errorDiv.style.color = '#4CAF50';
+                    errorDiv.textContent = '¡Registro exitoso! Redirigiendo al login...';
+                    
+                    // Redireccionar al login después de un breve delay
+                    setTimeout(() => {
+                        const event = new CustomEvent('navigate', { 
+                            detail: { route: '/login' },
+                            bubbles: true, 
+                            composed: true 
+                        });
+                        this.dispatchEvent(event);
+                    }, 2000);
+                }
             }
         }
     }

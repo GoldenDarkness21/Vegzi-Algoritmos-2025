@@ -12,6 +12,7 @@ export default {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
+    publicPath: '/'
   },
   resolve: {
     extensions: ['.ts', '.js'],
@@ -24,23 +25,30 @@ export default {
         exclude: /node_modules/,
       },
       {
-        test: /\.svg$/,
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
-      }
+      },
     ],
   },
   devServer: {
-    static: './dist',
-    port: 3000,
-    open: true,
+    static: [
+      {
+        directory: path.join(__dirname, 'public'),
+        publicPath: '/'
+      }
+    ],
+    hot: true,
+    port: 5173,
+    historyApiFallback: true
   },
   mode: 'development',
-
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'src/index.html', 
-      filename: 'index.html',
-    }),
+      template: path.resolve(__dirname, 'public/index.html')
+    })
   ],
-  
 };

@@ -82,5 +82,7 @@ class Navbar extends HTMLElement {
     }
 }
 
-customElements.define('custom-navbar', Navbar);
+if (!customElements.get('custom-navbar')) {
+    customElements.define('custom-navbar', Navbar);
+}
 export default Navbar;

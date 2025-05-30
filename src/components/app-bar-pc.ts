@@ -14,11 +14,11 @@ export class AppBarPc extends HTMLElement {
     }
 
     private setupStoreSubscription() {
-        // Obtener estado inicial
+        // get initial state
         const currentState = authStore.getState();
         this.updateAuthButtons(currentState);
 
-        // Suscribirse a cambios
+        // subscribe to changes
         authStore.subscribe((state: AuthState) => {
             this.updateAuthButtons(state);
         });
@@ -221,13 +221,13 @@ export class AppBarPc extends HTMLElement {
 
         this.setupEventListeners();
         
-        // Obtener el estado inicial
+        // get initial state
         const currentState = authStore.getState();
         this.updateAuthButtons(currentState);
     }
 
     setupEventListeners() {
-        // Event listeners para los botones de login y register
+        // event listeners for login and register buttons
         const buttons = this.querySelectorAll('[data-route]');
         buttons.forEach(button => {
             button.addEventListener('click', (e) => {
@@ -238,7 +238,7 @@ export class AppBarPc extends HTMLElement {
             });
         });
 
-        // Event listeners para los enlaces de navegación
+        // event listeners for navigation links
         const links = this.querySelectorAll('[data-link]');
         links.forEach(link => {
             link.addEventListener('click', (e) => {

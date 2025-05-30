@@ -89,24 +89,24 @@ export const loginWithEmailAndPassword = async (email: string, password: string)
                 email: userEmail || ''
             });
         } else {
-            loginFailure('Error: No se pudo obtener la información del usuario');
+            loginFailure('Error: unable to get user information');
         }
     } catch (error) {
-        let errorMessage = 'Error desconocido';
+        let errorMessage = 'Error unknown';
         if (error instanceof Error) {
-            // Personalizar mensajes de error comunes
+            // custom error messages
             switch (error.message) {
                 case 'Firebase: Error (auth/invalid-credential).':
-                    errorMessage = 'Correo electrónico o contraseña incorrectos';
+                    errorMessage = 'Invalid email or password';
                     break;
                 case 'Firebase: Error (auth/user-not-found).':
-                    errorMessage = 'No existe una cuenta con este correo electrónico';
+                    errorMessage = 'No account with this email';
                     break;
                 case 'Firebase: Error (auth/wrong-password).':
-                    errorMessage = 'Contraseña incorrecta';
+                    errorMessage = 'Invalid password';
                     break;
                 case 'Firebase: Error (auth/invalid-email).':
-                    errorMessage = 'Correo electrónico inválido';
+                    errorMessage = 'Invalid email';
                     break;
                 default:
                     errorMessage = error.message;
@@ -121,7 +121,7 @@ export const registerWithEmailAndPassword = async (name: string, email: string, 
         registerRequest();
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         
-        // Actualizar el perfil del usuario con su nombre
+        // update user profile with their name
         if (auth.currentUser) {
             await updateProfile(auth.currentUser, {
                 displayName: name
@@ -130,7 +130,7 @@ export const registerWithEmailAndPassword = async (name: string, email: string, 
 
         const { uid } = userCredential.user;
         
-        // Crear perfil en Firestore
+        // create user profile in firestore
         await createUserProfile(uid, {
             name,
             email,
@@ -145,18 +145,18 @@ export const registerWithEmailAndPassword = async (name: string, email: string, 
             email 
         });
     } catch (error) {
-        let errorMessage = 'Error desconocido';
+        let errorMessage = 'Error unknown';
         if (error instanceof Error) {
-            // Personalizar mensajes de error comunes
+            // custom error messages
             switch (error.message) {
                 case 'Firebase: Error (auth/email-already-in-use).':
-                    errorMessage = 'Este correo electrónico ya está registrado. Por favor, utiliza otro o inicia sesión.';
+                    errorMessage = 'This email is already in use. Please use another one or login.';
                     break;
                 case 'Firebase: Error (auth/invalid-email).':
-                    errorMessage = 'El correo electrónico no es válido';
+                    errorMessage = 'the email is not valid';
                     break;
                 case 'Firebase: Error (auth/weak-password).':
-                    errorMessage = 'La contraseña debe tener al menos 6 caracteres';
+                    errorMessage = 'the password must be at least 6 characters long';
                     break;
                 default:
                     errorMessage = error.message;
@@ -171,6 +171,6 @@ export const logoutUser = async () => {
         await signOut(auth);
         logout();
     } catch (error) {
-        console.error('Error al cerrar sesión:', error);
+        console.error('Error logging out:', error);
     }
 }; 

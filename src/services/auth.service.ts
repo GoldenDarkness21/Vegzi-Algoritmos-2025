@@ -5,14 +5,14 @@ import { loginSuccess, logout } from '../flux/actions/auth.actions';
 export const initAuthListener = () => {
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            // Usuario está autenticado
+            // user is authenticated
             loginSuccess({
                 id: user.uid,
                 name: user.displayName || '',
                 email: user.email || ''
             });
         } else {
-            // Usuario no está autenticado
+            // user is not authenticated
             logout();
         }
     });

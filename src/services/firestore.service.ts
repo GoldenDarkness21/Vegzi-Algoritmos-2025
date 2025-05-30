@@ -14,14 +14,14 @@ interface UserProfile {
     updatedAt: Date;
 }
 
-// Crear o actualizar perfil de usuario
+// create or update user profile
 export const createUserProfile = async (userId: string, userData: Partial<UserProfile>) => {
     try {
         const userRef = doc(db, 'users', userId);
         const userDoc = await getDoc(userRef);
 
         if (!userDoc.exists()) {
-            // Si el usuario no existe, crear nuevo perfil
+            // if user does not exist, create new profile
             const newProfile: UserProfile = {
                 id: userId,
                 name: userData.name || '',
@@ -33,7 +33,7 @@ export const createUserProfile = async (userId: string, userData: Partial<UserPr
             await setDoc(userRef, newProfile);
             return newProfile;
         } else {
-            // Si el usuario existe, actualizar datos
+            // if user exists, update data
             const updatedData = {
                 ...userData,
                 updatedAt: new Date()
@@ -50,7 +50,7 @@ export const createUserProfile = async (userId: string, userData: Partial<UserPr
     }
 };
 
-// Obtener perfil de usuario
+// get user profile
 export const getUserProfile = async (userId: string): Promise<UserProfile | null> => {
     try {
         const userRef = doc(db, 'users', userId);
@@ -66,7 +66,7 @@ export const getUserProfile = async (userId: string): Promise<UserProfile | null
     }
 };
 
-// Agregar receta a favoritos
+// add recipe to favorites
 export const addToFavorites = async (userId: string, recipeId: string) => {
     try {
         const userRef = doc(db, 'users', userId);
@@ -80,7 +80,7 @@ export const addToFavorites = async (userId: string, recipeId: string) => {
     }
 };
 
-// Remover receta de favoritos
+// remove recipe from favorites
 export const removeFromFavorites = async (userId: string, recipeId: string) => {
     try {
         const userRef = doc(db, 'users', userId);
@@ -89,7 +89,7 @@ export const removeFromFavorites = async (userId: string, recipeId: string) => {
             updatedAt: new Date()
         });
     } catch (error) {
-        console.error('Error al remover de favoritos:', error);
+        console.error('Error removing from favorites:', error);
         throw error;
     }
 }; 

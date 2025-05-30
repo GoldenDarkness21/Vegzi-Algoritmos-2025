@@ -131,7 +131,7 @@ export const getPopularRecipes = async (limit_count: number = 10): Promise<FoodI
         
         return querySnapshot.docs.map(doc => doc.data() as FoodItem);
     } catch (error) {
-        console.error('Error al obtener recetas populares:', error);
+        console.error('Error getting popular recipes:', error);
         throw error;
     }
 }; 

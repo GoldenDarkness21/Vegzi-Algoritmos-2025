@@ -7,7 +7,7 @@ class AppContainer extends HTMLElement {
   updateNavbar() {
       const container = this.shadowRoot!.querySelector("#navbar-container");
       if (container) {
-          container.innerHTML = "";  // Ya no necesitamos la barra móvil
+          container.innerHTML = "";  
       }
   }
 

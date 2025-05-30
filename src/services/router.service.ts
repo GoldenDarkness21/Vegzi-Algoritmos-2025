@@ -11,7 +11,7 @@ export const handleRoute = () => {
     const mainContent = appContainer.shadowRoot.querySelector('main');
     if (!mainContent) return;
 
-    // Remover clases anteriores
+    // remove previous classes
     appContainer.classList.remove('auth-page', 'home-page');
 
     switch (path) {
@@ -32,11 +32,11 @@ export const handleRoute = () => {
     }
 };
 
-// Manejar la carga inicial y los cambios de navegación
+// handle initial load and navigation changes
 window.addEventListener('popstate', handleRoute);
 window.addEventListener('DOMContentLoaded', handleRoute);
 
-// Escuchar eventos de navegación personalizados
+// listen to custom navigation events
 document.addEventListener('navigate', ((e: CustomEvent) => {
     if (e.detail && e.detail.route) {
         navigateTo(e.detail.route);

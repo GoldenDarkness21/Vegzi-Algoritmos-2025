@@ -10,11 +10,11 @@ import "./components/auth/register-form";
 import { initAuthListener } from "./services/auth.service";
 import { handleRoute } from "./services/router.service";
 
-// Inicializar el listener de autenticación
+// initialize auth listener
 initAuthListener();
 
 document.body.innerHTML = "<app-container></app-container>";
 
-// Inicializar el router
+// initialize router
 handleRoute();
 

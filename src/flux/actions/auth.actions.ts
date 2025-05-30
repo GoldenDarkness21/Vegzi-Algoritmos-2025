@@ -145,7 +145,24 @@ export const registerWithEmailAndPassword = async (name: string, email: string, 
             email 
         });
     } catch (error) {
-        registerFailure(error instanceof Error ? error.message : 'Error desconocido');
+        let errorMessage = 'Error desconocido';
+        if (error instanceof Error) {
+            // Personalizar mensajes de error comunes
+            switch (error.message) {
+                case 'Firebase: Error (auth/email-already-in-use).':
+                    errorMessage = 'Este correo electrónico ya está registrado. Por favor, utiliza otro o inicia sesión.';
+                    break;
+                case 'Firebase: Error (auth/invalid-email).':
+                    errorMessage = 'El correo electrónico no es válido';
+                    break;
+                case 'Firebase: Error (auth/weak-password).':
+                    errorMessage = 'La contraseña debe tener al menos 6 caracteres';
+                    break;
+                default:
+                    errorMessage = error.message;
+            }
+        }
+        registerFailure(errorMessage);
     }
 };
 

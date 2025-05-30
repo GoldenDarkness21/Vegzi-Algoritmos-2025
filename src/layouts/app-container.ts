@@ -5,12 +5,9 @@ class AppContainer extends HTMLElement {
   }
 
   updateNavbar() {
-      const isMobile = window.innerWidth < 990;
       const container = this.shadowRoot!.querySelector("#navbar-container");
       if (container) {
-          container.innerHTML = isMobile
-              ? "<custom-navbar></custom-navbar>"
-              : "<desktop-navbar></desktop-navbar>";
+          container.innerHTML = "";  // Ya no necesitamos la barra móvil
       }
   }
 
@@ -137,6 +134,8 @@ class AppContainer extends HTMLElement {
                   padding: 0;
                   margin: 0;
               }
+
+              
           </style>
           <app-bar-pc></app-bar-pc>
           <div class="home-content">

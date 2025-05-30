@@ -1,4 +1,7 @@
 import { navigateTo } from '../services/router.service';
+import { authStore } from '../flux/store/auth.store';
+import { AuthState } from '../flux/types/auth.types';
+import { logoutUser } from '../flux/actions/auth.actions';
 
 export class AppBarPc extends HTMLElement {
     constructor() {
@@ -6,6 +9,62 @@ export class AppBarPc extends HTMLElement {
     }
 
     connectedCallback() {
+        this.render();
+        this.setupStoreSubscription();
+    }
+
+    private setupStoreSubscription() {
+        // Obtener estado inicial
+        const currentState = authStore.getState();
+        this.updateAuthButtons(currentState);
+
+        // Suscribirse a cambios
+        authStore.subscribe((state: AuthState) => {
+            this.updateAuthButtons(state);
+        });
+    }
+
+    private updateAuthButtons(state: AuthState) {
+        const buttonsContainer = this.querySelector('.buttons');
+        const profileLink = this.querySelector('a[href="/profile"]')?.parentElement;
+        const userGreeting = this.querySelector('.user-greeting') as HTMLDivElement;
+        
+        if (profileLink) {
+            profileLink.style.display = state.isAuthenticated ? 'block' : 'none';
+        }
+
+        if (userGreeting) {
+            if (state.isAuthenticated && state.user) {
+                const email = state.user.email || '';
+                const username = email.split('@')[0] || 'Usuario';
+                userGreeting.textContent = `¡Hola, ${username}!`;
+                userGreeting.style.display = 'block';
+            } else {
+                userGreeting.style.display = 'none';
+            }
+        }
+
+        if (buttonsContainer) {
+            if (state.isAuthenticated && state.user) {
+                buttonsContainer.innerHTML = `
+                    <button class="logout" data-action="logout">CERRAR SESIÓN</button>
+                `;
+                const logoutBtn = buttonsContainer.querySelector('[data-action="logout"]');
+                logoutBtn?.addEventListener('click', async () => {
+                    await logoutUser();
+                    navigateTo('/');
+                });
+            } else {
+                buttonsContainer.innerHTML = `
+                    <button class="login" data-route="/login">LOGIN</button>
+                    <button class="register" data-route="/register">REGISTER</button>
+                `;
+                this.setupEventListeners();
+            }
+        }
+    }
+
+    render() {
         this.innerHTML = `
         <div class="app-bar-pc">
             <style>
@@ -58,6 +117,14 @@ export class AppBarPc extends HTMLElement {
                     display: flex;
                     align-items: center;
                     gap: 20px;
+                }
+
+                .user-greeting {
+                    font-family: 'Nunito', sans-serif;
+                    font-weight: 600;
+                    color: #070;
+                    margin-right: 10px;
+                    display: none;
                 }
                 
                 .search-bar {
@@ -115,6 +182,15 @@ export class AppBarPc extends HTMLElement {
                     border: 1px solid #070;
                 }
 
+                .buttons button.logout {
+                    background-color: #e53935;
+                    color: white;
+                }
+
+                .buttons button.logout:hover {
+                    background-color: #c62828;
+                }
+
                 .buttons button:hover {
                     opacity: 0.9;
                 }
@@ -130,6 +206,7 @@ export class AppBarPc extends HTMLElement {
             </nav>
 
             <div class="right-side">
+                <div class="user-greeting"></div>
                 <div class="search-bar">
                     <input type="text" placeholder="Search...">
                     <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2024 Fonticons, Inc. --><path d="M368 208A160 160 0 1 0 48 208a160 160 0 1 0 320 0zM337.1 371.1C301.7 399.2 256.8 416 208 416C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208c0 48.8-16.8 93.7-44.9 129.1L505 471c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0L337.1 371.1z"/></svg>
@@ -140,10 +217,13 @@ export class AppBarPc extends HTMLElement {
                     <button class="register" data-route="/register">REGISTER</button>
                 </div>
             </div>
-        </div>
-        `;
+        </div>`;
 
         this.setupEventListeners();
+        
+        // Obtener el estado inicial
+        const currentState = authStore.getState();
+        this.updateAuthButtons(currentState);
     }
 
     setupEventListeners() {

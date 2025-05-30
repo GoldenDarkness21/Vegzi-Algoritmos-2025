@@ -1,3 +1,7 @@
+import { authStore } from '../../flux/store/auth.store';
+import { AuthState } from '../../flux/types/auth.types';
+import { logoutUser } from '../../flux/actions/auth.actions';
+
 export class Navbar extends HTMLElement {
     constructor() {
         super();
@@ -6,80 +10,166 @@ export class Navbar extends HTMLElement {
 
     connectedCallback() {
         this.render();
-        this.setEventListeners();
+        this.setupStoreSubscription();
+    }
+
+    private setupStoreSubscription() {
+        authStore.subscribe((state: AuthState) => {
+            this.updateUIState(state);
+        });
+    }
+
+    private updateUIState(state: AuthState) {
+        if (this.shadowRoot) {
+            const authButtons = this.shadowRoot.querySelector('.auth-buttons');
+            if (authButtons) {
+                if (state.isAuthenticated && state.user) {
+                    authButtons.innerHTML = `
+                        <button class="logout-btn">Cerrar Sesión</button>
+                    `;
+                    const logoutBtn = authButtons.querySelector('.logout-btn');
+                    logoutBtn?.addEventListener('click', async () => {
+                        await logoutUser();
+                        const event = new CustomEvent('navigate', { 
+                            detail: { route: '/login' },
+                            bubbles: true, 
+                            composed: true 
+                        });
+                        this.dispatchEvent(event);
+                    });
+                } else {
+                    authButtons.innerHTML = `
+                        <button class="login-btn">Iniciar Sesión</button>
+                        <button class="register-btn">Registrarse</button>
+                    `;
+                    this.addAuthButtonsListeners();
+                }
+            }
+        }
+    }
+
+    private addAuthButtonsListeners() {
+        const loginBtn = this.shadowRoot?.querySelector('.login-btn');
+        const registerBtn = this.shadowRoot?.querySelector('.register-btn');
+
+        loginBtn?.addEventListener('click', () => {
+            const event = new CustomEvent('navigate', { 
+                detail: { route: '/login' },
+                bubbles: true, 
+                composed: true 
+            });
+            this.dispatchEvent(event);
+        });
+
+        registerBtn?.addEventListener('click', () => {
+            const event = new CustomEvent('navigate', { 
+                detail: { route: '/register' },
+                bubbles: true, 
+                composed: true 
+            });
+            this.dispatchEvent(event);
+        });
     }
 
     render() {
-        const homeIcon = require('../../assets/icons/home.svg');
-        const profileIcon = require('../../assets/icons/account_circle.svg');
-        const addIcon = require('../../assets/icons/add.svg');
-        const categoryIcon = require('../../assets/icons/category.svg');
+        if (this.shadowRoot) {
+            this.shadowRoot.innerHTML = `
+                <style>
+                    :host {
+                        display: block;
+                        width: 100%;
+                        background-color: #4caf50;
+                        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                    }
 
-        this.shadowRoot!.innerHTML = /*HTML*/`
-            <style>
-                .container-navbar {
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: space-around;
-                    align-items: center;
-                    min-height: 150px;
-                    max-height: 200px;
-                    width: 80%;
-                    background-color: #9FC280;
-                    position: fixed;
-                    bottom: 0;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    border-radius: 60px;
-                    margin-bottom: 30px;
-                }
+                    .navbar {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 1rem 2rem;
+                        max-width: 1200px;
+                        margin: 0 auto;
+                    }
 
-                .icon-navbar {
-                    background: none;
-                    border: none;
-                    cursor: pointer;
-                    color: #fff;
-                    width: 60px;
-                }
-                .icon-navbar:hover {
-                    color: #adadad;
-                }
-            </style>
-            <div class="container-navbar">
-                <div data-section="home">
-                    <img src="${homeIcon}" alt="Home" class="icon-navbar" />
-                </div>
-                <div data-section="profile">
-                    <img src="${profileIcon}" alt="Profile" class="icon-navbar" />
-                </div>
-                <div data-section="add">
-                    <img src="${addIcon}" alt="Add" class="icon-navbar" />
-                </div>
-                <div data-section="category">
-                    <img src="${categoryIcon}" alt="Category" class="icon-navbar" />
-                </div>
-            </div>
-        `;
-    }
+                    .logo {
+                        color: white;
+                        font-size: 1.5rem;
+                        font-weight: bold;
+                        text-decoration: none;
+                        cursor: pointer;
+                    }
 
-    setEventListeners() {
-        const buttons = this.shadowRoot!.querySelectorAll(".icon-navbar");
-        buttons.forEach(button => {
-            button.addEventListener("click", (e) => {
-                const section = (e.currentTarget as HTMLElement).dataset.section;
-                this.nextToWindow(section!);
-            });
-        });
-    }
+                    .auth-buttons {
+                        display: flex;
+                        gap: 1rem;
+                    }
 
-    nextToWindow(section: string) {
-        console.log(`Cambiando a la sección: ${section}`);
-        const event = new CustomEvent('navigate', {
-            detail: { section },
-            bubbles: true,
-            composed: true
-        });
-        this.dispatchEvent(event);
+                    button {
+                        padding: 0.5rem 1rem;
+                        border: none;
+                        border-radius: 8px;
+                        font-size: 1rem;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                    }
+
+                    .login-btn {
+                        background-color: transparent;
+                        color: white;
+                        border: 2px solid white;
+                    }
+
+                    .login-btn:hover {
+                        background-color: white;
+                        color: #4caf50;
+                    }
+
+                    .register-btn {
+                        background-color: white;
+                        color: #4caf50;
+                    }
+
+                    .register-btn:hover {
+                        background-color: #e8f5e9;
+                    }
+
+                    .logout-btn {
+                        background-color: #e53935;
+                        color: white;
+                        border: none;
+                    }
+
+                    .logout-btn:hover {
+                        background-color: #c62828;
+                    }
+
+                    @media (max-width: 768px) {
+                        .navbar {
+                            padding: 1rem;
+                        }
+
+                        button {
+                            padding: 0.4rem 0.8rem;
+                            font-size: 0.9rem;
+                        }
+                    }
+                </style>
+
+                <nav class="navbar">
+                    <a class="logo">Vegzi</a>
+                    <div class="auth-buttons">
+                        <button class="login-btn">Iniciar Sesión</button>
+                        <button class="register-btn">Registrarse</button>
+                    </div>
+                </nav>
+            `;
+
+            this.addAuthButtonsListeners();
+            
+            // Obtener el estado inicial
+            const currentState = authStore.getState();
+            this.updateUIState(currentState);
+        }
     }
 }
 

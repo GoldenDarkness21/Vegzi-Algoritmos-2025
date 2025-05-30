@@ -66,110 +66,178 @@ class LoginForm extends HTMLElement {
     render() {
         if (this.shadowRoot) {
             this.shadowRoot.innerHTML = `
-                <style>
-                    :host {
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        min-height: 100vh;
-                        background-color: #f5f5f5;
-                        font-family: Arial, sans-serif;
-                    }
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
 
-                    .login-container {
-                        background: white;
-                        padding: 2rem;
-                        border-radius: 8px;
-                        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-                        width: 100%;
-                        max-width: 400px;
-                    }
+    :host,
+    body {
+        height: 100vh;
+        width: 100vw;
+        font-family: 'Segoe UI', sans-serif;
+    }
 
-                    h2 {
-                        color: #333;
-                        text-align: center;
-                        margin-bottom: 1.5rem;
-                    }
+    .main-container {
+        display: flex;
+        min-height: 100vh;
+        width: 100%;
+        background: #b7e2b1;
+        padding: 2rem;
+        align-items: center;
+        justify-content: center;
+    }
 
-                    .form-group {
-                        margin-bottom: 1rem;
-                    }
+    .login-container {
+        width: 100%;
+        max-width: 550px;
+        background: #dcf6d5;
+        padding: 3.5rem;
+        border-radius: 25px;
+        box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.2);
+    }
 
-                    label {
-                        display: block;
-                        margin-bottom: 0.5rem;
-                        color: #666;
-                    }
+    h2 {
+        color: #2e7d32;
+        text-align: center;
+        margin-bottom: 2rem;
+        font-size: 2.5rem;
+        font-weight: bold;
+    }
 
-                    input {
-                        width: 100%;
-                        padding: 0.75rem;
-                        border: 1px solid #ddd;
-                        border-radius: 4px;
-                        font-size: 1rem;
-                        box-sizing: border-box;
-                    }
+    .form-group {
+        margin-bottom: 2rem;
+    }
 
-                    button {
-                        width: 100%;
-                        padding: 0.75rem;
-                        background-color: #4CAF50;
-                        color: white;
-                        border: none;
-                        border-radius: 4px;
-                        font-size: 1rem;
-                        cursor: pointer;
-                        transition: background-color 0.3s;
-                    }
+    label {
+        display: block;
+        margin-bottom: 0.8rem;
+        color: #33691e;
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
 
-                    button:hover:not(:disabled) {
-                        background-color: #45a049;
-                    }
+    input {
+        width: 100%;
+        padding: 1.2rem;
+        border: none;
+        border-radius: 15px;
+        background-color: #edf9e9;
+        font-size: 1.2rem;
+        box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.1);
+        outline: none;
+    }
 
-                    button:disabled {
-                        background-color: #cccccc;
-                        cursor: not-allowed;
-                    }
+    button {
+        width: 100%;
+        padding: 1.2rem;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 15px;
+        font-size: 1.3rem;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        margin-top: 2rem;
+    }
 
-                    .register-link {
-                        text-align: center;
-                        margin-top: 1rem;
-                    }
+    button:hover:not(:disabled) {
+        background-color: #388e3c;
+        transform: translateY(-2px);
+    }
 
-                    .register-link a {
-                        color: #4CAF50;
-                        text-decoration: none;
-                    }
+    .error-message {
+        color: #d32f2f;
+        text-align: center;
+        margin: 1.5rem 0;
+        font-size: 1.1rem;
+        min-height: 24px;
+    }
 
-                    .register-link a:hover {
-                        text-decoration: underline;
-                    }
+    .register-link {
+        text-align: center;
+        margin-top: 2rem;
+        font-size: 1.1rem;
+    }
 
-                    .error-message {
-                        color: #f44336;
-                        text-align: center;
-                        margin-top: 1rem;
-                        min-height: 20px;
-                    }
-                </style>
-                <div class="login-container">
-                    <h2>Iniciar Sesión</h2>
-                    <form id="loginForm">
-                        <div class="form-group">
-                            <label for="email">Correo electrónico</label>
-                            <input type="email" id="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Contraseña</label>
-                            <input type="password" id="password" required>
-                        </div>
-                        <button type="submit">Iniciar Sesión</button>
-                    </form>
-                    <div class="error-message"></div>
-                    <div class="register-link">
-                        <p>¿No tienes una cuenta? <a href="#" id="registerLink">Regístrate aquí</a></p>
-                    </div>
-                </div>
+    .register-link a {
+        color: #2e7d32;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .register-link a:hover {
+        text-decoration: underline;
+    }
+
+@media (max-width: 768px) {
+    .main-container {
+        padding: 1rem;
+    }
+
+    .login-container {
+        padding: 2rem;
+        max-width: 100%;
+    }
+
+    h2 {
+        font-size: 2.2rem;
+        margin-bottom: 1.8rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    input {
+        font-size: 1.1rem;
+        padding: 1rem;
+    }
+
+    button {
+        padding: 1rem;
+        font-size: 1.2rem;
+        margin-top: 1.5rem;
+    }
+
+    .error-message {
+        font-size: 1rem;
+        margin: 1.2rem 0;
+    }
+
+    .register-link {
+        font-size: 1rem;
+        margin-top: 1.5rem;
+    }
+}
+
+</style>
+
+<div class="main-container">
+    <div class="login-container">
+        <h2>Iniciar Sesión</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Correo electrónico</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="submit">Iniciar Sesión</button>
+        </form>
+        <div class="error-message"></div>
+        <div class="register-link">
+            ¿No tienes una cuenta? <a href="#" id="registerLink">Regístrate aquí</a>
+        </div>
+    </div>
+</div> 
+
             `;
 
             this.addEventListeners();
@@ -185,12 +253,20 @@ class LoginForm extends HTMLElement {
             const email = (this.shadowRoot?.querySelector('#email') as HTMLInputElement).value;
             const password = (this.shadowRoot?.querySelector('#password') as HTMLInputElement).value;
             
+            if (!email || !password) {
+                const errorDiv = this.shadowRoot?.querySelector('.error-message') as HTMLDivElement;
+                if (errorDiv) {
+                    errorDiv.style.color = '#f44336';
+                    errorDiv.textContent = 'Por favor, completa todos los campos';
+                }
+                return;
+            }
+
             await loginWithEmailAndPassword(email, password);
         });
 
         registerLink?.addEventListener('click', (e) => {
             e.preventDefault();
-            // Aquí implementar la navegación al registro
             const event = new CustomEvent('navigate', { 
                 detail: { route: '/register' },
                 bubbles: true, 

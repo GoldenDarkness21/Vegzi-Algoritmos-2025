@@ -9,10 +9,11 @@ import "./components/publication-button";
 import "./components/publication-list";
 import "./components/publication-popup";
 
-document.body.innerHTML = `
-  <app-container>
-    <publication-list></publication-list>
-    <publication-button></publication-button>
-  </app-container>
-`;
+const appContainer = document.createElement('app-container');
+const publicationList = document.createElement('publication-list');
+const publicationButton = document.createElement('publication-button');
+
+appContainer.appendChild(publicationList);
+appContainer.appendChild(publicationButton);
+document.body.appendChild(appContainer);
 

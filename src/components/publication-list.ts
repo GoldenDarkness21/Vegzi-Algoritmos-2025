@@ -25,27 +25,35 @@ export class PublicationList extends HTMLElement {
     if (!container) return;
 
     container.innerHTML = publications.map(pub => this.createPublicationCard(pub)).join('');
+
+    // Add click listeners to publication cards
+    this.shadowRoot?.querySelectorAll('.publication-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const publicationId = card.getAttribute('data-id');
+        if (publicationId) {
+          const publication = publications.find(pub => String(pub.id) === publicationId);
+          if (publication) {
+            const popup = document.createElement('food-popup');
+            // Pasar los datos de la publicación al popup
+            popup.setAttribute('image', publication.imagen);
+            popup.setAttribute('title', publication.titulo);
+            popup.setAttribute('description', publication.descripcion);
+            popup.setAttribute('ingredients', JSON.stringify(publication.ingredientes));
+            popup.setAttribute('time', publication.tiempo);
+            popup.setAttribute('calories', publication.calorias.toString()); // Asegúrate de que calories sea string si es un número
+            // Asegúrate de pasar los likes si existen en tu tipo Publication
+            // popup.setAttribute('likes', publication.likes.toString());
+            document.body.appendChild(popup);
+          }
+        }
+      });
+    });
   }
 
   private createPublicationCard(publication: Publication): string {
     return `
-      <div class="publication-card">
-        <div class="publication-image">
-          <img src="${publication.imagen}" alt="${publication.titulo}">
-        </div>
-        <div class="publication-content">
-          <h3 class="publication-title">${publication.titulo}</h3>
-          <div class="publication-meta">
-            <span class="time">⏱️ ${publication.tiempo}</span>
-            <span class="calories">🔥 ${publication.calorias}</span>
-          </div>
-          <p class="publication-description">${publication.descripcion}</p>
-          <div class="ingredients">
-            ${publication.ingredientes.map(ing => `
-              <span class="ingredient">${ing}</span>
-            `).join('')}
-          </div>
-        </div>
+      <div class="publication-card" data-id="${publication.id}">
+        <img src="${publication.imagen}" alt="${publication.titulo}">
       </div>
     `;
   }
@@ -54,10 +62,9 @@ export class PublicationList extends HTMLElement {
     this.shadowRoot!.innerHTML = `
       <style>
         .publications-container {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-          gap: 24px;
-          padding: 24px;
+          column-count: 3; /* Number of columns */
+          column-gap: 24px; /* Gap between columns */
+          padding: 24px; /* Espacio alrededor del contenedor */
         }
 
         .publication-card {
@@ -66,6 +73,11 @@ export class PublicationList extends HTMLElement {
           overflow: hidden;
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
           transition: transform 0.3s ease, box-shadow 0.3s ease;
+          display: inline-block; /* Important for column-count */
+          width: 100%; /* Take full width of the column */
+          margin-bottom: 24px; /* Espacio entre tarjetas en columnas */
+          position: relative; /* Mantener si es necesario para otros estilos */
+          cursor: pointer;
         }
 
         .publication-card:hover {
@@ -73,68 +85,28 @@ export class PublicationList extends HTMLElement {
           box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
         }
 
-        .publication-image {
+        .publication-card img {
+          display: block;
           width: 100%;
-          height: 200px;
-          overflow: hidden;
+          height: auto; /* Auto height for variable image heights */
         }
 
-        .publication-image img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          transition: transform 0.3s ease;
-        }
+        /* Eliminados estilos de .publication-title-overlay */
 
-        .publication-card:hover .publication-image img {
-          transform: scale(1.05);
-        }
-
-        .publication-content {
-          padding: 20px;
-        }
-
-        .publication-title {
-          font-size: 1.4rem;
-          font-weight: 600;
-          margin-bottom: 12px;
-          color: #333;
-        }
-
-        .publication-meta {
-          display: flex;
-          gap: 16px;
-          margin-bottom: 12px;
-          color: #666;
-          font-size: 0.9rem;
-        }
-
-        .publication-description {
-          color: #444;
-          line-height: 1.6;
-          margin-bottom: 16px;
-          font-size: 0.95rem;
-        }
-
-        .ingredients {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 8px;
-        }
-
-        .ingredient {
-          background: #E8F5E9;
-          padding: 6px 12px;
-          border-radius: 12px;
-          font-size: 0.85rem;
-          color: #388E3C;
-          font-weight: 500;
+        @media (max-width: 1024px) {
+          .publications-container {
+            column-count: 2;
+          }
         }
 
         @media (max-width: 768px) {
           .publications-container {
-            grid-template-columns: 1fr;
-            padding: 16px;
+            column-count: 1;
+            padding: 16px; /* Ajustar padding en pantallas pequeñas */
+          }
+
+          .publication-card {
+            margin-bottom: 16px; /* Ajustar espacio entre tarjetas en pantallas pequeñas */
           }
         }
       </style>

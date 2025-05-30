@@ -329,7 +329,7 @@ export class FoodPopup extends HTMLElement {
           </div>
           </div>
           <div class="image">
-            <img src="/images/${this.image}" alt="${this.title}">
+            <img src="${this.image}" alt="${this.title}">
           </div>
         </div>
       </div>

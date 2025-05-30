@@ -18,27 +18,71 @@ export class PublicationPopup extends HTMLElement {
     const form = this.shadowRoot?.querySelector('form');
     const closeBtn = this.shadowRoot?.querySelector('.close-btn');
     const overlay = this.shadowRoot?.querySelector('.overlay');
+    const imageInput = this.shadowRoot?.querySelector('#imagen') as HTMLInputElement;
+    const imagePreview = this.shadowRoot?.querySelector('#image-preview') as HTMLImageElement;
 
     form?.addEventListener('submit', (e) => this.handleSubmit(e));
     closeBtn?.addEventListener('click', () => this.closePopup());
     overlay?.addEventListener('click', (e) => {
       if (e.target === overlay) this.closePopup();
     });
+
+    imageInput?.addEventListener('change', (event) => {
+      const input = event.target as HTMLInputElement;
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+          if (e.target && e.target.result) {
+            imagePreview.src = e.target.result as string;
+            imagePreview.style.display = 'block';
+          }
+        };
+
+        reader.readAsDataURL(input.files[0]);
+      } else {
+        imagePreview.src = '#';
+        imagePreview.style.display = 'none';
+      }
+    });
   }
 
-  private handleSubmit(e: Event) {
+  private async handleSubmit(e: Event) {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
 
+    const imageFile = formData.get('imagen') as File;
+    let imageDataUrl: string = '';
+
+    if (imageFile && imageFile.size > 0) {
+      imageDataUrl = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          if (event.target && event.target.result) {
+            resolve(event.target.result as string);
+          } else {
+            reject(new Error("Failed to read image file"));
+          }
+        };
+        reader.onerror = (error) => reject(error);
+        reader.readAsDataURL(imageFile);
+      });
+    }
+
     const publication = {
       titulo: formData.get('titulo') as string,
       descripcion: formData.get('descripcion') as string,
-      imagen: formData.get('imagen') as string,
+      imagen: imageDataUrl,
       tiempo: formData.get('tiempo') as string,
       calorias: formData.get('calorias') as string,
       ingredientes: (formData.get('ingredientes') as string).split(',').map(i => i.trim())
     };
+
+    if (!publication.imagen) {
+      console.error("No image selected for publication");
+      return;
+    }
 
     this.publicationService.addPublication(publication);
     this.closePopup();
@@ -218,8 +262,9 @@ export class PublicationPopup extends HTMLElement {
               <textarea id="ingredientes" name="ingredientes" required></textarea>
             </div>
             <div class="form-group">
-              <label for="imagen">URL de la imagen</label>
-              <input type="url" id="imagen" name="imagen" required>
+              <label for="imagen">Seleccionar imagen</label>
+              <input type="file" id="imagen" name="imagen" accept="image/*" required>
+              <img id="image-preview" src="#" alt="Previsualización de imagen" style="display: none; max-width: 100%; margin-top: 10px; border-radius: 8px;">
             </div>
             <button type="submit">Crear Publicación</button>
           </form>

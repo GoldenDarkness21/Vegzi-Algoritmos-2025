@@ -37,7 +37,7 @@ export class AppBarPc extends HTMLElement {
             if (state.isAuthenticated && state.user) {
                 const email = state.user.email || '';
                 const username = email.split('@')[0] || 'Usuario';
-                userGreeting.textContent = `¡Hola, ${username}!`;
+                userGreeting.textContent = `¡Hi, ${username}!`;
                 userGreeting.style.display = 'block';
             } else {
                 userGreeting.style.display = 'none';
@@ -47,12 +47,26 @@ export class AppBarPc extends HTMLElement {
         if (buttonsContainer) {
             if (state.isAuthenticated && state.user) {
                 buttonsContainer.innerHTML = `
-                    <button class="logout" data-action="logout">CERRAR SESIÓN</button>
+                    <button class="logout" data-action="logout">LOG OUT</button>
                 `;
-                const logoutBtn = buttonsContainer.querySelector('[data-action="logout"]');
+                const logoutBtn = buttonsContainer.querySelector('[data-action="logout"]') as HTMLButtonElement;
                 logoutBtn?.addEventListener('click', async () => {
+                    if (logoutBtn) {
+                        logoutBtn.disabled = true;
+                        logoutBtn.innerHTML = `
+                            <span class="loading-text">Logging out...</span>
+                            <div class="loading-spinner"></div>
+                        `;
+                    }
+                    
+                    // Esperar un momento para mostrar el estado de carga
+                    await new Promise(resolve => setTimeout(resolve, 1000));
                     await logoutUser();
                     navigateTo('/');
+                    // Recargar la página después de un breve momento
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 100);
                 });
             } else {
                 buttonsContainer.innerHTML = `
@@ -83,6 +97,12 @@ export class AppBarPc extends HTMLElement {
                     z-index: 1000;
                     padding: 0 20px;
                     justify-content: space-between;
+                }
+
+                @media (max-width: 990px) {
+                    .app-bar-pc {
+                        display: none;
+                    }
                 }
 
                 .app-bar-pc a {
@@ -169,6 +189,15 @@ export class AppBarPc extends HTMLElement {
                     min-width: 100px;
                     font-family: 'Nunito', sans-serif;
                     cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 8px;
+                }
+
+                .buttons button:disabled {
+                    opacity: 0.7;
+                    cursor: not-allowed;
                 }
 
                 .buttons button.login {
@@ -185,14 +214,34 @@ export class AppBarPc extends HTMLElement {
                 .buttons button.logout {
                     background-color: #e53935;
                     color: white;
+                    min-width: 120px;
                 }
 
                 .buttons button.logout:hover {
                     background-color: #c62828;
                 }
 
-                .buttons button:hover {
+                .buttons button:hover:not(:disabled) {
                     opacity: 0.9;
+                }
+
+                .loading-spinner {
+                    width: 16px;
+                    height: 16px;
+                    border: 2px solid #fff;
+                    border-radius: 50%;
+                    border-top-color: transparent;
+                    animation: spin 0.8s linear infinite;
+                }
+
+                @keyframes spin {
+                    to {
+                        transform: rotate(360deg);
+                    }
+                }
+
+                .loading-text {
+                    font-size: 0.9rem;
                 }
             </style>
 

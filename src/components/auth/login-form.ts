@@ -176,42 +176,84 @@ class LoginForm extends HTMLElement {
 
 @media (max-width: 768px) {
     .main-container {
-        padding: 1rem;
+        padding: 2rem;
     }
 
     .login-container {
-        padding: 2rem;
+        padding: 3rem 2rem;
         max-width: 100%;
+        border-radius: 35px;
     }
 
     h2 {
-        font-size: 2.2rem;
-        margin-bottom: 1.8rem;
+        font-size: 3.5rem;
+        margin-bottom: 3rem;
     }
 
     .form-group {
+        margin-bottom: 3rem;
+    }
+
+    label {
+        font-size: 2rem;
         margin-bottom: 1.5rem;
+        display: block;
     }
 
     input {
-        font-size: 1.1rem;
-        padding: 1rem;
+        font-size: 1.8rem;
+        padding: 1.8rem;
+        border-radius: 25px;
+        width: 100%;
+        height: 5rem;
     }
 
     button {
-        padding: 1rem;
-        font-size: 1.2rem;
-        margin-top: 1.5rem;
+        padding: 2rem;
+        font-size: 2rem;
+        margin-top: 3rem;
+        border-radius: 30px;
+        height: 5rem;
+        width: 100%;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 
     .error-message {
-        font-size: 1rem;
-        margin: 1.2rem 0;
+        font-size: 1.6rem;
+        margin: 2.5rem 0;
+        min-height: 2.5rem;
     }
 
     .register-link {
-        font-size: 1rem;
-        margin-top: 1.5rem;
+        font-size: 1.6rem;
+        margin-top: 3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-container {
+        padding: 2.5rem 1.8rem;
+    }
+
+    h2 {
+        font-size: 3.2rem;
+    }
+
+    label {
+        font-size: 1.8rem;
+    }
+
+    input {
+        font-size: 1.6rem;
+        padding: 1.6rem;
+        height: 4.5rem;
+    }
+
+    button {
+        font-size: 1.8rem;
+        padding: 1.8rem;
+        height: 4.5rem;
     }
 }
 

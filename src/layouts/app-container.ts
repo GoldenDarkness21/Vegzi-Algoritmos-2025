@@ -7,7 +7,11 @@ class AppContainer extends HTMLElement {
   updateNavbar() {
       const container = this.shadowRoot!.querySelector("#navbar-container");
       if (container) {
-          container.innerHTML = "";  
+          if (window.innerWidth <= 990) {
+              container.innerHTML = "<custom-navbar></custom-navbar>";
+          } else {
+              container.innerHTML = "";
+          }
       }
   }
 
@@ -27,6 +31,7 @@ class AppContainer extends HTMLElement {
               .container {
                   position: relative;
                   overflow: hidden;
+                  min-height: 100vh;
               }
               .curved-background {
                   position: absolute;
@@ -47,6 +52,8 @@ class AppContainer extends HTMLElement {
                   font-size: 4rem;
                   font-weight: bold;
                   color: #38A169;
+                  margin: 0;
+                  padding: 0;
               }
               .image-container {
                   display: flex;
@@ -59,6 +66,7 @@ class AppContainer extends HTMLElement {
                   border-radius: 50%;
                   border: 4px solid white;
                   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                  object-fit: cover;
               }
               .subtitle {
                   margin-top: 2.5rem;
@@ -69,6 +77,8 @@ class AppContainer extends HTMLElement {
               .description {
                   font-size: 1.125rem;
                   color: #A0AEC0;
+                  max-width: 600px;
+                  margin: 1rem auto;
               }
               .carousel-container {
                   position: absolute;
@@ -78,6 +88,7 @@ class AppContainer extends HTMLElement {
                   display: flex;
                   justify-content: center;
                   align-items: center;
+                  padding: 2rem 0;
               }
               .carousel {
                   display: flex;
@@ -88,14 +99,20 @@ class AppContainer extends HTMLElement {
               .carousel-track {
                   display: flex;
                   transition: transform 0.5s ease;
+                  gap: 1rem;
               }
               .carousel-item {
                   min-width: 50px;
-                  margin: 0 10px;
+                  margin: 0;
               }
               .carousel-item img {
                   width: 3rem;
                   height: 3rem;
+                  border-radius: 50%;
+                  transition: transform 0.3s ease;
+              }
+              .carousel-item img:hover {
+                  transform: scale(1.1);
               }
 
               /* Estilos para el contenedor principal de rutas */
@@ -115,12 +132,13 @@ class AppContainer extends HTMLElement {
                   display: none;
               }
 
-              :host(.auth-page) #navbar-container {
+              :host(.auth-page) food-cart {
                   display: none;
               }
 
-              :host(.auth-page) food-cart {
-                  display: none;
+              /* Asegurarnos de que el navbar-container siempre sea visible */
+              #navbar-container {
+                  display: block !important;
               }
 
               /* Cuando estamos en la página principal */
@@ -133,9 +151,88 @@ class AppContainer extends HTMLElement {
                   height: 100vh;
                   padding: 0;
                   margin: 0;
+                  padding-bottom: 8rem; /* Espacio para la barra de navegación */
               }
 
-              
+              /* Estilos responsive */
+              @media (max-width: 990px) {
+                  .title {
+                      font-size: 5rem;
+                      margin-bottom: 3rem;
+                  }
+
+                  .image-container {
+                      margin-top: 4rem;
+                  }
+
+                  .image-container img {
+                      width: 20rem;
+                      height: 20rem;
+                      border-width: 6px;
+                  }
+
+                  .subtitle {
+                      font-size: 2.2rem;
+                      padding: 0 2rem;
+                      margin-top: 4rem;
+                  }
+
+                  .description {
+                      font-size: 1.8rem;
+                      padding: 0 2rem;
+                      margin-top: 2rem;
+                      line-height: 1.8;
+                      max-width: 800px;
+                  }
+
+                  #navbar-container {
+                      position: fixed;
+                      bottom: 0;
+                      left: 0;
+                      right: 0;
+                      z-index: 1000;
+                  }
+
+                  .content {
+                      padding: 6rem 2rem;
+                  }
+
+                  main {
+                      padding-bottom: 9rem;
+                  }
+              }
+
+              @media (max-width: 480px) {
+                  .title {
+                      font-size: 4rem;
+                  }
+
+                  .image-container img {
+                      width: 18rem;
+                      height: 18rem;
+                  }
+
+                  .subtitle {
+                      font-size: 2rem;
+                      padding: 0 1.5rem;
+                      margin-top: 3rem;
+                  }
+
+                  .description {
+                      font-size: 1.6rem;
+                      padding: 0 1.5rem;
+                      margin-top: 1.5rem;
+                      line-height: 1.6;
+                  }
+
+                  .content {
+                      padding: 5rem 1.5rem;
+                  }
+
+                  main {
+                      padding-bottom: 8rem;
+                  }
+              }
           </style>
           <app-bar-pc></app-bar-pc>
           <div class="home-content">
@@ -149,52 +246,7 @@ class AppContainer extends HTMLElement {
                       <p class="subtitle">Descubre el sabor de una vida saludable</p>
                       <p class="description">Encuentra recetas deliciosas y nutritivas para cada día.</p>
                   </div>
-                  <div class="carousel-container">
-                      <div class="carousel">
-                          <div class="carousel-track">
-                              <div class="carousel-item">
-                                  <img src="https://storage.googleapis.com/a1aa/image/uEFfq70OSDOOLwGbfZhm8e3a7UoKvppScB2JW7SnKI4.jpg" alt="Tomato slice">
-                              </div>
-                              <div class="carousel-item">
-                                  <img src="https://storage.googleapis.com/a1aa/image/fLH0SOq7U8Vkg5q1U9xnxRtit1AHi6wF6crw_6ZRZ0E.jpg" alt="Bell pepper slice">
-                              </div>
-                              <div class="carousel-item">
-                                  <img src="https://storage.googleapis.com/a1aa/image/WyMfv_q9uhLgkZkvbhCrWrM4pHGmb0xRSgI0PdTZNnc.jpg" alt="Cucumber slice">
-                              </div>
-                              <div class="carousel-item">
-                                  <img src="https://storage.googleapis.com/a1aa/image/2vQT5HD4ZV8zvD1BOOLo69dNd6VHTLrT_1LuNM_K-bg.jpg" alt="Lettuce leaf">
-                              </div>
-                              <div class="carousel-item">
-                                  <img src="https://storage.googleapis.com/a1aa/image/z8H658_B3G9wookuFelAQbLUXqI2YYnxXpC-oDB3JAA.jpg" alt="Spinach leaf">
-                              </div>
-                              <div class="carousel-item">
-                                  <img src="https://storage.googleapis.com/a1aa/image/kun0oash9RFIAaU7INZEmiPP9IGm8q1iiZVy3l5o1jM.jpg" alt="Red onion slice">
-                              </div>
-                              <div class="carousel-item">
-                                  <img src="https://storage.googleapis.com/a1aa/image/ePh9VA2GckUbAqyjQ_Lsj4dL-e57wHloYMiAegVzyE0.jpg" alt="Mushroom slice">
-                              </div>
-                              <div class="carousel-item">
-                                  <img src="https://storage.googleapis.com/a1aa/image/LZmyjy8B5EOx-g8YmsDl0pNDnMbsryFIzD1oKxBjEAc.jpg" alt="Carrot slice">
-                              </div>
-                              <div class="carousel-item">
-                                  <img src="https://storage.googleapis.com/a1aa/image/Tv_WbfYJSgxNIGODMCIOPAMv_0xb-cB4cu21QLM-_EY.jpg" alt="Broccoli floret">
-                              </div>
-                              <div class="carousel-item">
-                                  <img src="https://storage.googleapis.com/a1aa/image/mWPBPGsOVSnoWTe0AZSc42T7bjXA81-qKq-WQd9a3AY.jpg" alt="Radish slice">
-                              </div>
-                              <div class="carousel-item">
-                                  <img src="https://storage.googleapis.com/a1aa/image/j17QE0DcdQlVxCOys3tYyVClyicqx_a4dTqey8cMLUY.jpg" alt="Cauliflower floret">
-                              </div>
-                              <div class="carousel-item">
-                                  <img src="https://storage.googleapis.com/a1aa/image/ohhFYW0OeR_nDKkGoYMA6GTPghSZ9CMBxpe75AiEVjY.jpg" alt="Zucchini slice">
-                              </div>
-                              <div class="carousel-item">
-                                  <img src="https://storage.googleapis.com/a1aa/image/fLH0SOq7U8Vkg5q1U9xnxRtit1AHi6wF6crw_6ZRZ0E.jpg" alt="Bell pepper slice">
-                              </div>
-                              <div class="carousel-item">
-                                  <img src="https://storage.googleapis.com/a1aa/image/uEFfq70OSDOOLwGbfZhm8e3a7UoKvppScB2JW7SnKI4.jpg" alt="Tomato slice">
-                              </div>
-                          </div>
+                 
                       </div>
                   </div>
               </div>

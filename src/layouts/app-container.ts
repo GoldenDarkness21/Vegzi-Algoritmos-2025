@@ -111,8 +111,8 @@ class AppContainer extends HTMLElement {
                   <div class="image-container">
                       <img src="https://storage.googleapis.com/a1aa/image/dlMms-IXX-fMosMee4GeCmYvrE-Bvxum67-eg4xRr9E.jpg" alt="A plate with a variety of healthy foods including salmon, avocado, tomatoes, and greens">
                   </div>
-                  <p class="subtitle">Descubre el sabor de una vida saludable</p>
-                  <p class="description">Encuentra recetas deliciosas y nutritivas para cada día.</p>
+                  <p class="subtitle">Discover the taste of a healthy life</p>
+                  <p class="description">Find delicious and nutritious recipes for every day</p>
               </div>
           </div>  
           <app-bar-container></app-bar-container>

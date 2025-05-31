@@ -1,4 +1,4 @@
-import { PublicationService } from '../services/publication.service';
+import { PublicationService } from '../services/publication-service';
 import { Publication } from '../types/publication.type';
 
 export class PublicationList extends HTMLElement {
@@ -26,7 +26,7 @@ export class PublicationList extends HTMLElement {
 
     container.innerHTML = publications.map(pub => this.createPublicationCard(pub)).join('');
 
-    // Add click listeners to publication cards
+    
     this.shadowRoot?.querySelectorAll('.publication-card').forEach(card => {
       card.addEventListener('click', () => {
         const publicationId = card.getAttribute('data-id');
@@ -34,15 +34,13 @@ export class PublicationList extends HTMLElement {
           const publication = publications.find(pub => String(pub.id) === publicationId);
           if (publication) {
             const popup = document.createElement('food-popup');
-            // Pasar los datos de la publicación al popup
+            //  Esto lo que hace es pasar los datos de la publicación al popup
             popup.setAttribute('image', publication.imagen);
             popup.setAttribute('title', publication.titulo);
             popup.setAttribute('description', publication.descripcion);
             popup.setAttribute('ingredients', JSON.stringify(publication.ingredientes));
             popup.setAttribute('time', publication.tiempo);
-            popup.setAttribute('calories', publication.calorias.toString()); // Asegúrate de que calories sea string si es un número
-            // Asegúrate de pasar los likes si existen en tu tipo Publication
-            // popup.setAttribute('likes', publication.likes.toString());
+            popup.setAttribute('calories', publication.calorias.toString());
             document.body.appendChild(popup);
           }
         }
@@ -62,9 +60,9 @@ export class PublicationList extends HTMLElement {
     this.shadowRoot!.innerHTML = `
       <style>
         .publications-container {
-          column-count: 3; /* Number of columns */
-          column-gap: 24px; /* Gap between columns */
-          padding: 24px; /* Espacio alrededor del contenedor */
+          column-count: 3; 
+          column-gap: 24px; 
+          padding: 24px; 
         }
 
         .publication-card {
@@ -73,10 +71,10 @@ export class PublicationList extends HTMLElement {
           overflow: hidden;
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
           transition: transform 0.3s ease, box-shadow 0.3s ease;
-          display: inline-block; /* Important for column-count */
-          width: 100%; /* Take full width of the column */
-          margin-bottom: 24px; /* Espacio entre tarjetas en columnas */
-          position: relative; /* Mantener si es necesario para otros estilos */
+          display: inline-block;
+          width: 100%; 
+          margin-bottom: 24px; 
+          position: relative; 
           cursor: pointer;
         }
 
@@ -88,10 +86,9 @@ export class PublicationList extends HTMLElement {
         .publication-card img {
           display: block;
           width: 100%;
-          height: auto; /* Auto height for variable image heights */
+          height: auto; 
         }
 
-        /* Eliminados estilos de .publication-title-overlay */
 
         @media (max-width: 1024px) {
           .publications-container {
@@ -102,11 +99,11 @@ export class PublicationList extends HTMLElement {
         @media (max-width: 768px) {
           .publications-container {
             column-count: 1;
-            padding: 16px; /* Ajustar padding en pantallas pequeñas */
+            padding: 16px; 
           }
 
           .publication-card {
-            margin-bottom: 16px; /* Ajustar espacio entre tarjetas en pantallas pequeñas */
+            margin-bottom: 16px; 
           }
         }
       </style>

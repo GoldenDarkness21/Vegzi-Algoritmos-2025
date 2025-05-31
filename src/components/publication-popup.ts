@@ -1,4 +1,4 @@
-import { PublicationService } from '../services/publication.service';
+import { PublicationService } from '../services/publication-service';
 
 export class PublicationPopup extends HTMLElement {
   private publicationService: PublicationService;

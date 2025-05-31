@@ -61,4 +61,6 @@ export class PublicationButton extends HTMLElement {
   }
 }
 
-customElements.define('publication-button', PublicationButton); 
+if (!customElements.get('publication-button')) {
+  customElements.define('publication-button', PublicationButton);
+} 

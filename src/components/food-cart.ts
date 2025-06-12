@@ -100,7 +100,7 @@ export class FoodCart extends HTMLElement {
           });
         });
       } else {
-        console.error("No se encontró el contenedor .masonry-grid");
+        console.error("No container found .masonry-grid");
       }
     } catch (error) {
       console.error("Error loading food items:", error);

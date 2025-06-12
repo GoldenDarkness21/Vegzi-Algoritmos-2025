@@ -7,7 +7,7 @@ export class AppBarContainer extends HTMLElement {
                 --bar-height: 60px;
                 height: var(--bar-height);
                 margin-bottom: 20px;
-                z-index: 10;
+                z-index: 1000;
             }
 
             app-bar-pc {

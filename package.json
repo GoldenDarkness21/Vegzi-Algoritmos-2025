@@ -41,7 +41,7 @@
     "webpack-dev-server": "^5.2.1"
   },
   "dependencies": {
-    "firebase": "^11.8.1",
+    "firebase": "^11.9.1",
     "husky": "^9.1.7",
     "imagesloaded": "^5.0.0",
     "masonry-layout": "^4.2.2"

@@ -15,10 +15,6 @@ import "./components/publication-popup";
 // initialize auth listener
 initAuthListener();
 
-document.body.innerHTML = "<app-container></app-container>";
-
-// initialize router
-handleRoute();
 const appContainer = document.createElement('app-container');
 const publicationList = document.createElement('publication-list');
 const publicationButton = document.createElement('publication-button');
@@ -26,4 +22,7 @@ const publicationButton = document.createElement('publication-button');
 appContainer.appendChild(publicationList);
 appContainer.appendChild(publicationButton);
 document.body.appendChild(appContainer);
+
+// initialize router
+handleRoute();
 

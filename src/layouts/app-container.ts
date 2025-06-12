@@ -251,8 +251,6 @@ class AppContainer extends HTMLElement {
                   </div>
               </div>
           </div>
-          <main></main>
-          <food-cart></food-cart>
           <div id="navbar-container"></div>
           <slot></slot>
       `;

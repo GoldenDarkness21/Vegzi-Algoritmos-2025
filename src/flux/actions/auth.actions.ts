@@ -17,7 +17,6 @@ import {
     updateProfile
 } from 'firebase/auth';
 import { auth } from '../../config/firebase.config';
-import { createUserProfile } from '../../services/firestore.service';
 
 // Login actions
 export const loginRequest = (): LoginRequestAction => {
@@ -130,15 +129,6 @@ export const registerWithEmailAndPassword = async (name: string, email: string, 
 
         const { uid } = userCredential.user;
         
-        // create user profile in firestore
-        await createUserProfile(uid, {
-            name,
-            email,
-            photoURL: '',
-            bio: '',
-            favoriteRecipes: []
-        });
-
         registerSuccess({ 
             id: uid,
             name,

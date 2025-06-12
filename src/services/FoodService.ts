@@ -1,4 +1,11 @@
 import { FoodItem } from "../types/food.types";
+
+// Las funciones relacionadas con Firestore han sido eliminadas.
+// Si necesitas una implementación alternativa (por ejemplo, con localStorage),
+// por favor, házmelo saber.
+
+/*
+// Comentado para eliminar las dependencias de Firestore
 import { 
     getAllRecipes, 
     getPopularRecipes, 
@@ -60,3 +67,4 @@ export async function likeRecipe(recipeId: string): Promise<void> {
         throw error;
     }
 }
+*/

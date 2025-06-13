@@ -26,7 +26,16 @@ class AppContainer extends HTMLElement {
       }
 
       const currentPath = document.location.pathname;
-      debugRoute('🏠 App-container: Actualizando contenido para:', currentPath);
+      console.log('🔥 App-container: updateMainContent llamado para:', currentPath);
+
+      // APLICAR CLASES CSS SEGÚN LA RUTA ACTUAL
+      this.className = ''; // Limpiar clases anteriores
+      if (currentPath === '/') {
+          this.classList.add('home-page');
+      } else if (currentPath.startsWith('/profile')) {
+          this.classList.add('profile-page');
+      }
+      console.log('🔥 App-container: Clases aplicadas:', this.className);
 
       const routes = [
           {route: /^\/$/, tag: '<main-view></main-view>'},
@@ -36,12 +45,31 @@ class AppContainer extends HTMLElement {
       const currentTag = routes.find(
           el => !!currentPath.match(el.route))?.tag
 
-      debugRoute('🏠 App-container: Tag encontrado:', currentTag);
-
       const main = this.shadowRoot.querySelector('main');
       if (main) {
+          // Verificar si ya tenemos el contenido correcto
+          if (main.innerHTML.trim() === (currentTag || '').trim()) {
+              console.log('🔥 App-container: Contenido ya es correcto, saltando actualización');
+              return;
+          }
+          
+          console.log('🔥 App-container: Insertando en main:', currentTag);
+          console.log('🔥 App-container: Contenido anterior:', main.innerHTML);
           main.innerHTML = currentTag || '';
-          debugRoute('🏠 App-container: Contenido actualizado en <main>');
+          console.log('🔥 App-container: Nuevo contenido:', main.innerHTML);
+          
+          // Verificar si el elemento se creó
+          setTimeout(() => {
+              const profileView = main.querySelector('profile-view');
+              console.log('🔥 App-container: Elemento profile-view encontrado:', profileView);
+              if (profileView) {
+                  console.log('🔥 App-container: profile-view existe, verificando su shadowRoot:', profileView.shadowRoot);
+                  console.log('🔥 App-container: profile-view contenido innerHTML:', profileView.innerHTML);
+              } else {
+                  console.error('🔥 App-container: profile-view NO fue encontrado en main');
+                  console.log('🔥 App-container: Contenido actual de main:', main.innerHTML);
+              }
+          }, 100);
       } else {
           debugRoute('❌ App-container: No se encontró elemento <main>');
       }
@@ -51,13 +79,23 @@ class AppContainer extends HTMLElement {
       if (!this.shadowRoot)
           return
 
+      const currentPath = document.location.pathname;
+      
+      // APLICAR CLASES CSS SEGÚN LA RUTA ACTUAL
+      this.className = ''; // Limpiar clases anteriores
+      if (currentPath === '/') {
+          this.classList.add('home-page');
+      } else if (currentPath.startsWith('/profile')) {
+          this.classList.add('profile-page');
+      }
+
       const routes = [
           {route: /^\/$/, tag: '<main-view></main-view>'},
           {route: /^\/profile\/?/, tag: '<profile-view></profile-view>'}
       ]
 
       const currentTag = routes.find(
-          el => !!document.location.pathname.match(el.route))?.tag
+          el => !!currentPath.match(el.route))?.tag
 
       this.shadowRoot.innerHTML = `
           <style>
@@ -162,9 +200,23 @@ class AppContainer extends HTMLElement {
               /* Estilos para el contenedor principal de rutas */
               main {
                   min-height: 100vh;
+                  display: block;
+                  width: 100%;
+              }
+              
+              /* Para la página principal, centramos el contenido */
+              :host(.home-page) main {
                   display: flex;
                   justify-content: center;
                   align-items: center;
+              }
+              
+              /* Para la página de perfil, usar layout normal */
+              :host(.profile-page) main {
+                  display: block;
+                  width: 100%;
+                  padding: 0;
+                  margin: 0;
               }
 
               /* Cuando estamos en páginas de autenticación */
@@ -313,14 +365,12 @@ class AppContainer extends HTMLElement {
       window.addEventListener('popstate', this.updateMainContent.bind(this));
       
       // Escuchar eventos personalizados de navegación
-      document.addEventListener('navigate', this.updateMainContent.bind(this));
       document.addEventListener('route-changed', this.updateMainContent.bind(this));
   }
 
   disconnectedCallback() {
       window.removeEventListener("resize", this.updateNavbar.bind(this));
       window.removeEventListener('popstate', this.updateMainContent.bind(this));
-      document.removeEventListener('navigate', this.updateMainContent.bind(this));
       document.removeEventListener('route-changed', this.updateMainContent.bind(this));
   }
 }

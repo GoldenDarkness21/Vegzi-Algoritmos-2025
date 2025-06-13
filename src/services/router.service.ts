@@ -50,14 +50,23 @@ export const handleRoute = () => {
         case '/profile':
             debugRoute('✅ Ruta de perfil - delegando a app-container');
             // La vista de perfil se maneja en app-container con profile-view
-            // Solo necesitamos limpiar el mainContent para evitar conflictos
             appContainer.classList.add('profile-page');
-            mainContent.innerHTML = '';
+            // NO limpiar mainContent aquí porque app-container se encarga de actualizarlo
             break;
         default:
-            debugRoute('❌ Ruta no encontrada:', path);
-            appContainer.classList.add('home-page');
-            mainContent.innerHTML = '<div>404 - Página no encontrada</div>';
+            // Verificar si es una subruta de profile
+            if (path.startsWith('/profile')) {
+                debugRoute('✅ Subruta de perfil - delegando a app-container:', path);
+                appContainer.classList.add('profile-page');
+                // Disparar evento para actualizar ProfileView
+                document.dispatchEvent(new CustomEvent('route-changed', { 
+                    detail: { path } 
+                }));
+            } else {
+                debugRoute('❌ Ruta no encontrada:', path);
+                appContainer.classList.add('home-page');
+                mainContent.innerHTML = '<div>404 - Página no encontrada</div>';
+            }
     }
 };
 

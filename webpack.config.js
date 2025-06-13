@@ -1,5 +1,6 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
+import Dotenv from 'dotenv-webpack';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -52,6 +53,10 @@ export default {
       patterns: [
         { from: 'public', to: '.' },
       ],
+    }),
+    new Dotenv({
+      systemvars: true,
+      safe: false,
     }),
   ],
 };

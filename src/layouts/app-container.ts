@@ -1,3 +1,7 @@
+import "./../views/MainView"
+import "./../views/ProfileView"
+import { debugRoute } from "../config/environment.config"
+
 class AppContainer extends HTMLElement {
   constructor() {
       super();
@@ -15,10 +19,88 @@ class AppContainer extends HTMLElement {
       }
   }
 
+  private updateMainContent() {
+      if (!this.shadowRoot) {
+          debugRoute('❌ App-container: No shadowRoot disponible');
+          return;
+      }
+
+      const currentPath = document.location.pathname;
+      console.log('🔥 App-container: updateMainContent llamado para:', currentPath);
+
+      // APLICAR CLASES CSS SEGÚN LA RUTA ACTUAL
+      this.className = ''; // Limpiar clases anteriores
+      if (currentPath === '/') {
+          this.classList.add('home-page');
+      } else if (currentPath.startsWith('/profile')) {
+          this.classList.add('profile-page');
+      }
+      console.log('🔥 App-container: Clases aplicadas:', this.className);
+
+      const routes = [
+          {route: /^\/$/, tag: '<main-view></main-view>'},
+          {route: /^\/profile\/?/, tag: '<profile-view></profile-view>'}
+      ]
+
+      const currentTag = routes.find(
+          el => !!currentPath.match(el.route))?.tag
+
+      const main = this.shadowRoot.querySelector('main');
+      if (main) {
+          // Verificar si ya tenemos el contenido correcto
+          if (main.innerHTML.trim() === (currentTag || '').trim()) {
+              console.log('🔥 App-container: Contenido ya es correcto, saltando actualización');
+              return;
+          }
+          
+          console.log('🔥 App-container: Insertando en main:', currentTag);
+          console.log('🔥 App-container: Contenido anterior:', main.innerHTML);
+          main.innerHTML = currentTag || '';
+          console.log('🔥 App-container: Nuevo contenido:', main.innerHTML);
+          
+          // Verificar si el elemento se creó
+          setTimeout(() => {
+              const profileView = main.querySelector('profile-view');
+              console.log('🔥 App-container: Elemento profile-view encontrado:', profileView);
+              if (profileView) {
+                  console.log('🔥 App-container: profile-view existe, verificando su shadowRoot:', profileView.shadowRoot);
+                  console.log('🔥 App-container: profile-view contenido innerHTML:', profileView.innerHTML);
+              } else {
+                  console.error('🔥 App-container: profile-view NO fue encontrado en main');
+                  console.log('🔥 App-container: Contenido actual de main:', main.innerHTML);
+              }
+          }, 100);
+      } else {
+          debugRoute('❌ App-container: No se encontró elemento <main>');
+      }
+  }
+
   connectedCallback() {
-      this.shadowRoot!.innerHTML = `
+      if (!this.shadowRoot)
+          return
+
+      const currentPath = document.location.pathname;
+      
+      // APLICAR CLASES CSS SEGÚN LA RUTA ACTUAL
+      this.className = ''; // Limpiar clases anteriores
+      if (currentPath === '/') {
+          this.classList.add('home-page');
+      } else if (currentPath.startsWith('/profile')) {
+          this.classList.add('profile-page');
+      }
+
+      const routes = [
+          {route: /^\/$/, tag: '<main-view></main-view>'},
+          {route: /^\/profile\/?/, tag: '<profile-view></profile-view>'}
+      ]
+
+      const currentTag = routes.find(
+          el => !!currentPath.match(el.route))?.tag
+
+      this.shadowRoot.innerHTML = `
           <style>
               :host {
+                  min-height: 100dvh;
                   display: block;
                   font-family: sans-serif;
               }
@@ -118,9 +200,23 @@ class AppContainer extends HTMLElement {
               /* Estilos para el contenedor principal de rutas */
               main {
                   min-height: 100vh;
+                  display: block;
+                  width: 100%;
+              }
+              
+              /* Para la página principal, centramos el contenido */
+              :host(.home-page) main {
                   display: flex;
                   justify-content: center;
                   align-items: center;
+              }
+              
+              /* Para la página de perfil, usar layout normal */
+              :host(.profile-page) main {
+                  display: block;
+                  width: 100%;
+                  padding: 0;
+                  margin: 0;
               }
 
               /* Cuando estamos en páginas de autenticación */
@@ -133,6 +229,15 @@ class AppContainer extends HTMLElement {
               }
 
               :host(.auth-page) food-cart {
+                  display: none;
+              }
+
+              /* Cuando estamos en la página de perfil */
+              :host(.profile-page) .home-content {
+                  display: none;
+              }
+
+              :host(.profile-page) food-cart {
                   display: none;
               }
 
@@ -234,7 +339,7 @@ class AppContainer extends HTMLElement {
                   }
               }
           </style>
-          <app-bar-pc></app-bar-pc>
+          <app-bar-container></app-bar-container>
           <div class="home-content">
               <div class="container">
                   <div class="curved-background"></div>
@@ -246,21 +351,27 @@ class AppContainer extends HTMLElement {
                       <p class="subtitle">Descubre el sabor de una vida saludable</p>
                       <p class="description">Encuentra recetas deliciosas y nutritivas para cada día.</p>
                   </div>
-                 
-                      </div>
-                  </div>
               </div>
           </div>
+          <main>${currentTag || ''}</main>
+          <food-cart></food-cart>
           <div id="navbar-container"></div>
-          <slot></slot>
       `;
 
       this.updateNavbar();
       window.addEventListener("resize", this.updateNavbar.bind(this));
+      
+      // Escuchar cambios de navegación para actualizar el contenido principal
+      window.addEventListener('popstate', this.updateMainContent.bind(this));
+      
+      // Escuchar eventos personalizados de navegación
+      document.addEventListener('route-changed', this.updateMainContent.bind(this));
   }
 
   disconnectedCallback() {
       window.removeEventListener("resize", this.updateNavbar.bind(this));
+      window.removeEventListener('popstate', this.updateMainContent.bind(this));
+      document.removeEventListener('route-changed', this.updateMainContent.bind(this));
   }
 }
 

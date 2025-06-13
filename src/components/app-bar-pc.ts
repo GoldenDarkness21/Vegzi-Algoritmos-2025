@@ -88,10 +88,6 @@ export class AppBarPc extends HTMLElement {
                     backdrop-filter: blur(10px);
                     height: var(--bar-height);
                     border-bottom: 1px solid #ddd;
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    right: 0;
                     display: flex;
                     align-items: center;
                     z-index: 1000;

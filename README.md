@@ -70,3 +70,7 @@ Husky
 Eslint
 
 Firebase (por definir si aplica)
+
+Deploy 
+
+https://grand-cuchufli-ddb870.netlify.app/

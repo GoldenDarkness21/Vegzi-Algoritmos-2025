@@ -13,6 +13,7 @@ export default {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
+    publicPath: '/',
   },
   resolve: {
     extensions: ['.ts', '.js'],
@@ -31,15 +32,19 @@ export default {
     ],
   },
   devServer: {
-    static: './dist',
-    port: 3000,
-    open: true,
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
+    historyApiFallback: true,
+    compress: true,
+    port: 8080,
+    hot: true,
   },
   mode: 'development',
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'src/index.html',
+      template: './src/index.html',
       filename: 'index.html',
     }),
     new CopyPlugin({

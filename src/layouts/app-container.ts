@@ -5,12 +5,13 @@ class AppContainer extends HTMLElement {
   }
 
   updateNavbar() {
-      const isMobile = window.innerWidth < 990;
       const container = this.shadowRoot!.querySelector("#navbar-container");
       if (container) {
-          container.innerHTML = isMobile
-              ? "<custom-navbar></custom-navbar>"
-              : "<desktop-navbar></desktop-navbar>";
+          if (window.innerWidth <= 990) {
+              container.innerHTML = "<custom-navbar></custom-navbar>";
+          } else {
+              container.innerHTML = "";
+          }
       }
   }
 
@@ -19,11 +20,8 @@ class AppContainer extends HTMLElement {
           <style>
               :host {
                   display: block;
-                  padding: 20px;
                   font-family: sans-serif;
               }
-          </style>
-          <style>
               body {
                   font-family: 'Montserrat', sans-serif;
                   margin: 0;
@@ -33,6 +31,7 @@ class AppContainer extends HTMLElement {
               .container {
                   position: relative;
                   overflow: hidden;
+                  min-height: 100vh;
               }
               .curved-background {
                   position: absolute;
@@ -53,6 +52,8 @@ class AppContainer extends HTMLElement {
                   font-size: 4rem;
                   font-weight: bold;
                   color: #38A169;
+                  margin: 0;
+                  padding: 0;
               }
               .image-container {
                   display: flex;
@@ -65,6 +66,7 @@ class AppContainer extends HTMLElement {
                   border-radius: 50%;
                   border: 4px solid white;
                   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                  object-fit: cover;
               }
               .subtitle {
                   margin-top: 2.5rem;
@@ -75,6 +77,8 @@ class AppContainer extends HTMLElement {
               .description {
                   font-size: 1.125rem;
                   color: #A0AEC0;
+                  max-width: 600px;
+                  margin: 1rem auto;
               }
               .carousel-container {
                   position: absolute;
@@ -84,6 +88,7 @@ class AppContainer extends HTMLElement {
                   display: flex;
                   justify-content: center;
                   align-items: center;
+                  padding: 2rem 0;
               }
               .carousel {
                   display: flex;
@@ -94,29 +99,158 @@ class AppContainer extends HTMLElement {
               .carousel-track {
                   display: flex;
                   transition: transform 0.5s ease;
+                  gap: 1rem;
               }
               .carousel-item {
                   min-width: 50px;
-                  margin: 0 10px;
+                  margin: 0;
               }
               .carousel-item img {
                   width: 3rem;
                   height: 3rem;
+                  border-radius: 50%;
+                  transition: transform 0.3s ease;
+              }
+              .carousel-item img:hover {
+                  transform: scale(1.1);
+              }
+
+              /* Estilos para el contenedor principal de rutas */
+              main {
+                  min-height: 100vh;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+              }
+
+              /* Cuando estamos en páginas de autenticación */
+              :host(.auth-page) .home-content {
+                  display: none;
+              }
+
+              :host(.auth-page) app-bar-pc {
+                  display: none;
+              }
+
+              :host(.auth-page) food-cart {
+                  display: none;
+              }
+
+              /* Asegurarnos de que el navbar-container siempre sea visible */
+              #navbar-container {
+                  display: block !important;
+              }
+
+              /* Cuando estamos en la página principal */
+              :host(.home-page) .home-content {
+                  display: block;
+              }
+
+              /* Ajuste para que los formularios de autenticación ocupen toda la altura */
+              :host(.auth-page) main {
+                  height: 100vh;
+                  padding: 0;
+                  margin: 0;
+                  padding-bottom: 8rem; /* Espacio para la barra de navegación */
+              }
+
+              /* Estilos responsive */
+              @media (max-width: 990px) {
+                  .title {
+                      font-size: 5rem;
+                      margin-bottom: 3rem;
+                  }
+
+                  .image-container {
+                      margin-top: 4rem;
+                  }
+
+                  .image-container img {
+                      width: 20rem;
+                      height: 20rem;
+                      border-width: 6px;
+                  }
+
+                  .subtitle {
+                      font-size: 2.2rem;
+                      padding: 0 2rem;
+                      margin-top: 4rem;
+                  }
+
+                  .description {
+                      font-size: 1.8rem;
+                      padding: 0 2rem;
+                      margin-top: 2rem;
+                      line-height: 1.8;
+                      max-width: 800px;
+                  }
+
+                  #navbar-container {
+                      position: fixed;
+                      bottom: 0;
+                      left: 0;
+                      right: 0;
+                      z-index: 1000;
+                  }
+
+                  .content {
+                      padding: 6rem 2rem;
+                  }
+
+                  main {
+                      padding-bottom: 9rem;
+                  }
+              }
+
+              @media (max-width: 480px) {
+                  .title {
+                      font-size: 4rem;
+                  }
+
+                  .image-container img {
+                      width: 18rem;
+                      height: 18rem;
+                  }
+
+                  .subtitle {
+                      font-size: 2rem;
+                      padding: 0 1.5rem;
+                      margin-top: 3rem;
+                  }
+
+                  .description {
+                      font-size: 1.6rem;
+                      padding: 0 1.5rem;
+                      margin-top: 1.5rem;
+                      line-height: 1.6;
+                  }
+
+                  .content {
+                      padding: 5rem 1.5rem;
+                  }
+
+                  main {
+                      padding-bottom: 8rem;
+                  }
               }
           </style>
-          <div class="container">
-              <div class="curved-background"></div>
-              <div class="content">
-                  <h1 class="title">VEGZI</h1>
-                  <div class="image-container">
-                      <img src="https://storage.googleapis.com/a1aa/image/dlMms-IXX-fMosMee4GeCmYvrE-Bvxum67-eg4xRr9E.jpg" alt="A plate with a variety of healthy foods including salmon, avocado, tomatoes, and greens">
+          <app-bar-pc></app-bar-pc>
+          <div class="home-content">
+              <div class="container">
+                  <div class="curved-background"></div>
+                  <div class="content">
+                      <h1 class="title">VEGZI</h1>
+                      <div class="image-container">
+                          <img src="https://storage.googleapis.com/a1aa/image/dlMms-IXX-fMosMee4GeCmYvrE-Bvxum67-eg4xRr9E.jpg" alt="A plate with a variety of healthy foods including salmon, avocado, tomatoes, and greens">
+                      </div>
+                      <p class="subtitle">Descubre el sabor de una vida saludable</p>
+                      <p class="description">Encuentra recetas deliciosas y nutritivas para cada día.</p>
                   </div>
-                  <p class="subtitle">Discover the taste of a healthy life</p>
-                  <p class="description">Find delicious and nutritious recipes for every day</p>
+                 
+                      </div>
+                  </div>
               </div>
-          </div>  
-          <app-bar-container></app-bar-container>
-          <food-cart></food-cart>
+          </div>
           <div id="navbar-container"></div>
           <slot></slot>
       `;

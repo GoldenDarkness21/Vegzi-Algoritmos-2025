@@ -18,6 +18,7 @@ import {
 } from 'firebase/auth';
 import { auth } from '../../config/firebase.config';
 import { createUserProfile } from '../../services/firestore.service';
+import { setRegistering } from '../../services/auth.service';
 
 // Login actions
 export const loginRequest = (): LoginRequestAction => {
@@ -119,6 +120,7 @@ export const loginWithEmailAndPassword = async (email: string, password: string)
 export const registerWithEmailAndPassword = async (name: string, email: string, password: string) => {
     try {
         registerRequest();
+        setRegistering(true);
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         
         // update user profile with their name
@@ -139,12 +141,17 @@ export const registerWithEmailAndPassword = async (name: string, email: string, 
             favoriteRecipes: []
         });
 
+        // Cerrar sesión después del registro exitoso
+        await signOut(auth);
+        setRegistering(false);
+        
         registerSuccess({ 
             id: uid,
             name,
             email 
         });
     } catch (error) {
+        setRegistering(false);
         let errorMessage = 'Error unknown';
         if (error instanceof Error) {
             // custom error messages

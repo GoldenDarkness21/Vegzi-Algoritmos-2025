@@ -1,6 +1,7 @@
 import "./components/app-bar-container";
 import "./components/app-bar-pc";
 import "./components/food-popup";
+import "./components/food-cart";
 import "./layouts/app-container";
 import "./components/navbar/navbar";
 import "./components/auth/login-form";

@@ -1,0 +1,881 @@
+[
+  {
+    "id": 1,
+    "image": "ensalada-cesar.jpg",
+    "title": "Caesar Salad",
+    "description": "A classic Caesar salad with crispy romaine lettuce, creamy dressing, croutons, and parmesan cheese.",
+    "ingredients": [
+      "1 romaine lettuce",
+      "1/2 cup croutons",
+      "1/4 cup grated parmesan cheese",
+      "1 grilled chicken breast (optional)",
+      "Caesar dressing to taste",
+      "Salt and pepper to taste",
+      "1 teaspoon lemon juice"
+    ],
+    "time": "15 minutes",
+    "likes": 248,
+    "calories": 320
+  },
+  {
+    "id": 2,
+    "image": "avocado-toast.jpg",
+    "title": "Avocado Toast with Poached Egg",
+    "description": "A healthy breakfast classic featuring mashed avocado on whole grain toast topped with a perfectly poached egg.",
+    "ingredients": [
+      "2 slices whole grain bread",
+      "1 ripe avocado",
+      "2 fresh eggs",
+      "Red pepper flakes",
+      "Sea salt",
+      "Black pepper",
+      "Microgreens for garnish"
+    ],
+    "time": "15 minutes",
+    "likes": 342,
+    "calories": 380
+  },
+  {
+    "id": 3,
+    "image": "overnight-oats.jpg",
+    "title": "Berry Overnight Oats",
+    "description": "Creamy overnight oats with mixed berries, chia seeds, and honey. Perfect for busy mornings.",
+    "ingredients": [
+      "1 cup rolled oats",
+      "1 cup almond milk",
+      "1 tablespoon chia seeds",
+      "Mixed berries",
+      "Honey to taste",
+      "Sliced almonds",
+      "Cinnamon"
+    ],
+    "time": "5 minutes + overnight",
+    "likes": 289,
+    "calories": 310
+  },
+  {
+    "id": 4,
+    "image": "greek-yogurt-bowl.jpg",
+    "title": "Greek Yogurt Power Bowl",
+    "description": "Protein-rich Greek yogurt topped with granola, fresh fruits, and a drizzle of honey.",
+    "ingredients": [
+      "1 cup Greek yogurt",
+      "1/2 cup granola",
+      "Assorted fresh fruits",
+      "1 tablespoon honey",
+      "Mint leaves",
+      "Chia seeds"
+    ],
+    "time": "10 minutes",
+    "likes": 276,
+    "calories": 290
+  },
+  {
+    "id": 5,
+    "image": "quinoa-bowl.jpg",
+    "title": "Mediterranean Quinoa Bowl",
+    "description": "A hearty lunch bowl with quinoa, roasted vegetables, and Mediterranean flavors.",
+    "ingredients": [
+      "1 cup quinoa",
+      "Roasted vegetables",
+      "Cherry tomatoes",
+      "Cucumber",
+      "Feta cheese",
+      "Kalamata olives",
+      "Olive oil dressing"
+    ],
+    "time": "30 minutes",
+    "likes": 367,
+    "calories": 420
+  },
+  {
+    "id": 6,
+    "image": "chicken-wrap.jpg",
+    "title": "Grilled Chicken Wrap",
+    "description": "Healthy wrap filled with grilled chicken, fresh vegetables, and yogurt sauce.",
+    "ingredients": [
+      "Whole wheat tortilla",
+      "Grilled chicken breast",
+      "Mixed greens",
+      "Tomatoes",
+      "Cucumber",
+      "Greek yogurt sauce",
+      "Avocado"
+    ],
+    "time": "20 minutes",
+    "likes": 312,
+    "calories": 450
+  },
+  {
+    "id": 7,
+    "image": "smoothie-bowl.jpg",
+    "title": "Tropical Smoothie Bowl",
+    "description": "Refreshing smoothie bowl with mango, banana, and coconut toppings.",
+    "ingredients": [
+      "Frozen mango",
+      "Banana",
+      "Coconut milk",
+      "Granola",
+      "Chia seeds",
+      "Fresh fruits for topping",
+      "Honey"
+    ],
+    "time": "15 minutes",
+    "likes": 423,
+    "calories": 340
+  },
+  {
+    "id": 8,
+    "image": "salmon-dinner.jpg",
+    "title": "Herb-Crusted Salmon",
+    "description": "Oven-baked salmon with a crispy herb crust, served with roasted vegetables.",
+    "ingredients": [
+      "Salmon fillet",
+      "Fresh herbs",
+      "Lemon",
+      "Garlic",
+      "Olive oil",
+      "Mixed vegetables",
+      "Quinoa"
+    ],
+    "time": "25 minutes",
+    "likes": 389,
+    "calories": 480
+  },
+  {
+    "id": 9,
+    "image": "buddha-bowl.jpg",
+    "title": "Vegetarian Buddha Bowl",
+    "description": "Nourishing bowl with roasted chickpeas, fresh vegetables, and tahini dressing.",
+    "ingredients": [
+      "Chickpeas",
+      "Sweet potato",
+      "Kale",
+      "Quinoa",
+      "Avocado",
+      "Tahini dressing",
+      "Pumpkin seeds"
+    ],
+    "time": "35 minutes",
+    "likes": 456,
+    "calories": 390
+  },
+  {
+    "id": 10,
+    "image": "protein-balls.jpg",
+    "title": "Energy Protein Balls",
+    "description": "No-bake protein balls perfect for a healthy snack or post-workout boost.",
+    "ingredients": [
+      "Dates",
+      "Almonds",
+      "Protein powder",
+      "Cocoa powder",
+      "Chia seeds",
+      "Honey",
+      "Coconut flakes"
+    ],
+    "time": "15 minutes",
+    "likes": 234,
+    "calories": 180
+  },
+  {
+    "id": 11,
+    "image": "chia-pudding.jpg",
+    "title": "Vanilla Chia Pudding",
+    "description": "Creamy chia seed pudding with vanilla and fresh berries.",
+    "ingredients": [
+      "Chia seeds",
+      "Almond milk",
+      "Vanilla extract",
+      "Mixed berries",
+      "Honey",
+      "Mint leaves",
+      "Granola"
+    ],
+    "time": "5 minutes + 4 hours setting",
+    "likes": 298,
+    "calories": 220
+  },
+  {
+    "id": 12,
+    "image": "veggie-stir-fry.jpg",
+    "title": "Tofu Vegetable Stir-Fry",
+    "description": "Quick and healthy stir-fried vegetables with crispy tofu in a ginger-soy sauce.",
+    "ingredients": [
+      "Firm tofu",
+      "Mixed vegetables",
+      "Ginger",
+      "Garlic",
+      "Soy sauce",
+      "Sesame oil",
+      "Brown rice"
+    ],
+    "time": "25 minutes",
+    "likes": 345,
+    "calories": 380
+  },
+  {
+    "id": 13,
+    "image": "hummus-platter.jpg",
+    "title": "Homemade Hummus Platter",
+    "description": "Creamy homemade hummus served with fresh vegetables and whole grain pita.",
+    "ingredients": [
+      "Chickpeas",
+      "Tahini",
+      "Lemon juice",
+      "Olive oil",
+      "Fresh vegetables",
+      "Pita bread",
+      "Pine nuts"
+    ],
+    "time": "20 minutes",
+    "likes": 267,
+    "calories": 290
+  },
+  {
+    "id": 14,
+    "image": "acai-bowl.jpg",
+    "title": "Antioxidant Açaí Bowl",
+    "description": "Nutrient-rich açaí bowl topped with fresh fruits and granola.",
+    "ingredients": [
+      "Açaí powder",
+      "Frozen berries",
+      "Banana",
+      "Almond milk",
+      "Granola",
+      "Fresh fruits",
+      "Honey"
+    ],
+    "time": "15 minutes",
+    "likes": 412,
+    "calories": 320
+  },
+  {
+    "id": 15,
+    "image": "zucchini-pasta.jpg",
+    "title": "Zucchini Noodles with Pesto",
+    "description": "Light and fresh zucchini noodles tossed in homemade basil pesto.",
+    "ingredients": [
+      "Zucchini",
+      "Fresh basil",
+      "Pine nuts",
+      "Garlic",
+      "Parmesan cheese",
+      "Olive oil",
+      "Cherry tomatoes"
+    ],
+    "time": "20 minutes",
+    "likes": 356,
+    "calories": 250
+  },
+  {
+    "id": 16,
+    "image": "protein-pancakes.jpg",
+    "title": "Protein Pancakes",
+    "description": "Fluffy protein-packed pancakes topped with fresh berries and maple syrup.",
+    "ingredients": [
+      "Protein powder",
+      "Oat flour",
+      "Banana",
+      "Egg whites",
+      "Almond milk",
+      "Mixed berries",
+      "Maple syrup"
+    ],
+    "time": "20 minutes",
+    "likes": 378,
+    "calories": 340
+  },
+  {
+    "id": 17,
+    "image": "lentil-soup.jpg",
+    "title": "Hearty Lentil Soup",
+    "description": "Warming lentil soup with vegetables and aromatic spices.",
+    "ingredients": [
+      "Red lentils",
+      "Carrots",
+      "Celery",
+      "Onion",
+      "Garlic",
+      "Cumin",
+      "Vegetable broth"
+    ],
+    "time": "40 minutes",
+    "likes": 289,
+    "calories": 310
+  },
+  {
+    "id": 18,
+    "image": "fruit-parfait.jpg",
+    "title": "Fresh Fruit Parfait",
+    "description": "Layered yogurt parfait with fresh fruits, granola, and honey.",
+    "ingredients": [
+      "Greek yogurt",
+      "Mixed fresh fruits",
+      "Granola",
+      "Honey",
+      "Chia seeds",
+      "Mint leaves",
+      "Nuts"
+    ],
+    "time": "10 minutes",
+    "likes": 245,
+    "calories": 280
+  },
+  {
+    "id": 19,
+    "image": "quinoa-salad.jpg",
+    "title": "Rainbow Quinoa Salad",
+    "description": "Colorful quinoa salad packed with vegetables and citrus dressing.",
+    "ingredients": [
+      "Quinoa",
+      "Bell peppers",
+      "Cucumber",
+      "Cherry tomatoes",
+      "Red onion",
+      "Feta cheese",
+      "Citrus dressing"
+    ],
+    "time": "30 minutes",
+    "likes": 334,
+    "calories": 350
+  },
+  {
+    "id": 20,
+    "image": "sweet-potato-toast.jpg",
+    "title": "Sweet Potato Toast",
+    "description": "Healthy sweet potato toast topped with avocado and eggs.",
+    "ingredients": [
+      "Sweet potato",
+      "Avocado",
+      "Eggs",
+      "Microgreens",
+      "Red pepper flakes",
+      "Sea salt",
+      "Black pepper"
+    ],
+    "time": "25 minutes",
+    "likes": 367,
+    "calories": 310
+  },
+  {
+    "id": 21,
+    "image": "cauliflower-rice-bowl.jpg",
+    "title": "Cauliflower Rice Bowl",
+    "description": "Light and low-carb cauliflower rice bowl with grilled shrimp and vegetables.",
+    "ingredients": [
+      "Cauliflower rice",
+      "Grilled shrimp",
+      "Bell peppers",
+      "Snap peas",
+      "Coconut aminos",
+      "Green onions",
+      "Sesame seeds"
+    ],
+    "time": "20 minutes",
+    "likes": 312,
+    "calories": 280
+  },
+  {
+    "id": 22,
+    "image": "stuffed-portobello.jpg",
+    "title": "Stuffed Portobello Mushrooms",
+    "description": "Baked portobello mushrooms stuffed with quinoa, vegetables, and light cheese.",
+    "ingredients": [
+      "Portobello mushrooms",
+      "Quinoa",
+      "Spinach",
+      "Light mozzarella",
+      "Cherry tomatoes",
+      "Garlic",
+      "Fresh herbs"
+    ],
+    "time": "25 minutes",
+    "likes": 289,
+    "calories": 260
+  },
+  {
+    "id": 23,
+    "image": "lettuce-wraps.jpg",
+    "title": "Asian Lettuce Wraps",
+    "description": "Fresh lettuce wraps filled with seasoned ground turkey and crunchy vegetables.",
+    "ingredients": [
+      "Butter lettuce leaves",
+      "Ground turkey",
+      "Water chestnuts",
+      "Carrots",
+      "Asian sauce",
+      "Green onions",
+      "Crushed peanuts"
+    ],
+    "time": "20 minutes",
+    "likes": 345,
+    "calories": 240
+  },
+  {
+    "id": 24,
+    "image": "white-fish-herbs.jpg",
+    "title": "Herb-Steamed White Fish",
+    "description": "Light and flaky white fish steamed with fresh herbs and lemon.",
+    "ingredients": [
+      "White fish fillet",
+      "Fresh herbs",
+      "Lemon",
+      "Cherry tomatoes",
+      "Asparagus",
+      "White wine",
+      "Capers"
+    ],
+    "time": "15 minutes",
+    "likes": 278,
+    "calories": 220
+  },
+  {
+    "id": 25,
+    "image": "summer-rolls.jpg",
+    "title": "Fresh Summer Rolls",
+    "description": "Vietnamese-inspired summer rolls with shrimp and fresh vegetables.",
+    "ingredients": [
+      "Rice paper wrappers",
+      "Shrimp",
+      "Rice noodles",
+      "Fresh herbs",
+      "Carrots",
+      "Cucumber",
+      "Peanut sauce"
+    ],
+    "time": "30 minutes",
+    "likes": 392,
+    "calories": 250
+  },
+  {
+    "id": 26,
+    "image": "nice-cream.jpg",
+    "title": "Banana Nice Cream",
+    "description": "Healthy ice cream alternative made with frozen bananas and natural flavors.",
+    "ingredients": [
+      "Frozen bananas",
+      "Almond milk",
+      "Vanilla extract",
+      "Cacao nibs",
+      "Berries",
+      "Mint leaves",
+      "Honey"
+    ],
+    "time": "10 minutes",
+    "likes": 423,
+    "calories": 160
+  },
+  {
+    "id": 27,
+    "image": "apple-crumble.jpg",
+    "title": "Healthy Apple Crumble",
+    "description": "Warm apple crumble made with oats and naturally sweetened with maple syrup.",
+    "ingredients": [
+      "Apples",
+      "Rolled oats",
+      "Almond flour",
+      "Maple syrup",
+      "Cinnamon",
+      "Walnuts",
+      "Coconut oil"
+    ],
+    "time": "35 minutes",
+    "likes": 367,
+    "calories": 240
+  },
+  {
+    "id": 28,
+    "image": "chocolate-avocado-mousse.jpg",
+    "title": "Chocolate Avocado Mousse",
+    "description": "Rich and creamy chocolate mousse made with avocado and raw cacao.",
+    "ingredients": [
+      "Ripe avocados",
+      "Raw cacao powder",
+      "Maple syrup",
+      "Vanilla extract",
+      "Almond milk",
+      "Sea salt",
+      "Berries for topping"
+    ],
+    "time": "15 minutes",
+    "likes": 389,
+    "calories": 200
+  },
+  {
+    "id": 29,
+    "image": "coconut-chia-pudding.jpg",
+    "title": "Coconut Mango Chia Pudding",
+    "description": "Tropical chia pudding made with coconut milk and fresh mango.",
+    "ingredients": [
+      "Chia seeds",
+      "Coconut milk",
+      "Fresh mango",
+      "Vanilla extract",
+      "Maple syrup",
+      "Toasted coconut",
+      "Mint leaves"
+    ],
+    "time": "10 minutes + 4 hours setting",
+    "likes": 334,
+    "calories": 180
+  },
+  {
+    "id": 30,
+    "image": "baked-pears.jpg",
+    "title": "Honey Baked Pears",
+    "description": "Elegant baked pears with honey, walnuts, and a touch of cinnamon.",
+    "ingredients": [
+      "Ripe pears",
+      "Honey",
+      "Walnuts",
+      "Cinnamon",
+      "Greek yogurt",
+      "Vanilla extract",
+      "Fresh mint"
+    ],
+    "time": "25 minutes",
+    "likes": 298,
+    "calories": 170
+  },
+  {
+    "id": 31,
+    "image": "green-smoothie-bowl.jpg",
+    "title": "Green Power Smoothie Bowl",
+    "description": "Energizing green smoothie bowl with spinach, banana, and superfood toppings.",
+    "ingredients": [
+      "Spinach",
+      "Banana",
+      "Almond milk",
+      "Chia seeds",
+      "Kiwi",
+      "Granola",
+      "Hemp seeds"
+    ],
+    "time": "10 minutes",
+    "likes": 312,
+    "calories": 280
+  },
+  {
+    "id": 32,
+    "image": "mediterranean-egg-toast.jpg",
+    "title": "Mediterranean Egg Toast",
+    "description": "A healthy breakfast classic featuring mashed avocado on whole grain toast topped with a perfectly poached egg.",
+    "ingredients": [
+      "Whole grain bread",
+      "Fresh eggs",
+      "Avocado",
+      "Cherry tomatoes",
+      "Fresh herbs",
+      "Olive oil",
+      "Sea salt",
+      "Black pepper"
+    ],
+    "time": "15 minutes",
+    "likes": 85,
+    "calories": 320
+  },
+  {
+    "id": 33,
+    "image": "protein-waffles.jpg",
+    "title": "Protein-Packed Waffles",
+    "description": "Healthy whole grain waffles with added protein and fresh berry compote.",
+    "ingredients": [
+      "Whole grain flour",
+      "Protein powder",
+      "Eggs",
+      "Almond milk",
+      "Mixed berries",
+      "Greek yogurt",
+      "Maple syrup"
+    ],
+    "time": "20 minutes",
+    "likes": 345,
+    "calories": 380
+  },
+  {
+    "id": 34,
+    "image": "mediterranean-plate.jpg",
+    "title": "Mediterranean Mezze Plate",
+    "description": "Colorful plate of hummus, falafel, fresh vegetables, and whole grain pita.",
+    "ingredients": [
+      "Homemade hummus",
+      "Baked falafel",
+      "Mixed vegetables",
+      "Whole grain pita",
+      "Olives",
+      "Tahini sauce",
+      "Fresh herbs"
+    ],
+    "time": "25 minutes",
+    "likes": 378,
+    "calories": 420
+  },
+  {
+    "id": 35,
+    "image": "poke-bowl.jpg",
+    "title": "Fresh Tuna Poke Bowl",
+    "description": "Hawaiian-inspired bowl with fresh tuna, brown rice, and colorful vegetables.",
+    "ingredients": [
+      "Sushi-grade tuna",
+      "Brown rice",
+      "Avocado",
+      "Edamame",
+      "Cucumber",
+      "Seaweed",
+      "Soy sauce"
+    ],
+    "time": "20 minutes",
+    "likes": 412,
+    "calories": 450
+  },
+  {
+    "id": 36,
+    "image": "grilled-chicken-salad.jpg",
+    "title": "Grilled Chicken Quinoa Salad",
+    "description": "Warm quinoa salad with grilled chicken, roasted vegetables, and citrus dressing.",
+    "ingredients": [
+      "Chicken breast",
+      "Quinoa",
+      "Mixed vegetables",
+      "Citrus dressing",
+      "Feta cheese",
+      "Pine nuts",
+      "Fresh herbs"
+    ],
+    "time": "30 minutes",
+    "likes": 356,
+    "calories": 440
+  },
+  {
+    "id": 37,
+    "image": "baked-cod.jpg",
+    "title": "Herb-Crusted Baked Cod",
+    "description": "Light and flaky cod fillet with herb crust and roasted vegetables.",
+    "ingredients": [
+      "Fresh cod",
+      "Herbs",
+      "Breadcrumbs",
+      "Lemon",
+      "Asparagus",
+      "Cherry tomatoes",
+      "Olive oil"
+    ],
+    "time": "25 minutes",
+    "likes": 334,
+    "calories": 320,
+    "category": "cenas"
+  },
+  {
+    "id": 38,
+    "image": "turkey-lettuce-wraps.jpg",
+    "title": "Asian Turkey Lettuce Wraps",
+    "description": "Light and fresh lettuce wraps with seasoned ground turkey and Asian slaw.",
+    "ingredients": [
+      "Ground turkey",
+      "Lettuce leaves",
+      "Asian slaw",
+      "Hoisin sauce",
+      "Green onions",
+      "Water chestnuts",
+      "Sriracha"
+    ],
+    "time": "20 minutes",
+    "likes": 298,
+    "calories": 280
+  },
+  {
+    "id": 39,
+    "image": "roasted-veggie-bowl.jpg",
+    "title": "Roasted Vegetable Grain Bowl",
+    "description": "Warm bowl of ancient grains topped with roasted seasonal vegetables.",
+    "ingredients": [
+      "Mixed grains",
+      "Roasted vegetables",
+      "Chickpeas",
+      "Tahini dressing",
+      "Pumpkin seeds",
+      "Fresh herbs",
+      "Lemon"
+    ],
+    "time": "35 minutes",
+    "likes": 367,
+    "calories": 380
+  },
+  {
+    "id": 40,
+    "image": "trail-mix.jpg",
+    "title": "Energizing Trail Mix",
+    "description": "Custom blend of nuts, seeds, and dried fruits for a perfect energy boost.",
+    "ingredients": [
+      "Almonds",
+      "Walnuts",
+      "Pumpkin seeds",
+      "Dried cranberries",
+      "Dark chocolate chips",
+      "Coconut flakes",
+      "Goji berries"
+    ],
+    "time": "5 minutes",
+    "likes": 245,
+    "calories": 180
+  },
+  {
+    "id": 41,
+    "image": "veggie-sticks.jpg",
+    "title": "Crunchy Veggie Sticks with Dip",
+    "description": "Fresh vegetable sticks with healthy yogurt-based herb dip.",
+    "ingredients": [
+      "Carrot sticks",
+      "Celery sticks",
+      "Cucumber",
+      "Bell peppers",
+      "Greek yogurt",
+      "Fresh herbs",
+      "Lemon juice"
+    ],
+    "time": "10 minutes",
+    "likes": 223,
+    "calories": 120
+  },
+  {
+    "id": 42,
+    "image": "fruit-leather.jpg",
+    "title": "Homemade Fruit Leather",
+    "description": "Natural fruit leather made with fresh berries and apple.",
+    "ingredients": [
+      "Mixed berries",
+      "Apple",
+      "Honey",
+      "Lemon juice",
+      "Chia seeds"
+    ],
+    "time": "15 minutes + drying",
+    "likes": 289,
+    "calories": 90
+  },
+  {
+    "id": 43,
+    "image": "chia-pudding-parfait.jpg",
+    "title": "Layered Chia Pudding Parfait",
+    "description": "Beautiful layers of chia pudding, fruit compote, and crunchy toppings.",
+    "ingredients": [
+      "Chia seeds",
+      "Almond milk",
+      "Berry compote",
+      "Granola",
+      "Coconut flakes",
+      "Honey",
+      "Fresh mint"
+    ],
+    "time": "10 minutes + setting",
+    "likes": 378,
+    "calories": 220
+  },
+  {
+    "id": 44,
+    "image": "frozen-yogurt-bark.jpg",
+    "title": "Berry Frozen Yogurt Bark",
+    "description": "Frozen Greek yogurt bark with fresh berries and dark chocolate.",
+    "ingredients": [
+      "Greek yogurt",
+      "Mixed berries",
+      "Dark chocolate chips",
+      "Honey",
+      "Vanilla extract",
+      "Pistachios",
+      "Coconut flakes"
+    ],
+    "time": "10 minutes + freezing",
+    "likes": 412,
+    "calories": 150
+  },
+  {
+    "id": 45,
+    "image": "mango-sorbet.jpg",
+    "title": "Fresh Mango Sorbet",
+    "description": "Light and refreshing mango sorbet made with just fruit and a touch of honey.",
+    "ingredients": [
+      "Fresh mangoes",
+      "Honey",
+      "Lime juice",
+      "Mint leaves"
+    ],
+    "time": "15 minutes + freezing",
+    "likes": 356,
+    "calories": 110
+  },
+  {
+    "id": 46,
+    "image": "grilled-sea-bass.jpg",
+    "title": "Mediterranean Sea Bass",
+    "description": "Light and flaky grilled sea bass with Mediterranean herbs and lemon.",
+    "ingredients": [
+      "Fresh sea bass",
+      "Mediterranean herbs",
+      "Lemon",
+      "Garlic",
+      "Cherry tomatoes",
+      "Capers",
+      "Extra virgin olive oil"
+    ],
+    "time": "20 minutes",
+    "likes": 342,
+    "calories": 280
+  },
+  {
+    "id": 47,
+    "image": "vegetable-curry.jpg",
+    "title": "Light Vegetable Curry",
+    "description": "A light and fragrant curry loaded with seasonal vegetables and aromatic spices.",
+    "ingredients": [
+      "Mixed vegetables",
+      "Light coconut milk",
+      "Curry spices",
+      "Fresh ginger",
+      "Garlic",
+      "Brown rice",
+      "Fresh cilantro"
+    ],
+    "time": "25 minutes",
+    "likes": 367,
+    "calories": 320
+  },
+  {
+    "id": 48,
+    "image": "shrimp-zoodles.jpg",
+    "title": "Garlic Shrimp Zoodles",
+    "description": "Zucchini noodles with garlic-sautéed shrimp and fresh herbs.",
+    "ingredients": [
+      "Zucchini",
+      "Fresh shrimp",
+      "Garlic",
+      "Lemon",
+      "Fresh parsley",
+      "Red pepper flakes",
+      "Olive oil"
+    ],
+    "time": "15 minutes",
+    "likes": 389,
+    "calories": 260
+  },
+  {
+    "id": 49,
+    "image": "berry-cheesecake.jpg",
+    "title": "Light Berry Cheesecake Cups",
+    "description": "Individual no-bake cheesecake cups made with Greek yogurt and fresh berries.",
+    "ingredients": [
+      "Greek yogurt",
+      "Light cream cheese",
+      "Mixed berries",
+      "Graham crackers",
+      "Honey",
+      "Vanilla extract",
+      "Mint leaves"
+    ],
+    "time": "15 minutes + chilling",
+    "likes": 412,
+    "calories": 180
+  }
+]
+  

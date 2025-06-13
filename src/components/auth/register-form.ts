@@ -314,28 +314,18 @@ class RegisterForm extends HTMLElement {
     }
 
     addEventListeners() {
-        const form = this.shadowRoot?.querySelector('#registerForm');
-        const loginLink = this.shadowRoot?.querySelector('#loginLink');
+        const form = this.shadowRoot?.querySelector('form');
         const closeButton = this.shadowRoot?.querySelector('#closeButton');
 
-        form?.addEventListener('submit', async (e) => {
+        form?.addEventListener('submit', (e) => {
             e.preventDefault();
             const name = (this.shadowRoot?.querySelector('#name') as HTMLInputElement).value;
             const email = (this.shadowRoot?.querySelector('#email') as HTMLInputElement).value;
             const password = (this.shadowRoot?.querySelector('#password') as HTMLInputElement).value;
             const confirmPassword = (this.shadowRoot?.querySelector('#confirmPassword') as HTMLInputElement).value;
-            
-            const errorDiv = this.shadowRoot?.querySelector('.error-message') as HTMLDivElement;
-
-            if (!name || !email || !password || !confirmPassword) {
-                if (errorDiv) {
-                    errorDiv.style.color = '#f44336';
-                    errorDiv.textContent = 'Por favor, completa todos los campos';
-                }
-                return;
-            }
 
             if (password !== confirmPassword) {
+                const errorDiv = this.shadowRoot?.querySelector('.error-message') as HTMLDivElement;
                 if (errorDiv) {
                     errorDiv.style.color = '#f44336';
                     errorDiv.textContent = 'Las contraseñas no coinciden';
@@ -343,26 +333,26 @@ class RegisterForm extends HTMLElement {
                 return;
             }
 
-            await registerWithEmailAndPassword(name, email, password);
-        });
-
-        loginLink?.addEventListener('click', (e) => {
-            e.preventDefault();
-            const event = new CustomEvent('navigate', { 
-                detail: { route: '/login' },
-                bubbles: true, 
-                composed: true 
-            });
-            this.dispatchEvent(event);
+            registerWithEmailAndPassword(name, email, password);
         });
 
         closeButton?.addEventListener('click', () => {
+            // Primero actualizamos la URL
+            window.history.pushState({}, '', '/');
+            
+            // Luego disparamos el evento de navegación
             const event = new CustomEvent('navigate', { 
                 detail: { route: '/' },
                 bubbles: true, 
                 composed: true 
             });
             this.dispatchEvent(event);
+
+            // Forzamos la actualización de la barra de navegación
+            const appContainer = document.querySelector('app-container');
+            if (appContainer) {
+                (appContainer as any).updateNavbar();
+            }
         });
     }
 }

@@ -261,13 +261,26 @@ class AppContainer extends HTMLElement {
       `;
 
       this.updateNavbar();
+      
+      // Escuchar cambios en el tamaño de la ventana
       window.addEventListener('resize', () => this.updateNavbar());
+      
+      // Escuchar cambios en la ruta
       window.addEventListener('popstate', () => this.updateNavbar());
+      
+      // Escuchar eventos de navegación personalizados
+      window.addEventListener('navigate', () => {
+          // Pequeño retraso para asegurar que la ruta se haya actualizado
+          setTimeout(() => this.updateNavbar(), 0);
+      });
   }
 
   disconnectedCallback() {
       window.removeEventListener('resize', () => this.updateNavbar());
       window.removeEventListener('popstate', () => this.updateNavbar());
+      window.removeEventListener('navigate', () => {
+          setTimeout(() => this.updateNavbar(), 0);
+      });
   }
 }
 

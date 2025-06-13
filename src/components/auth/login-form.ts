@@ -348,44 +348,33 @@ class LoginForm extends HTMLElement {
     }
 
     addEventListeners() {
-        const form = this.shadowRoot?.querySelector('#loginForm');
-        const registerLink = this.shadowRoot?.querySelector('#registerLink');
+        const form = this.shadowRoot?.querySelector('form');
         const closeButton = this.shadowRoot?.querySelector('#closeButton');
 
-        form?.addEventListener('submit', async (e) => {
+        form?.addEventListener('submit', (e) => {
             e.preventDefault();
             const email = (this.shadowRoot?.querySelector('#email') as HTMLInputElement).value;
             const password = (this.shadowRoot?.querySelector('#password') as HTMLInputElement).value;
-            
-            if (!email || !password) {
-                const errorDiv = this.shadowRoot?.querySelector('.error-message') as HTMLDivElement;
-                if (errorDiv) {
-                    errorDiv.style.color = '#f44336';
-                    errorDiv.textContent = 'Por favor, completa todos los campos';
-                }
-                return;
-            }
-
-            await loginWithEmailAndPassword(email, password);
-        });
-
-        registerLink?.addEventListener('click', (e) => {
-            e.preventDefault();
-            const event = new CustomEvent('navigate', { 
-                detail: { route: '/register' },
-                bubbles: true, 
-                composed: true 
-            });
-            this.dispatchEvent(event);
+            loginWithEmailAndPassword(email, password);
         });
 
         closeButton?.addEventListener('click', () => {
+            // Primero actualizamos la URL
+            window.history.pushState({}, '', '/');
+            
+            // Luego disparamos el evento de navegación
             const event = new CustomEvent('navigate', { 
                 detail: { route: '/' },
                 bubbles: true, 
                 composed: true 
             });
             this.dispatchEvent(event);
+
+            // Forzamos la actualización de la barra de navegación
+            const appContainer = document.querySelector('app-container');
+            if (appContainer) {
+                (appContainer as any).updateNavbar();
+            }
         });
     }
 }

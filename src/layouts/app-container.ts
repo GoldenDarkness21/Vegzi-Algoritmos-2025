@@ -6,8 +6,10 @@ class AppContainer extends HTMLElement {
 
   updateNavbar() {
       const container = this.shadowRoot!.querySelector("#navbar-container");
+      const currentPath = window.location.pathname;
+      
       if (container) {
-          if (window.innerWidth <= 990) {
+          if (window.innerWidth <= 990 && currentPath !== '/login' && currentPath !== '/register') {
               container.innerHTML = "<custom-navbar></custom-navbar>";
           } else {
               container.innerHTML = "";
@@ -151,7 +153,6 @@ class AppContainer extends HTMLElement {
                   height: 100vh;
                   padding: 0;
                   margin: 0;
-                  padding-bottom: 8rem; /* Espacio para la barra de navegación */
               }
 
               /* Estilos responsive */
@@ -200,6 +201,11 @@ class AppContainer extends HTMLElement {
                   main {
                       padding-bottom: 9rem;
                   }
+
+                  /* Ocultar navbar en páginas de autenticación */
+                  :host(.auth-page) #navbar-container {
+                      display: none !important;
+                  }
               }
 
               @media (max-width: 480px) {
@@ -246,25 +252,25 @@ class AppContainer extends HTMLElement {
                       <p class="subtitle">Descubre el sabor de una vida saludable</p>
                       <p class="description">Encuentra recetas deliciosas y nutritivas para cada día.</p>
                   </div>
-                 
-                      </div>
-                  </div>
               </div>
           </div>
-          <main></main>
-          <food-cart></food-cart>
+          <main>
+              <slot></slot>
+          </main>
           <div id="navbar-container"></div>
       `;
 
       this.updateNavbar();
-      window.addEventListener("resize", this.updateNavbar.bind(this));
+      window.addEventListener('resize', () => this.updateNavbar());
+      window.addEventListener('popstate', () => this.updateNavbar());
   }
 
   disconnectedCallback() {
-      window.removeEventListener("resize", this.updateNavbar.bind(this));
+      window.removeEventListener('resize', () => this.updateNavbar());
+      window.removeEventListener('popstate', () => this.updateNavbar());
   }
 }
 
 if (!customElements.get("app-container")) {
-  customElements.define("app-container", AppContainer);
+    customElements.define("app-container", AppContainer);
 }

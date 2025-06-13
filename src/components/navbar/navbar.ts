@@ -11,6 +11,16 @@ export class Navbar extends HTMLElement {
     connectedCallback() {
         this.render();
         this.setupStoreSubscription();
+        this.checkCurrentRoute();
+    }
+
+    private checkCurrentRoute() {
+        const currentPath = window.location.pathname;
+        if (currentPath === '/login' || currentPath === '/register') {
+            this.style.display = 'none';
+        } else {
+            this.style.display = '';
+        }
     }
 
     private setupStoreSubscription() {
@@ -57,6 +67,11 @@ export class Navbar extends HTMLElement {
                             right: 0;
                             z-index: 1000;
                             box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+                        }
+
+                        :host([data-route="/login"]),
+                        :host([data-route="/register"]) {
+                            display: none !important;
                         }
                     }
 
@@ -162,6 +177,7 @@ export class Navbar extends HTMLElement {
                     // Añadir clase active al link clickeado
                     (e.currentTarget as HTMLElement).classList.add('active');
                     navigateTo(route);
+                    this.checkCurrentRoute();
                 }
             });
         });
@@ -172,6 +188,11 @@ export class Navbar extends HTMLElement {
         if (activeLink) {
             activeLink.classList.add('active');
         }
+
+        // Escuchar cambios en la ruta
+        window.addEventListener('popstate', () => {
+            this.checkCurrentRoute();
+        });
     }
 }
 

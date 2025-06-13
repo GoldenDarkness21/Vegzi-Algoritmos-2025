@@ -25,19 +25,27 @@ export default {
         use: 'ts-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.svg$/,
+        type: 'asset/resource',
+      }
     ],
   },
   devServer: {
-    static: './dist',
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
+    historyApiFallback: true,
+    compress: true,
     port: 3000,
     open: true,
-    historyApiFallback: true,
+    hot: true,
   },
   mode: 'development',
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'src/index.html',
+      template: './src/index.html',
       filename: 'index.html',
     }),
     new CopyPlugin({

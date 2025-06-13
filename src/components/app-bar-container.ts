@@ -1,4 +1,4 @@
-class AppBarContainer extends HTMLElement {
+export class AppBarContainer extends HTMLElement {
     constructor() {
         super();
 
@@ -14,12 +14,22 @@ class AppBarContainer extends HTMLElement {
                 --bar-height: 60px;
                 height: var(--bar-height);
                 margin-bottom: 20px;
-                z-index: 100;
+                z-index: 1000;
                 display: block;
                 position: fixed;
                 top: 0;
                 left: 0;
                 width: 100%;
+            }
+
+            app-bar-pc {
+                display: block;
+            }
+
+            @media (max-width: 990px) {
+                app-bar-pc {
+                    display: none;
+                }
             }
         </style>
         <app-bar-pc></app-bar-pc>

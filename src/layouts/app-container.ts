@@ -183,23 +183,28 @@ class AppContainer extends HTMLElement {
           padding-bottom: 16px;
           scrollbar-width: thin;
         }
+
         .categorias-scroll::-webkit-scrollbar {
           height: 8px;
           background: #eee;
         }
+
         .categorias-scroll::-webkit-scrollbar-thumb {
           background: #cfcfcf;
           border-radius: 4px;
         }
-      </style>
 
+        /* Navegación Desktop */
+        .navigation {
+          background: white;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+      </style>
+      
       <div class="app-container">
         <app-bar-pc></app-bar-pc>
-        <div class="main-content">
-          <div class="categorias-scroll">
-            <!-- Aquí van las tarjetas de categoría -->
-          </div>
-        </div>
+        <div class="main-content"></div>
+        <navbar-component></navbar-component>
       </div>
     `;
   }

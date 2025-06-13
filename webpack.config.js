@@ -25,26 +25,32 @@ export default {
         exclude: /node_modules/,
       },
       {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
-      }
+      },
     ],
   },
   devServer: {
-    static: {
-      directory: path.join(__dirname, 'public'),
-      publicPath: '/'
-    },
+    static: [
+      {
+        directory: path.join(__dirname, 'public'),
+        publicPath: '/'
+      }
+    ],
+    hot: true,
     port: 3001,
-    open: true,
+    historyApiFallback: true,
+    open: true
   },
   mode: 'development',
-
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'src/index.html', 
-      filename: 'index.html',
-    }),
+      template: path.resolve(__dirname, 'src/index.html'),
+      filename: 'index.html'
+    })
   ],
-  
 };

@@ -52,15 +52,15 @@ class CategoryButton extends HTMLElement {
       <style>
         .category-button {
           position: relative;
-          width: 160px;
-          height: 38px;
-          padding: 75px 14px 18px;
+          width: 190px;
+          height: 40px;
+          padding: 95px 20px 20px;
           background: ${this.color};
-          border-radius: 14px;
+          border-radius: 15px;
           cursor: pointer;
           transition: all 0.3s ease;
           border: 2px solid transparent;
-          margin-top: 36px;
+          margin-top: 50px;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -85,10 +85,10 @@ class CategoryButton extends HTMLElement {
         }
 
         .image-container {
-          width: 90px;
-          height: 90px;
+          width: 130px;
+          height: 130px;
           position: absolute;
-          top: -34px;
+          top: -45px;
           left: 50%;
           transform: translateX(-50%);
           z-index: 1;
@@ -107,11 +107,11 @@ class CategoryButton extends HTMLElement {
 
         .category-name {
           font-weight: 600;
-          font-size: 1.08rem;
+          font-size: 1.2rem;
           color: #2F5A41;
           margin: 0;
           text-align: center;
-          line-height: 1.22;
+          line-height: 1.3;
           text-shadow: none;
         }
 
@@ -197,53 +197,53 @@ class CategoryButton extends HTMLElement {
           animation: float 3s ease-in-out infinite 1.5s;
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 768px) {
           .category-button {
-            width: 120px;
-            height: 28px;
-            padding: 58px 7px 12px;
-            margin-top: 18px;
+            width: 220px;
+            height: 160px;
+            padding: 85px 15px 20px;
+            margin-top: 45px;
           }
 
           .image-container {
-            width: 60px;
-            height: 60px;
-            top: -18px;
+            width: 120px;
+            height: 120px;
+            top: -40px;
           }
 
           .category-name {
-            font-size: 0.92rem;
+            font-size: 1.1rem;
           }
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 480px) {
           .category-button {
-            width: 95px;
-            height: 20px;
-            padding: 40px 3px 7px;
-            margin-top: 8px;
+            width: 200px;
+            height: 150px;
+            padding: 80px 12px 20px;
+            margin-top: 40px;
           }
 
           .image-container {
-            width: 38px;
-            height: 38px;
-            top: -10px;
+            width: 110px;
+            height: 110px;
+            top: -35px;
           }
 
           .category-name {
-            font-size: 0.75rem;
+            font-size: 1rem;
           }
         }
       </style>
       
       <div class="category-button ${this.isSelected ? 'selected' : ''}">
+        <div class="image-container">
+          <img class="category-image" src="${this.image}" alt="${this.name}">
+        </div>
+        <h3 class="category-name">${this.name}</h3>
         <div class="decorative-elements"></div>
         <div class="honey-drops"></div>
         <div class="strawberry-accent"></div>
-        <div class="image-container">
-          <img class="category-image" src="/images/${this.image}" alt="${this.name}">
-        </div>
-        <h3 class="category-name">${this.name}</h3>
       </div>
     `;
   }

@@ -2,6 +2,10 @@ import { loginWithEmailAndPassword } from '../../flux/actions/auth.actions';
 import { authStore } from '../../flux/store/auth.store';
 import { AuthState } from '../../flux/types/auth.types';
 
+interface AppContainerElement extends HTMLElement {
+    updateNavbar(): void;
+}
+
 class LoginForm extends HTMLElement {
     constructor() {
         super();
@@ -25,20 +29,20 @@ class LoginForm extends HTMLElement {
 
     private updateUIState(state: AuthState) {
         if (this.shadowRoot) {
-            const button = this.shadowRoot.querySelector('button');
+            const submitButton = this.shadowRoot.querySelector('#submitLoginButton') as HTMLButtonElement;
             const errorDiv = this.shadowRoot.querySelector('.error-message') as HTMLDivElement;
             
-            if (button) {
-                button.disabled = state.loading;
-                button.textContent = state.loading ? 'Iniciando sesión...' : 'Iniciar Sesión';
+            if (submitButton) {
+                submitButton.disabled = state.loading;
+                submitButton.textContent = state.loading ? 'Iniciando sesión...' : 'Iniciar Sesión';
             }
 
             if (errorDiv) {
                 if (state.error) {
                     errorDiv.style.color = '#f44336';
                     errorDiv.textContent = state.error;
-                    if (button) {
-                        button.disabled = false;
+                    if (submitButton) {
+                        submitButton.disabled = false;
                     }
                 } else {
                     errorDiv.textContent = '';
@@ -89,6 +93,16 @@ class LoginForm extends HTMLElement {
         align-items: center;
         justify-content: center;
         position: relative;
+        gap: 0;
+    }
+
+    .form-wrapper {
+        display: flex;
+        border-radius: 25px;
+        box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        max-width: 1050px;
+        width: 100%;
     }
 
     .close-button {
@@ -122,13 +136,68 @@ class LoginForm extends HTMLElement {
         fill: #2e7d32;
     }
 
+    .left-panel {
+        flex: 1;
+        background-color: white;
+        border-radius: 25px 0 0 25px;
+        padding: 3.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        max-width: 500px;
+        min-height: 550px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .mascot-image {
+        max-width: 80%;
+        height: auto;
+        margin-bottom: 1.5rem;
+    }
+
+    .vegzi-title {
+        font-size: 5rem;
+        font-weight: bold;
+        color: #4CAF50;
+        margin: 0;
+        line-height: 1;
+        z-index: 1;
+    }
+
+    .leaf-decoration {
+        position: absolute;
+        width: 100px;
+        height: auto;
+        z-index: 0;
+        opacity: 0.8;
+    }
+
+    .leaf-top {
+        top: 10%;
+        right: 15%;
+        transform: rotate(30deg);
+    }
+
+    .leaf-bottom {
+        bottom: 10%;
+        left: 15%;
+        transform: rotate(-45deg);
+    }
+
     .login-container {
+        flex: 1;
         width: 100%;
         max-width: 550px;
         background: #dcf6d5;
         padding: 3.5rem;
-        border-radius: 25px;
-        box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.2);
+        border-radius: 0 25px 25px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 550px;
     }
 
     h2 {
@@ -206,137 +275,124 @@ class LoginForm extends HTMLElement {
         text-decoration: underline;
     }
 
-@media (max-width: 768px) {
-    .main-container {
-        padding: 2rem;
+    @media (max-width: 900px) {
+        .form-wrapper {
+            flex-direction: column;
+            border-radius: 25px;
+            max-width: 550px;
+        }
+
+        .left-panel {
+            border-radius: 25px 25px 0 0;
+            max-width: 100%;
+            width: 100%;
+            padding: 2rem;
+            min-height: unset;
+        }
+
+        .login-container {
+            border-radius: 0 0 25px 25px;
+            max-width: 100%;
+            width: 100%;
+            padding: 2rem;
+            min-height: unset;
+        }
+
+        .vegzi-title {
+            font-size: 3.5rem;
+        }
+
+        .mascot-image {
+            max-width: 60%;
+            margin-bottom: 1rem;
+        }
+
+        .leaf-decoration {
+            width: 70px;
+        }
+
+        .close-button {
+            top: 1rem;
+            right: 1rem;
+        }
     }
 
-    .login-container {
-        padding: 3rem 2rem;
-        max-width: 100%;
-        border-radius: 35px;
-    }
+    @media (max-width: 480px) {
+        .main-container {
+            padding: 0.5rem;
+        }
 
-    h2 {
-        font-size: 3.5rem;
-        margin-bottom: 3rem;
-    }
+        .form-wrapper {
+            max-width: 100%;
+        }
 
-    .form-group {
-        margin-bottom: 3rem;
-    }
+        .left-panel,
+        .login-container {
+            padding: 1.5rem;
+        }
 
-    label {
-        font-size: 2rem;
-        margin-bottom: 1.5rem;
-        display: block;
-    }
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
 
-    input {
-        font-size: 1.8rem;
-        padding: 1.8rem;
-        border-radius: 25px;
-        width: 100%;
-        height: 5rem;
-    }
+        input {
+            font-size: 1rem;
+            padding: 1rem;
+        }
 
-    button {
-        padding: 2rem;
-        font-size: 2rem;
-        margin-top: 3rem;
-        border-radius: 30px;
-        height: 5rem;
-        width: 100%;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
+        button {
+            padding: 1rem;
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+        }
 
-    .error-message {
-        font-size: 1.6rem;
-        margin: 2.5rem 0;
-        min-height: 2.5rem;
-    }
+        .error-message {
+            font-size: 0.9rem;
+            margin: 1rem 0;
+        }
 
-    .register-link {
-        font-size: 1.6rem;
-        margin-top: 3rem;
-    }
+        .register-link {
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
 
-    .close-button {
-        top: 1rem;
-        right: 1rem;
-        width: 2.8rem;
-        height: 2.8rem;
-    }
+        .vegzi-title {
+            font-size: 3rem;
+        }
 
-    .close-button svg {
-        width: 1.4rem;
-        height: 1.4rem;
+        .mascot-image {
+            max-width: 70%;
+        }
     }
-}
-
-@media (max-width: 480px) {
-    .login-container {
-        padding: 2.5rem 1.8rem;
-    }
-
-    h2 {
-        font-size: 3.2rem;
-    }
-
-    label {
-        font-size: 1.8rem;
-    }
-
-    input {
-        font-size: 1.6rem;
-        padding: 1.6rem;
-        height: 4.5rem;
-    }
-
-    button {
-        font-size: 1.8rem;
-        padding: 1.8rem;
-        height: 4.5rem;
-    }
-
-    .close-button {
-        top: 0.8rem;
-        right: 0.8rem;
-        width: 2.5rem;
-        height: 2.5rem;
-    }
-
-    .close-button svg {
-        width: 1.2rem;
-        height: 1.2rem;
-    }
-}
-
 </style>
 
 <div class="main-container">
-    <button class="close-button" id="closeButton">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-            <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
-        </svg>
+    <button class="close-button" aria-label="Close">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
     </button>
-    <div class="login-container">
-        <h2>Iniciar Sesión</h2>
-        <form id="loginForm">
-            <div class="form-group">
-                <label for="email">Correo electrónico</label>
-                <input type="email" id="email" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Contraseña</label>
-                <input type="password" id="password" required>
-            </div>
-            <button type="submit">Iniciar Sesión</button>
-        </form>
-        <div class="error-message"></div>
-        <div class="register-link">
-            ¿No tienes una cuenta? <a href="#" id="registerLink">Regístrate aquí</a>
+    <div class="form-wrapper">
+        <div class="left-panel">
+            <img src="/images/vegzi-mascot.png" alt="Vegzi Mascot" class="mascot-image">
+            <h1 class="vegzi-title">Vegzi</h1>
+            <img src="/images/leaf-1.png" alt="Leaf Decoration" class="leaf-decoration leaf-top">
+            <img src="/images/leaf-2.png" alt="Leaf Decoration" class="leaf-decoration leaf-bottom">
+        </div>
+        <div class="login-container">
+            <h2>Sign In</h2>
+            <div class="error-message"></div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" id="submitLoginButton">Iniciar Sesión</button>
+            </form>
+            <p class="register-link">Don't have an account? <a href="/register" data-route="/register">Register here</a></p>
         </div>
     </div>
 </div> 
@@ -348,34 +404,46 @@ class LoginForm extends HTMLElement {
     }
 
     addEventListeners() {
-        const form = this.shadowRoot?.querySelector('form');
-        const closeButton = this.shadowRoot?.querySelector('#closeButton');
+        const form = this.shadowRoot?.querySelector('#loginForm');
+        form?.addEventListener('submit', this.handleLogin.bind(this));
 
-        form?.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = (this.shadowRoot?.querySelector('#email') as HTMLInputElement).value;
-            const password = (this.shadowRoot?.querySelector('#password') as HTMLInputElement).value;
-            loginWithEmailAndPassword(email, password);
-        });
-
+        const closeButton = this.shadowRoot?.querySelector('.close-button');
         closeButton?.addEventListener('click', () => {
-            // Primero actualizamos la URL
             window.history.pushState({}, '', '/');
-            
-            // Luego disparamos el evento de navegación
-            const event = new CustomEvent('navigate', { 
+            const navigateEvent = new CustomEvent('navigate', {
                 detail: { route: '/' },
-                bubbles: true, 
-                composed: true 
+                bubbles: true,
+                composed: true
             });
-            this.dispatchEvent(event);
-
-            // Forzamos la actualización de la barra de navegación
-            const appContainer = document.querySelector('app-container');
-            if (appContainer) {
-                (appContainer as any).updateNavbar();
+            this.dispatchEvent(navigateEvent);
+            const appContainer = document.querySelector('app-container') as AppContainerElement;
+            if (appContainer && typeof appContainer.updateNavbar === 'function') {
+                appContainer.updateNavbar();
             }
         });
+
+        const registerLink = this.shadowRoot?.querySelector('.register-link a');
+        registerLink?.addEventListener('click', (e) => {
+            e.preventDefault();
+            const event = new CustomEvent('navigate', {
+                detail: { route: '/register' },
+                bubbles: true,
+                composed: true
+            });
+            this.dispatchEvent(event);
+        });
+    }
+
+    private handleLogin(event: Event) {
+        event.preventDefault();
+        const emailInput = this.shadowRoot?.querySelector('#email') as HTMLInputElement;
+        const passwordInput = this.shadowRoot?.querySelector('#password') as HTMLInputElement;
+
+        if (emailInput && passwordInput) {
+            const email = emailInput.value;
+            const password = passwordInput.value;
+            loginWithEmailAndPassword(email, password);
+        }
     }
 }
 

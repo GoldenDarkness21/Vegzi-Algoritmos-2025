@@ -1,4 +1,5 @@
 import './../components/ButtonComponent'
+import './../components/IconComponent'
 
 class ProfileView extends HTMLElement {
     constructor() {
@@ -10,156 +11,34 @@ class ProfileView extends HTMLElement {
     }
 
     connectedCallback() {
-        if (!this.shadowRoot)
-            return
+        if (!this.shadowRoot) {
+            console.error('ProfileView: No shadowRoot available');
+            return;
+        }
 
-        const subPath = /(?<=^\/profile\/?).*/.exec(document.location.pathname)![0]
+        console.log('ProfileView: Connected, rendering...');
+        const currentPath = document.location.pathname;
+        const subPath = currentPath.replace('/profile', '') || '';
+        console.log('ProfileView: Current path:', currentPath, 'SubPath:', subPath);
 
-        const postsContent = `
-            <div class="posts-content">
-                <ul>
-                    <li>
-                        <img src="/images/profile.jpg">
-                        
-                        <div class="postContent">
-                        <span> Healthy and delicious lunch, nothing like enjoying a nutritious meal.</span>
-                        </div> 
-                    </li>
-                    
-                    <li>
-                        <img src="/images/profile.jpg">
-                        
-                        <div class="postContent">
-                        <span>Please tell me what you had for dinner today. I need inspiration.</span>
-                        </div> 
-                    </li>
-                    
-                    <li>
-                        <img src="/images/profile.jpg">
-                        
-                        <div class="postContent">
-                        <span>I want to show you this healthy breakfast option to start the morning with energy.</span>
-                        </div> 
-                    </li>
 
-                    <li>
-                        <img src="/images/profile.jpg">
-                        
-                        <div class="postContent">
-                        <span>I want to show you this healthy breakfast option to start the morning with energy.</span>
-                        </div> 
-                    </li>
 
-                    <li>
-                        <img src="/images/profile.jpg">
-                        
-                        <div class="postContent">
-                        <span> Healthy and delicious lunch, nothing like enjoying a nutritious meal.</span>
-                        </div> 
-                    </li>
-                    
-                    <li>
-                        <img src="/images/profile.jpg">
-                        
-                        <div class="postContent">
-                        <span>Please tell me what you had for dinner today. I need inspiration.</span>
-                        </div> 
-                    </li>
-                    
-                </ul>
-            </div>
-        `
-
-        const likesContent = `
-            <div class="likes-content">
-            <ul>
-            <li><img src="/images/ensaladas.jpg"><div><icon-component icon="heart"></icon-component></div></li>
-            <li><img src="/images/frutas.jpg"><div><icon-component icon="heart"></icon-component></div></li>
-            <li><img src="/images/granola.jpg"><div><icon-component icon="heart"></icon-component></div></li>
-            <li><img src="/images/pepino.jpg"><div><icon-component icon="heart"></icon-component></div></li>
-            <li><img src="/images/sandia.jpg"><div><icon-component icon="heart"></icon-component></div></li>
-            <li><img src="/images/ensaladas.jpg"><div><icon-component icon="heart"></icon-component></div></li>
-            <li><img src="/images/granola.jpg"><div><icon-component icon="heart"></icon-component></div></li>
-</ul>
-</div>
-        `
-
-        const mainContent = `
-        <div class="content">
-            <div class="p-view">
-                <img src="/images/profile.jpg" alt="profile image" />
-                
-                <div>
-                    <h2>John Rodriguez</h2>
-                    <span><b>24</b> Posts</span>
-                </div>
-                
-                <div class="buttons">
-                    <a href="/profile/settings"><button-component prepend-icon="pencil">Profile settings</button-component></a>
-                    <button-component prepend-icon="plus">Upload recipe</button-component>
-                </div>
-            </div>
-            
-            <div class="posts-container">
-                <nav>
-                    <ul>
-                        <li class="${/likes/.test(subPath)? '' : 'selected'}"><a href="/profile/posts"><span>Posts</span><hr></a></li>
-                        <li class="${/likes/.test(subPath)? 'selected' : ''}"><a href="/profile/likes"><span>Likes</span><hr></a></li>
-                    </ul>
-                </nav>
-                
-                ${/likes/.test(subPath)? likesContent : postsContent }
-            </div>
-        </div>
-        `
-
-        const settingContent = `
-        <div class="settings-content">
-            <div class="p-view">
-                <div class="profile-img">
-                    <img src="/images/profile.jpg" alt="profile image" />
-                    <icon-component icon="pencil"></icon-component>
-                </div>
-                
-                <form action="">
-                    <div class="field">
-                        <span>Name</span>
-                        <input type="text" name="name" id="name-input" value="Jhon Rodriguez">
-                    </div>
-                    <div class="field">
-                        <span>Email</span>
-                        <input type="email" name="name" id="name-input" value="jhon123@gmail.com">
-                    </div>
-                    <div class="field">
-                        <span>Password</span>
-                        <input type="password" name="name" id="name-input" value="contrasenia segura">
-                    </div>
-                    
-                    <button-component>Save</button-component>
-                </form>
-                
-            </div>
-        </div>
-        `
-
+        console.log('ProfileView: About to render HTML...');
+        
         this.shadowRoot.innerHTML = `
         <style>
         :host {
-            display: flex;
+            display: block;
             position: relative;
-            height: 100dvh;
+            min-height: 100vh;
             width: 100%;
-            justify-content: center;
+            background-color: white;
+            padding: 2rem;
             
-            --app-bar-height: 60px;
-            
-            font-family: Montserrat;
-            
-            user-select: none;
+            font-family: Montserrat, sans-serif;
             
             * {
                 font-family: inherit;
-                /*font-weight: inherit;*/
             }
             
             a {
@@ -167,233 +46,63 @@ class ProfileView extends HTMLElement {
                 color: inherit;
             }
             
-            .decorator-bg {
+            .test-content {
+                background-color: #f0f0f0;
+                padding: 2rem;
+                border-radius: 8px;
+                margin: 2rem 0;
+                text-align: center;
+            }
+            
+            .profile-header {
                 background-color: #E6F4EA;
-                position: absolute;
-                height: 200px;
-                width: 100%;
-                z-index: -1;
+                padding: 2rem;
+                border-radius: 8px;
+                text-align: center;
+                margin-bottom: 2rem;
             }
             
             .content {
-                width: 100%;
-                max-width: 1150px;
-                padding: 1rem;
-                padding-top: calc(var(--app-bar-height) + 3rem);
-                display: grid;
-                grid-template-columns: 300px 1fr;
-                height: 100%;
-                gap: 2rem;
-                
-                > .p-view {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    gap: 2rem;
-                    
-                    > div {
-                        display: flex;
-                        justify-content: center;
-                        flex-direction: column;
-                    }
-                    
-                    h2, span {
-                        text-align: center;
-                        font-family: Montserrat;
-                    }
-                
-                    img {
-                        object-fit: cover;
-                        aspect-ratio: 1;
-                        width: 200px;
-                        border-radius: 50%;
-                        box-shadow: var(--elevation2);
-                    }
-                    
-                    .buttons {
-                        display: flex;
-                        gap: .5rem;
-                        flex-direction: column;
-                    }
-                }
-                
-                .posts-container {
-                    padding-top: 92px;
-                    
-                    
-                    nav ul {
-                        list-style: none;
-                        display: flex;
-                        gap: 1rem;
-                        justify-content: center;
-                        
-                        li {
-                            font-weight: 600;
-                            
-                            span {
-                                padding: 0 .5rem;
-                            } 
-                            
-                            &.selected {
-                                color: #38A169;
-                                
-                                hr {
-                                    border: 0;
-                                    height: 3px;
-                                    background-color: currentColor;
-                                    border-radius: 3px;
-                                }
-                            }
-                            
-                            &:not(.selected) hr {
-                                opacity: 0;
-                            }
-                        }
-                    }
-                    
-                    .posts-content {
-                
-                        img {
-                            width: 40px;
-                            aspect-ratio: 1;
-                            object-fit: cover;
-                            border-radius: 50%;
-                            box-shadow: var(--elevation1);
-                        }
-                        
-                        
-                        li {
-                            &+li {
-                                margin-top: .5rem;
-                            }
-                        
-                            .postContent {
-                                span {
-                                        
-                                    font-size: .85rem;
-                                    font-weight: 400;
-                                }
-                            
-                            }
-                            
-                            align-items: start;
-                            display: flex;
-                            gap: .5rem;
-                        }
-                    }
-                    
-                    .likes-content ul {
-                        list-style: none;
-                        padding: 0;
-                        margin: 0;
-                        gap: 1rem;
-                    
-                        display: grid;
-                        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-                        
-                        img {
-                            aspect-ratio: 1;
-                            object-fit: cover;
-                            box-shadow: var(--elevation1);
-                            width: 100% ;
-                            border-radius: 1rem;
-                        }
-                    }
-                }
+                max-width: 800px;
+                margin: 0 auto;
             }
-            
-            .settings-content {
-                
-                
-                padding: 1rem;
-                padding-top: calc(var(--app-bar-height) + 3rem);
-                
-                .p-view {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    gap: 2rem;
-                
-                }
-                
-                .profile-img {
-                
-                    position: relative;
-                    
-                    
-                
-                    img {
-                        object-fit: cover;
-                        aspect-ratio: 1;
-                        width: 200px;
-                        border-radius: 50%;
-                        box-shadow: var(--elevation2);
-                    }
-                    
-                    icon-component {
-                        position: absolute;
-                        right: 12px;
-                        bottom: 12px;
-                        background-color: #E6F4EA;
-                        padding: .5rem;
-                        box-shadow: var(--elevation2);
-                        border-radius: 50%;
-                        color: #38A169;
-                    }
-                }
-                
-                
-                form {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 1rem;
-                    align-items: center;
-                    
-                    .field {
-                        display: flex;
-                        flex-direction: column;
-                        gap: 4px;
-                        
-                        span {
-                            font-size: .8rem;
-                            font-weight: 600;
-                        }
-                        
-                        input {
-                            background-color: #E6F4EA;
-                            border-radius: .5rem;
-                            padding: .25rem .5rem;
-                            font-family: Montserrat;
-                            font-weight: 600;
-                            font-size: .9rem;
-                            
-                            /*border-color: #38A169;*/
-                            border: 0;
-                            outline-color: #38A169;
-                            outline-width: 2px;
-                            outline-style: solid;
-                            
-                            box-shadow: var(--elevation2);
-                            
-                            &:focus-visible {
-                                /*border-color: #38A169;*/
-                                box-shadow: var(--elevation3);
-                                
-                            }                            
-                        }
-                    }
-                }
-            }
-            
-            
         }
 </style>
 
-<div class="decorator-bg"></div>
+<div class="test-content">
+    <h1>🎉 Profile View Funcionando!</h1>
+    <p>Ruta actual: ${currentPath}</p>
+    <p>SubPath: ${subPath}</p>
+    <p>Si ves esto, el ProfileView está funcionando correctamente.</p>
+</div>
 
-${/settings/.test(subPath)? settingContent : mainContent}
-        `
-    }
+<div class="profile-header">
+    <h2>👤 Perfil de Usuario</h2>
+    <img src="/images/profile.jpg" alt="Profile" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
+    <h3>John Rodriguez</h3>
+    <p>Desarrollador saludable</p>
+</div>
+
+<div class="content">
+    <div style="background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h4>Navegación de Perfil</h4>
+        <nav style="display: flex; gap: 1rem; justify-content: center; margin: 1rem 0;">
+            <a href="/profile/posts" style="padding: 0.5rem 1rem; background: #38A169; color: white; border-radius: 4px;">Posts</a>
+            <a href="/profile/likes" style="padding: 0.5rem 1rem; background: #38A169; color: white; border-radius: 4px;">Likes</a>
+            <a href="/profile/settings" style="padding: 0.5rem 1rem; background: #38A169; color: white; border-radius: 4px;">Settings</a>
+        </nav>
+        
+        <div style="margin-top: 2rem;">
+            ${/likes/.test(subPath) ? '<p>📋 Sección de Likes</p>' : 
+              /settings/.test(subPath) ? '<p>⚙️ Sección de Settings</p>' : 
+              '<p>📝 Sección de Posts</p>'}
+                 </div>
+     </div>
+ </div>
+         `;
+         
+         console.log('ProfileView: HTML rendered successfully!');
+     }
 }
 
 if (!customElements.get('profile-view'))

@@ -1,5 +1,6 @@
 import "./../views/MainView"
 import "./../views/ProfileView"
+import { debugRoute } from "../config/environment.config"
 
 class AppContainer extends HTMLElement {
   constructor() {
@@ -15,6 +16,34 @@ class AppContainer extends HTMLElement {
           } else {
               container.innerHTML = "";
           }
+      }
+  }
+
+  private updateMainContent() {
+      if (!this.shadowRoot) {
+          debugRoute('❌ App-container: No shadowRoot disponible');
+          return;
+      }
+
+      const currentPath = document.location.pathname;
+      debugRoute('🏠 App-container: Actualizando contenido para:', currentPath);
+
+      const routes = [
+          {route: /^\/$/, tag: '<main-view></main-view>'},
+          {route: /^\/profile\/?/, tag: '<profile-view></profile-view>'}
+      ]
+
+      const currentTag = routes.find(
+          el => !!currentPath.match(el.route))?.tag
+
+      debugRoute('🏠 App-container: Tag encontrado:', currentTag);
+
+      const main = this.shadowRoot.querySelector('main');
+      if (main) {
+          main.innerHTML = currentTag || '';
+          debugRoute('🏠 App-container: Contenido actualizado en <main>');
+      } else {
+          debugRoute('❌ App-container: No se encontró elemento <main>');
       }
   }
 
@@ -151,6 +180,15 @@ class AppContainer extends HTMLElement {
                   display: none;
               }
 
+              /* Cuando estamos en la página de perfil */
+              :host(.profile-page) .home-content {
+                  display: none;
+              }
+
+              :host(.profile-page) food-cart {
+                  display: none;
+              }
+
               /* Asegurarnos de que el navbar-container siempre sea visible */
               #navbar-container {
                   display: block !important;
@@ -270,10 +308,20 @@ class AppContainer extends HTMLElement {
 
       this.updateNavbar();
       window.addEventListener("resize", this.updateNavbar.bind(this));
+      
+      // Escuchar cambios de navegación para actualizar el contenido principal
+      window.addEventListener('popstate', this.updateMainContent.bind(this));
+      
+      // Escuchar eventos personalizados de navegación
+      document.addEventListener('navigate', this.updateMainContent.bind(this));
+      document.addEventListener('route-changed', this.updateMainContent.bind(this));
   }
 
   disconnectedCallback() {
       window.removeEventListener("resize", this.updateNavbar.bind(this));
+      window.removeEventListener('popstate', this.updateMainContent.bind(this));
+      document.removeEventListener('navigate', this.updateMainContent.bind(this));
+      document.removeEventListener('route-changed', this.updateMainContent.bind(this));
   }
 }
 

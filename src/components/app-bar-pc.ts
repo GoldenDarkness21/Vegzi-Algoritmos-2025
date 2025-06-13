@@ -246,7 +246,6 @@ export class AppBarPc extends HTMLElement {
                     <li class="selected"><a href="/" data-link>HOME</a><span></span></li>
                     <li><a href="/profile" data-link>PROFILE</a></li>
                     <li><a href="/categories" data-link>CATEGORIES</a></li>
-                    <li><a href="/add-post" data-link>ADD POST</a></li>
                 </ul>
             </nav>
 

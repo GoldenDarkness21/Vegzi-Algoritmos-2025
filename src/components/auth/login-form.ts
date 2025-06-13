@@ -88,6 +88,38 @@ class LoginForm extends HTMLElement {
         padding: 2rem;
         align-items: center;
         justify-content: center;
+        position: relative;
+    }
+
+    .close-button {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: #ffffff;
+        border: none;
+        cursor: pointer;
+        width: 2.5rem;
+        height: 2.5rem;
+        padding: 0;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        z-index: 10;
+    }
+
+    .close-button:hover {
+        background-color: #f0f0f0;
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .close-button svg {
+        width: 1.2rem;
+        height: 1.2rem;
+        fill: #2e7d32;
     }
 
     .login-container {
@@ -229,6 +261,18 @@ class LoginForm extends HTMLElement {
         font-size: 1.6rem;
         margin-top: 3rem;
     }
+
+    .close-button {
+        top: 1rem;
+        right: 1rem;
+        width: 2.8rem;
+        height: 2.8rem;
+    }
+
+    .close-button svg {
+        width: 1.4rem;
+        height: 1.4rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -255,11 +299,28 @@ class LoginForm extends HTMLElement {
         padding: 1.8rem;
         height: 4.5rem;
     }
+
+    .close-button {
+        top: 0.8rem;
+        right: 0.8rem;
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .close-button svg {
+        width: 1.2rem;
+        height: 1.2rem;
+    }
 }
 
 </style>
 
 <div class="main-container">
+    <button class="close-button" id="closeButton">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+            <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
+        </svg>
+    </button>
     <div class="login-container">
         <h2>Iniciar Sesión</h2>
         <form id="loginForm">
@@ -289,6 +350,7 @@ class LoginForm extends HTMLElement {
     addEventListeners() {
         const form = this.shadowRoot?.querySelector('#loginForm');
         const registerLink = this.shadowRoot?.querySelector('#registerLink');
+        const closeButton = this.shadowRoot?.querySelector('#closeButton');
 
         form?.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -311,6 +373,15 @@ class LoginForm extends HTMLElement {
             e.preventDefault();
             const event = new CustomEvent('navigate', { 
                 detail: { route: '/register' },
+                bubbles: true, 
+                composed: true 
+            });
+            this.dispatchEvent(event);
+        });
+
+        closeButton?.addEventListener('click', () => {
+            const event = new CustomEvent('navigate', { 
+                detail: { route: '/' },
                 bubbles: true, 
                 composed: true 
             });

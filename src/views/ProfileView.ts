@@ -35,7 +35,7 @@ class ProfileView extends HTMLElement {
             <div class="posts-content">
                 <ul>
                     <li>
-                        <img src="${this.userProfile?.avatar_url || '/images/profile.jpg'}">
+                        <img src="${this.userProfile?.photoURL || '/images/profile.jpg'}">
 
                         <div class="postContent">
                         <span> Healthy and delicious lunch, nothing like enjoying a nutritious meal.</span>
@@ -43,7 +43,7 @@ class ProfileView extends HTMLElement {
                     </li>
 
                     <li>
-                        <img src="${this.userProfile?.avatar_url || '/images/profile.jpg'}">
+                        <img src="${this.userProfile?.photoURL || '/images/profile.jpg'}">
 
                         <div class="postContent">
                         <span>Please tell me what you had for dinner today. I need inspiration.</span>
@@ -51,7 +51,7 @@ class ProfileView extends HTMLElement {
                     </li>
 
                     <li>
-                        <img src="${this.userProfile?.avatar_url || '/images/profile.jpg'}">
+                        <img src="${this.userProfile?.photoURL || '/images/profile.jpg'}">
 
                         <div class="postContent">
                         <span>I want to show you this healthy breakfast option to start the morning with energy.</span>
@@ -59,7 +59,7 @@ class ProfileView extends HTMLElement {
                     </li>
 
                     <li>
-                        <img src="${this.userProfile?.avatar_url || '/images/profile.jpg'}">
+                        <img src="${this.userProfile?.photoURL || '/images/profile.jpg'}">
 
                         <div class="postContent">
                         <span>I want to show you this healthy breakfast option to start the morning with energy.</span>
@@ -67,7 +67,7 @@ class ProfileView extends HTMLElement {
                     </li>
 
                     <li>
-                        <img src="${this.userProfile?.avatar_url || '/images/profile.jpg'}">
+                        <img src="${this.userProfile?.photoURL || '/images/profile.jpg'}">
 
                         <div class="postContent">
                         <span> Healthy and delicious lunch, nothing like enjoying a nutritious meal.</span>
@@ -75,7 +75,7 @@ class ProfileView extends HTMLElement {
                     </li>
 
                     <li>
-                        <img src="${this.userProfile?.avatar_url || '/images/profile.jpg'}">
+                        <img src="${this.userProfile?.photoURL || '/images/profile.jpg'}">
 
                         <div class="postContent">
                         <span>Please tell me what you had for dinner today. I need inspiration.</span>
@@ -104,7 +104,7 @@ class ProfileView extends HTMLElement {
         <div class="content">
             <div class="p-view">
                 <avatar-upload 
-                    avatar-url="${this.userProfile?.avatar_url || ''}"
+                    avatar-url="${this.userProfile?.photoURL || ''}"
                     id="profileAvatar"
                 ></avatar-upload>
 
@@ -136,7 +136,7 @@ class ProfileView extends HTMLElement {
         <div class="settings-content">
             <div class="p-view">
                 <avatar-upload 
-                    avatar-url="${this.userProfile?.avatar_url || ''}"
+                    avatar-url="${this.userProfile?.photoURL || ''}"
                     editable
                     id="settingsAvatar"
                 ></avatar-upload>

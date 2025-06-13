@@ -1,0 +1,32 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Regla para la colección de usuarios (perfiles)
+    match /users/{userId} {
+      // Permitir leer y escribir solo si el usuario autenticado es el propietario del documento
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Regla para recetas públicas
+    match /recipes/{recipeId} {
+      // Permitir leer cualquier receta a usuarios autenticados
+      allow read: if request.auth != null;
+      // Permitir escribir solo al creador de la receta
+      allow write: if request.auth != null && 
+        (request.auth.uid == resource.data.authorId || 
+         request.auth.uid == request.resource.data.authorId);
+    }
+    
+    // Regla para likes/favoritos
+    match /users/{userId}/favorites/{recipeId} {
+      // Solo el usuario puede gestionar sus propios favoritos
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Regla por defecto: denegar todo lo demás
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+} 

@@ -1,3 +1,6 @@
+import { authStore } from '../flux/store/auth.store';
+import { AuthState } from '../flux/types/auth.types';
+
 class AppContainer extends HTMLElement {
   constructor() {
       super();
@@ -18,6 +21,42 @@ class AppContainer extends HTMLElement {
   }
 
   connectedCallback() {
+      this.render();
+      this.setupStoreSubscription();
+      this.addEventListeners();
+  }
+
+  private setupStoreSubscription() {
+      authStore.subscribe((state: AuthState) => {
+          this.updateUIState(state);
+      });
+      this.updateUIState(authStore.getState());
+  }
+
+  private updateUIState(state: AuthState) {
+      if (this.shadowRoot) {
+          const welcomeMessage = this.shadowRoot.querySelector('.welcome-message') as HTMLElement;
+          if (welcomeMessage) {
+              if (state.isAuthenticated && state.user?.name) {
+                  welcomeMessage.textContent = `Hola ${state.user.name}!`;
+                  welcomeMessage.style.display = 'block';
+              } else {
+                  welcomeMessage.textContent = '';
+                  welcomeMessage.style.display = 'none';
+              }
+          }
+      }
+  }
+
+  public addEventListeners() {
+      window.addEventListener('resize', () => this.updateNavbar());
+      window.addEventListener('popstate', () => this.updateNavbar());
+      window.addEventListener('navigate', () => {
+          setTimeout(() => this.updateNavbar(), 0);
+      });
+  }
+
+  private render() {
       this.shadowRoot!.innerHTML = `
           <style>
               :host {
@@ -56,6 +95,13 @@ class AppContainer extends HTMLElement {
                   color: #38A169;
                   margin: 0;
                   padding: 0;
+              }
+              .welcome-message {
+                font-size: 2rem;
+                font-weight: bold;
+                color: #2e7d32;
+                margin-bottom: 1rem;
+                display: none;
               }
               .image-container {
                   display: flex;
@@ -161,7 +207,10 @@ class AppContainer extends HTMLElement {
                       font-size: 5rem;
                       margin-bottom: 3rem;
                   }
-
+                  .welcome-message {
+                    font-size: 1.8rem;
+                    margin-bottom: 1.5rem;
+                  }
                   .image-container {
                       margin-top: 4rem;
                   }
@@ -212,7 +261,10 @@ class AppContainer extends HTMLElement {
                   .title {
                       font-size: 4rem;
                   }
-
+                  .welcome-message {
+                    font-size: 1.6rem;
+                    margin-bottom: 1rem;
+                  }
                   .image-container img {
                       width: 18rem;
                       height: 18rem;
@@ -245,6 +297,7 @@ class AppContainer extends HTMLElement {
               <div class="container">
                   <div class="curved-background"></div>
                   <div class="content">
+                      <h2 class="welcome-message"></h2>
                       <h1 class="title">VEGZI</h1>
                       <div class="image-container">
                           <img src="https://storage.googleapis.com/a1aa/image/dlMms-IXX-fMosMee4GeCmYvrE-Bvxum67-eg4xRr9E.jpg" alt="A plate with a variety of healthy foods including salmon, avocado, tomatoes, and greens">
@@ -261,18 +314,6 @@ class AppContainer extends HTMLElement {
       `;
 
       this.updateNavbar();
-      
-      // Escuchar cambios en el tamaño de la ventana
-      window.addEventListener('resize', () => this.updateNavbar());
-      
-      // Escuchar cambios en la ruta
-      window.addEventListener('popstate', () => this.updateNavbar());
-      
-      // Escuchar eventos de navegación personalizados
-      window.addEventListener('navigate', () => {
-          // Pequeño retraso para asegurar que la ruta se haya actualizado
-          setTimeout(() => this.updateNavbar(), 0);
-      });
   }
 
   disconnectedCallback() {
